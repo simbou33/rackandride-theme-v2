@@ -54,6 +54,19 @@
     "button": "Suscribirse",
     "success": "Gracias por suscribirte."
   },
+  "product": {
+    "add_to_cart": "Añadir al carrito",
+    "sold_out": "Agotado",
+    "unavailable": "No disponible",
+    "quantity": "Cantidad",
+    "highlights": "Puntos destacados",
+    "reassurance": {
+      "handmade": "Hecho a mano en Les Landes, Francia",
+      "eco": "Acabado con cera de abejas y aceite de lino",
+      "secure": "Sujeción segura, sin caídas",
+      "packaging": "Embalaje 100 % reciclable"
+    }
+  },
   "gift_card": {
     "add_to_apple_wallet": "Añadir a Apple Wallet",
     "card": "Tarjeta de regalo",

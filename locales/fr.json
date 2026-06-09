@@ -54,6 +54,19 @@
     "button": "S'inscrire",
     "success": "Merci pour votre inscription."
   },
+  "product": {
+    "add_to_cart": "Ajouter au panier",
+    "sold_out": "Épuisé",
+    "unavailable": "Indisponible",
+    "quantity": "Quantité",
+    "highlights": "Points forts",
+    "reassurance": {
+      "handmade": "Fait main dans les Landes, France",
+      "eco": "Finition cire d'abeille & huile de lin",
+      "secure": "Maintien sûr, sans chute",
+      "packaging": "Emballage 100% recyclable"
+    }
+  },
   "gift_card": {
     "add_to_apple_wallet": "Ajouter à Apple Wallet",
     "card": "Carte cadeau",

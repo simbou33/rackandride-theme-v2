@@ -54,6 +54,19 @@
     "button": "Abonnieren",
     "success": "Danke für deine Anmeldung."
   },
+  "product": {
+    "add_to_cart": "In den Warenkorb",
+    "sold_out": "Ausverkauft",
+    "unavailable": "Nicht verfügbar",
+    "quantity": "Menge",
+    "highlights": "Highlights",
+    "reassurance": {
+      "handmade": "Handgefertigt in Les Landes, Frankreich",
+      "eco": "Finish aus Bienenwachs & Leinöl",
+      "secure": "Sicherer Halt, kein Herunterfallen",
+      "packaging": "100 % recycelbare Verpackung"
+    }
+  },
   "gift_card": {
     "add_to_apple_wallet": "Zu Apple Wallet hinzufügen",
     "card": "Geschenkkarte",

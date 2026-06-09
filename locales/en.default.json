@@ -54,6 +54,19 @@
     "button": "Subscribe",
     "success": "Thanks for subscribing."
   },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quantity": "Quantity",
+    "highlights": "Highlights",
+    "reassurance": {
+      "handmade": "Handmade in Les Landes, France",
+      "eco": "Beeswax & linseed oil finish",
+      "secure": "Secure, no-fall hold",
+      "packaging": "100% recyclable packaging"
+    }
+  },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
     "card": "Gift card",

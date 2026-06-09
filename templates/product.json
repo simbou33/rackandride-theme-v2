@@ -11,10 +11,43 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "blocks": {
+        "materials": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Materials",
+            "content": "<p>Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Shipping & returns",
+            "content": "<p>Free shipping over €100. Handmade to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging.</p>"
+          }
+        },
+        "dimensions": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Dimensions",
+            "content": "<p>See the product highlights above for exact dimensions.</p>",
+            "metafield_namespace": "custom",
+            "metafield_key": "dimensions"
+          }
+        },
+        "care": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Care",
+            "content": "<p>Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.</p>"
+          }
+        }
+      },
+      "block_order": ["materials", "shipping", "dimensions", "care"],
+      "settings": {
+        "show_reassurance": true
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
