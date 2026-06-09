@@ -12,6 +12,9 @@ node_modules/
 # Shopify CLI files
 .shopify/
 
+# Claude Code local settings (may contain secrets/tokens — never commit)
+.claude/settings.local.json
+
 ## Release files
 release
 *.zip

@@ -1,18 +1,57 @@
-{% style %}
-  {% # Loads all font variantions with display: swap %}
-  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+{% doc %}
+  Loads the self-hosted brand fonts and exposes the global design tokens
+  (palette « Chêne & Océan », typography, radii, layout) as CSS custom
+  properties under the `--rar-` namespace.
 
+  A few legacy aliases (`--color-*`, `--page-*`, `--font-primary--family`,
+  `--style-border-radius-inputs`) are kept so the skeleton's `critical.css`
+  keeps working without edits.
+
+  @example
+  {% render 'css-variables' %}
+{% enddoc %}
+
+{% # Self-hosted @font-face declarations (RGPD, no external CDN) %}
+{% render 'fonts' %}
+
+{% style %}
   :root {
-    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
-    --font-primary--style: {{ settings.type_primary_font.style }};
-    --font-primary--weight: {{ settings.type_primary_font.weight }};
-    --page-width: {{ settings.max_page_width }};
-    --page-margin: {{ settings.min_page_margin }}px;
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
-    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    /* ---- Palette « Chêne & Océan » (premium lumineuse) ---- */
+    --rar-color-background: {{ settings.background_color }};
+    --rar-color-surface: {{ settings.surface_color }};
+    --rar-color-ink: {{ settings.text_color }};
+    --rar-color-oak: {{ settings.accent_color }};
+    --rar-color-sage: {{ settings.eco_color }};
+    --rar-color-terracotta: {{ settings.promo_color }};
+
+    /* ---- Rôles sémantiques ---- */
+    --rar-text: var(--rar-color-ink);
+    --rar-heading: var(--rar-color-ink);
+    --rar-price: var(--rar-color-ink);      /* prix toujours en encre */
+    --rar-accent: var(--rar-color-oak);     /* boutons/liens/icônes uniquement */
+    --rar-eco: var(--rar-color-sage);       /* badges éco-responsables */
+    --rar-promo: var(--rar-color-terracotta); /* badges promo uniquement */
+
+    /* ---- Typographie self-hosted ---- */
+    --rar-font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --rar-font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+    /* ---- Rayons ---- */
+    --rar-radius-button: {{ settings.button_corner_radius }}px;
+    --rar-radius-card: {{ settings.card_corner_radius }}px;
+
+    /* ---- Layout ---- */
+    --rar-page-width: 1400px;
+    --rar-page-margin: {{ settings.min_page_margin }}px;
+
+    /* ---- Aliases de compatibilité (critical.css / skeleton) ---- */
+    --color-background: var(--rar-color-background);
+    --color-foreground: var(--rar-text);
+    --page-width: var(--rar-page-width);
+    --page-margin: var(--rar-page-margin);
+    --style-border-radius-inputs: var(--rar-radius-button);
+    --font-primary--family: var(--rar-font-body);
+    --font-primary--style: normal;
+    --font-primary--weight: 400;
   }
 {% endstyle %}

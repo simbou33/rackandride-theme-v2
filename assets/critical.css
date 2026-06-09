@@ -73,9 +73,26 @@ p:empty {
 
 /** Theme styles below */
 body {
-  font-family: var(--font-primary--family);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  font-family: var(--rar-font-body);
+  font-weight: 400;
+  background-color: var(--rar-color-background);
+  color: var(--rar-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings use Fraunces; optical sizing follows the variable axis. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--rar-font-heading);
+  color: var(--rar-heading);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  line-height: 1.15;
 }
 
 /** Section layout utilities */

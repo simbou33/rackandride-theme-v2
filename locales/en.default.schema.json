@@ -10,6 +10,7 @@
     "collection_card": "Collection card",
     "collections_grid": "Collections grid",
     "colors": "Colors",
+    "corners": "Corners",
     "column": "Column",
     "content": "Content",
     "custom_section": "Custom section",
@@ -36,10 +37,16 @@
   "labels": {
     "alignment": "Alignment",
     "background": "Background",
+    "surface": "Secondary surface",
     "foreground": "Foreground",
+    "text_color": "Text & headings",
+    "accent": "Oak accent",
+    "eco_color": "Eco / badges (sage)",
+    "promo_color": "Promo (terracotta)",
+    "button_corner_radius": "Button corner radius",
+    "card_corner_radius": "Card corner radius",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
-    "input_corner_radius": "Input corner radius",
     "layout_direction": "Layout direction",
     "menu": "Menu",
     "customer_account_menu": "Customer account menu",
@@ -49,6 +56,10 @@
     "show_payment_icons": "Show payment icons",
     "text_style": "Text style",
     "text": "Text"
+  },
+  "info": {
+    "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
+    "accent": "Used only for buttons, links, underlines and icons — never as a block background."
   },
   "options": {
     "alignment": {
@@ -72,6 +83,6 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    },
+    }
   }
 }
