@@ -12,7 +12,7 @@
   assign h = handle | downcase
 %}
 {%- if h contains 'surf' -%}
-  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 25C3 13 13 3 25 7c4 12-6 22-18 18z" stroke-linejoin="round"/><path d="M11 21l10-10" stroke-linecap="round"/></svg>
+  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 3c3.5 5 3.5 13 2 19-0.7 2-3.3 2-4 0-1.5-6-1.5-14 2-19z" stroke-linejoin="round"/><path d="M16 6v15" stroke-linecap="round"/><path d="M16 22v5.5M14.1 22l-1.9 4.6M17.9 22l1.9 4.6" stroke-linecap="round"/></svg>
 {%- elsif h contains 'skate' -%}
   <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 13h22a2 2 0 0 1 0 4H5a2 2 0 0 1 0-4z" stroke-linejoin="round"/><circle cx="10" cy="22" r="2.4"/><circle cx="22" cy="22" r="2.4"/></svg>
 {%- elsif h contains 'snow' -%}
@@ -22,7 +22,7 @@
 {%- elsif h contains 'bike' or h contains 'velo' -%}
   <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="22" r="5"/><circle cx="24" cy="22" r="5"/><path d="M8 22l5-10h7l4 10M13 12h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 {%- elsif h contains 'kite' or h contains 'wake' -%}
-  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M16 3l11 9-11 5L5 12z"/><path d="M16 17v7m-3 4h6" stroke-linecap="round"/></svg>
+  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8Q16 2 27 8Q16 5.5 5 8Z" stroke-linejoin="round"/><path d="M9 7.8 15 20.5M23 7.8 17 20.5" stroke-linecap="round"/><ellipse cx="16" cy="23.5" rx="6.5" ry="2.6"/></svg>
 {%- elsif h contains 'deco' -%}
   <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 28c0-7 0-11 0-14"/><path d="M16 14c-2-5-6-6-9-5 0 5 4 7 9 5z"/><path d="M16 16c2-6 6-7 10-6 0 6-5 8-10 6z"/></svg>
 {%- else -%}
