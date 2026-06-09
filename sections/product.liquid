@@ -504,26 +504,27 @@
   }
   .product__description {
     line-height: 1.7;
-    display: flow-root;
   }
   .product__description > :first-child {
     margin-top: 0;
   }
-  /* Let copy wrap around description images on larger screens (editorial feel,
-     less vertical height). Images stack centered full-width on mobile. */
-  @media (min-width: 700px) {
-    .product__description :is(p, div):has(> img) {
-      float: right;
-      width: min(42%, 340px);
-      margin: 0.4rem 0 1rem 2rem;
-      clear: right;
-      text-align: center;
-    }
-    .product__description :is(p, div):has(> img) img {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-    }
+  /* Description images: centered, framed figures — predictable and premium
+     whatever the content order. Wrappers (<p>/<div> holding only an image)
+     get the surface frame; the image fills it. */
+  .product__description :is(p, div):has(> img:only-child) {
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.75rem auto;
+    padding: 0.75rem;
+    background-color: var(--rar-color-surface);
+    border-radius: var(--rar-radius-card);
+  }
+  .product__description :is(p, div):has(> img:only-child) img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: calc(var(--rar-radius-card) - 4px);
   }
 
   .product__sticky {
