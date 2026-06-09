@@ -1,6 +1,7 @@
 {
   "general": {
     "404": "Not found",
+    "announcement_bar": "Announcement bar",
     "article": "Article",
     "block": "Block",
     "blog": "Blog",
@@ -16,10 +17,13 @@
     "custom_section": "Custom section",
     "fonts": "Fonts",
     "footer": "Footer",
+    "footer_menu": "Footer menu",
     "group": "Group",
     "header": "Header",
     "layout": "Layout",
     "main": "Main",
+    "message": "Message",
+    "newsletter": "Newsletter",
     "page": "Page",
     "password": "Password",
     "primary": "Primary",
@@ -36,6 +40,9 @@
   },
   "labels": {
     "alignment": "Alignment",
+    "autorotate": "Auto-rotate messages",
+    "rotate_speed": "Rotation speed",
+    "link": "Link",
     "background": "Background",
     "surface": "Secondary surface",
     "foreground": "Foreground",
@@ -47,6 +54,8 @@
     "card_corner_radius": "Card corner radius",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
+    "heading": "Heading",
+    "tagline": "Tagline",
     "layout_direction": "Layout direction",
     "menu": "Menu",
     "customer_account_menu": "Customer account menu",
@@ -60,6 +69,9 @@
   "info": {
     "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
     "accent": "Used only for buttons, links, underlines and icons — never as a block background."
+  },
+  "announcement": {
+    "default_message": "Free shipping over €100 — handmade in Les Landes, France"
   },
   "options": {
     "alignment": {

@@ -1,0 +1,167 @@
+{% comment %}
+  Slim announcement bar shown above the header. Each message is a block, so
+  merchants can add/remove/reorder several and translate the text per language
+  with Shopify Translate & Adapt. When more than one message exists and
+  auto-rotate is on, they cycle gently (paused on hover, disabled for users who
+  prefer reduced motion). Ink background keeps the oak accent reserved for links.
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+  <aside class="announcement full-width" aria-label="{{ section.settings.aria_label | default: section.settings.heading }}">
+    <announcement-bar
+      class="announcement__bar"
+      {% if section.settings.autorotate and section.blocks.size > 1 %}
+        data-autorotate="{{ section.settings.rotate_speed }}"
+      {% endif %}
+    >
+      {% for block in section.blocks %}
+        <div
+          class="announcement__message"
+          {% unless forloop.first %}
+            hidden
+          {% endunless %}
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.link != blank %}
+            <a class="announcement__link" href="{{ block.settings.link }}">
+          {% endif %}
+          <span class="announcement__text">{{ block.settings.text }}</span>
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </announcement-bar>
+  </aside>
+{% endif %}
+
+{% stylesheet %}
+  .announcement {
+    background-color: var(--rar-color-ink);
+    color: #fff;
+  }
+  .announcement__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: var(--rar-page-width);
+    min-height: 2.5rem;
+    margin-inline: auto;
+    padding: 0.4rem var(--rar-page-margin);
+    text-align: center;
+  }
+  .announcement__message {
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+  }
+  .announcement__message[hidden] {
+    display: none;
+  }
+  .announcement__text > * {
+    margin: 0;
+  }
+  .announcement__link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--rar-accent);
+    text-underline-offset: 3px;
+  }
+  .announcement__link:hover {
+    text-decoration-thickness: 2px;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class AnnouncementBar extends HTMLElement {
+    connectedCallback() {
+      this.messages = Array.from(this.querySelectorAll('.announcement__message'));
+      const seconds = parseFloat(this.dataset.autorotate);
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (this.messages.length < 2 || !seconds || reduce) return;
+
+      this.index = 0;
+      this.delay = seconds * 1000;
+      this.start();
+      this.addEventListener('mouseenter', () => this.stop());
+      this.addEventListener('mouseleave', () => this.start());
+      this.addEventListener('focusin', () => this.stop());
+      this.addEventListener('focusout', () => this.start());
+    }
+
+    disconnectedCallback() {
+      this.stop();
+    }
+
+    start() {
+      this.stop();
+      this.timer = window.setInterval(() => this.next(), this.delay);
+    }
+
+    stop() {
+      if (this.timer) window.clearInterval(this.timer);
+    }
+
+    next() {
+      this.messages[this.index].hidden = true;
+      this.index = (this.index + 1) % this.messages.length;
+      this.messages[this.index].hidden = false;
+    }
+  }
+
+  if (!customElements.get('announcement-bar')) {
+    customElements.define('announcement-bar', AnnouncementBar);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.announcement_bar",
+  "tag": "aside",
+  "class": "announcement-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autorotate",
+      "label": "t:labels.autorotate",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rotate_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "t:labels.rotate_speed",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "t:general.message",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "t:announcement.default_message"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:labels.link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "t:general.announcement_bar",
+      "blocks": [{ "type": "message" }]
+    }
+  ]
+}
+{% endschema %}

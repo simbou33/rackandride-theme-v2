@@ -13,13 +13,29 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "menu-1": {
+          "type": "menu",
+          "settings": {
+            "menu": "footer"
+          }
+        },
+        "menu-2": {
+          "type": "menu",
+          "settings": {
+            "menu": "main-menu"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {}
+        }
+      },
+      "block_order": ["menu-1", "menu-2", "newsletter"],
       "settings": {
-        "menu": "",
         "show_payment_icons": true
       }
     }
   },
-  "order": [
-    "footer"
-  ]
+  "order": ["footer"]
 }

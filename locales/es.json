@@ -47,6 +47,11 @@
   "collections": {
     "title": "Colecciones"
   },
+  "newsletter": {
+    "email_label": "Correo electrónico",
+    "button": "Suscribirse",
+    "success": "Gracias por suscribirte."
+  },
   "gift_card": {
     "add_to_apple_wallet": "Añadir a Apple Wallet",
     "card": "Tarjeta de regalo",
