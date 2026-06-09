@@ -67,6 +67,7 @@
     "grid_item_width": "Grid item width",
     "heading": "Heading",
     "image": "Image",
+    "image_asset": "Image asset filename",
     "button_label": "Button label",
     "button_link": "Button link",
     "button_2_label": "Second button label",
@@ -104,7 +105,8 @@
     "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
     "free_shipping_threshold": "Amount (in your store currency) the customer must reach for free shipping. Set to 0 to hide the bar.",
-    "tile_image": "Optional — falls back to the collection image, then its first product image."
+    "tile_image": "Optional — falls back to the collection image, then its first product image.",
+    "image_asset": "Optional — filename of an image in /assets (used when no image is picked above)."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Les Landes, France"

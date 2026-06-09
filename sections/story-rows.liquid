@@ -28,21 +28,37 @@
     <div class="story-rows__list">
       {% for block in section.blocks %}
         {% if block.type == 'row' %}
+          {% liquid
+            assign has_image = false
+            if block.settings.image or block.settings.image_asset != blank
+              assign has_image = true
+            endif
+          %}
           <div
-            class="story-row{% unless block.settings.image %} story-row--text-only{% endunless %}"
+            class="story-row{% unless has_image %} story-row--text-only{% endunless %}"
             {{ block.shopify_attributes }}
           >
-            {% if block.settings.image %}
+            {% if has_image %}
               <div class="story-row__media">
-                {{
-                  block.settings.image
-                  | image_url: width: 1400
-                  | image_tag:
-                    widths: '400, 600, 800, 1000, 1200, 1400',
-                    sizes: '(min-width: 750px) 50vw, 100vw',
-                    loading: 'lazy',
-                    alt: block.settings.image.alt | default: block.settings.heading
-                }}
+                {% if block.settings.image %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1000
+                    | image_tag:
+                      widths: '400, 600, 800, 1000',
+                      sizes: '(min-width: 750px) 50vw, 100vw',
+                      loading: 'lazy',
+                      alt: block.settings.image.alt | default: block.settings.heading
+                  }}
+                {% else %}
+                  <img
+                    src="{{ block.settings.image_asset | asset_url }}"
+                    alt="{{ block.settings.heading | escape }}"
+                    width="900"
+                    height="1125"
+                    loading="lazy"
+                  >
+                {% endif %}
               </div>
             {% endif %}
 
@@ -103,10 +119,17 @@
     text-align: center;
   }
 
-  .story-row__media img {
-    width: 100%;
-    height: auto;
+  .story-row__media {
     border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .story-row__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
   }
 
   .story-row__heading {
@@ -164,6 +187,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:labels.image"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "t:labels.image_asset",
+          "info": "t:info.image_asset"
         },
         {
           "type": "text",
