@@ -77,6 +77,8 @@
     "overlay_opacity": "Image overlay opacity",
     "icon": "Icon",
     "custom_title": "Custom title",
+    "products": "Products",
+    "image_position": "Image position",
     "products_to_show": "Products to show",
     "show_view_all": "Show \"View all\" link",
     "rating": "Rating (stars)",
@@ -106,7 +108,9 @@
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
     "free_shipping_threshold": "Amount (in your store currency) the customer must reach for free shipping. Set to 0 to hide the bar.",
     "tile_image": "Optional — falls back to the collection image, then its first product image.",
-    "image_asset": "Optional — filename of an image in /assets (used when no image is picked above)."
+    "image_asset": "Optional — filename of an image in /assets (used when no image is picked above).",
+    "products": "Pick the exact products to feature. Leave empty to use the collection below.",
+    "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Les Landes, France"

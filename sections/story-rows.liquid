@@ -35,7 +35,7 @@
             endif
           %}
           <div
-            class="story-row{% unless has_image %} story-row--text-only{% endunless %}"
+            class="story-row{% unless has_image %} story-row--text-only{% endunless %}{% if block.settings.image_position == 'right' %} story-row--image-right{% endif %}"
             {{ block.shopify_attributes }}
           >
             {% if has_image %}
@@ -161,8 +161,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 3.5rem;
     }
-    /* Alternate sides: even rows put the media on the right */
-    .story-row:not(.story-row--text-only):nth-child(even) .story-row__media {
+    /* Image side is controlled per row (no auto-alternation) */
+    .story-row--image-right .story-row__media {
       order: 2;
     }
   }
@@ -193,6 +193,16 @@
           "id": "image_asset",
           "label": "t:labels.image_asset",
           "info": "t:info.image_asset"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "t:labels.image_position",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "t:options.alignment.left" },
+            { "value": "right", "label": "t:options.alignment.right" }
+          ]
         },
         {
           "type": "text",
