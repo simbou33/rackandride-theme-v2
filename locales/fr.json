@@ -50,7 +50,16 @@
     "apply": "Appliquer",
     "results_html": "{{ count }} produits",
     "empty": "Aucun produit trouvé.",
-    "faq_title": "Questions fréquentes"
+    "faq_title": "Questions fréquentes",
+    "cat": {
+      "surf": "Surf",
+      "skate": "Skate",
+      "snowboard": "Snowboard",
+      "skis": "Skis",
+      "bike": "Vélo",
+      "wake": "Wake",
+      "deco": "Déco"
+    }
   },
   "customers": {
     "login": {

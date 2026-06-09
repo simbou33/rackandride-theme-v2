@@ -51,13 +51,32 @@
   {% if section.settings.category_nav != blank %}
     <nav class="cat-strip" aria-label="{{ 'collections.title' | t }}">
       {% for nav_collection in section.settings.category_nav %}
+        {% liquid
+          assign nh = nav_collection.handle | downcase
+          assign cat_label = nav_collection.title
+          if nh contains 'surf'
+            assign cat_label = 'collection.cat.surf' | t
+          elsif nh contains 'skate'
+            assign cat_label = 'collection.cat.skate' | t
+          elsif nh contains 'snow'
+            assign cat_label = 'collection.cat.snowboard' | t
+          elsif nh contains 'ski'
+            assign cat_label = 'collection.cat.skis' | t
+          elsif nh contains 'bike' or nh contains 'velo'
+            assign cat_label = 'collection.cat.bike' | t
+          elsif nh contains 'kite' or nh contains 'wake'
+            assign cat_label = 'collection.cat.wake' | t
+          elsif nh contains 'deco'
+            assign cat_label = 'collection.cat.deco' | t
+          endif
+        %}
         <a
           class="cat-chip{% if nav_collection.handle == collection.handle %} is-active{% endif %}"
           href="{{ nav_collection.url }}"
           {% if nav_collection.handle == collection.handle %}aria-current="page"{% endif %}
         >
           <span class="cat-chip__icon">{% render 'sports-icon', handle: nav_collection.handle %}</span>
-          <span class="cat-chip__label">{{ nav_collection.title }}</span>
+          <span class="cat-chip__label">{{ cat_label }}</span>
         </a>
       {% endfor %}
     </nav>
