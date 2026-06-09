@@ -175,6 +175,10 @@
             </span>
           </button>
           {{ form | payment_button }}
+          <p class="product__trust">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            {{ 'product.secure_checkout' | t }}
+          </p>
         </div>
       {% endform %}
 
@@ -424,22 +428,70 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 3.25rem;
+    min-height: 3.5rem;
     padding: 0.85rem 1.5rem;
     border: 0;
     border-radius: var(--rar-radius-button);
     background-color: var(--rar-accent);
     color: #fff;
     font: inherit;
+    font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 0.01em;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
   }
   .product__atc:hover {
-    filter: brightness(0.94);
+    filter: brightness(0.96);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgb(176 124 76 / 28%);
+  }
+  .product__atc:active {
+    transform: translateY(0);
+    box-shadow: none;
   }
   .product__atc:disabled {
-    background-color: rgb(28 40 48 / 30%);
+    background-color: rgb(28 40 48 / 22%);
+    box-shadow: none;
+    transform: none;
     cursor: not-allowed;
+  }
+
+  /* Express checkout (Shop Pay etc.): full-width below the primary CTA. */
+  .product__buy .shopify-payment-button {
+    width: 100%;
+  }
+  .product__buy .shopify-payment-button__button {
+    min-height: 3.5rem;
+    border-radius: var(--rar-radius-button);
+  }
+  /* Tame the default "More payment options" link — subtle, centered, no ugly underline. */
+  .product__buy .shopify-payment-button__more-options {
+    display: block;
+    margin-top: 0.6rem;
+    color: rgb(28 40 48 / 55%);
+    font-size: 0.8125rem;
+    text-align: center;
+    text-decoration: none;
+  }
+  .product__buy .shopify-payment-button__more-options:hover {
+    color: var(--rar-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .product__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0;
+    color: rgb(28 40 48 / 55%);
+    font-size: 0.8125rem;
+  }
+  .product__trust svg {
+    flex: 0 0 auto;
+    color: var(--rar-eco);
   }
 
   .product__reassurance {
@@ -576,14 +628,6 @@
     .product__media {
       position: sticky;
       top: 6.5rem;
-    }
-    .product__buy {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-    .product__atc {
-      width: auto;
-      flex: 1 1 14rem;
     }
     .product__sticky-title {
       max-width: 50%;
