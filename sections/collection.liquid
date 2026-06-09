@@ -46,6 +46,15 @@
         </button>
       </read-more>
     {% endif %}
+
+    <p class="collection__rating">
+      <span class="collection__stars" aria-hidden="true">
+        {% for i in (1..5) %}
+          <svg viewBox="0 0 20 20" width="15" height="15" focusable="false"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>
+        {% endfor %}
+      </span>
+      {{ 'collection.rated_html' | t: rating: 5 }}
+    </p>
   </header>
 
   {% if section.settings.category_nav != blank %}
@@ -239,6 +248,23 @@
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+  }
+  .collection__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0.85rem 0 0;
+    color: rgb(28 40 48 / 70%);
+    font-size: 0.875rem;
+  }
+  .collection__stars {
+    display: inline-flex;
+    gap: 0.1rem;
+    line-height: 0;
+  }
+  .collection__stars svg {
+    fill: var(--rar-accent);
   }
 
   /* Sport-icon category switcher */
@@ -509,7 +535,8 @@
   }
   @media (min-width: 990px) {
     .collection__grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
     }
   }
 {% endstylesheet %}

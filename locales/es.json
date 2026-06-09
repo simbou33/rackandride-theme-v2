@@ -51,6 +51,7 @@
     "results_html": "{{ count }} productos",
     "empty": "No se encontraron productos.",
     "faq_title": "Preguntas frecuentes",
+    "rated_html": "Valorado {{ rating }}/5 por los riders",
     "cat": {
       "surf": "Surf",
       "skate": "Skate",
@@ -85,6 +86,8 @@
     "highlights": "Puntos destacados",
     "secure_checkout": "Pago seguro · transacción cifrada",
     "sale": "Oferta",
+    "new": "Nuevo",
+    "card_eco": "Hecho a mano · roble macizo",
     "from_price_html": "Desde {{ price }}",
     "reassurance": {
       "handmade": "Hecho a mano en Les Landes, Francia",

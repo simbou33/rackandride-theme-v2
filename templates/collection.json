@@ -23,7 +23,17 @@
           "deco"
         ]
       }
+    },
+    "reassurance": {
+      "type": "reassurance",
+      "blocks": {
+        "r1": { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Les Landes, France" } },
+        "r2": { "type": "promise", "settings": { "icon": "eco", "text": "Beeswax & linseed oil finish" } },
+        "r3": { "type": "promise", "settings": { "icon": "secure", "text": "Secure, no-fall hold" } },
+        "r4": { "type": "promise", "settings": { "icon": "shipping", "text": "Free shipping over €100" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"]
     }
   },
-  "order": ["main"]
+  "order": ["main", "reassurance"]
 }

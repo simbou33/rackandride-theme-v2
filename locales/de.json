@@ -51,6 +51,7 @@
     "results_html": "{{ count }} Produkte",
     "empty": "Keine Produkte gefunden.",
     "faq_title": "Häufige Fragen",
+    "rated_html": "Mit {{ rating }}/5 von Ridern bewertet",
     "cat": {
       "surf": "Surf",
       "skate": "Skate",
@@ -85,6 +86,8 @@
     "highlights": "Highlights",
     "secure_checkout": "Sichere Zahlung · verschlüsselter Checkout",
     "sale": "Sale",
+    "new": "Neu",
+    "card_eco": "Handgefertigt · Eiche massiv",
     "from_price_html": "Ab {{ price }}",
     "reassurance": {
       "handmade": "Handgefertigt in Les Landes, Frankreich",

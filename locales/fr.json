@@ -51,6 +51,7 @@
     "results_html": "{{ count }} produits",
     "empty": "Aucun produit trouvé.",
     "faq_title": "Questions fréquentes",
+    "rated_html": "Noté {{ rating }}/5 par les riders",
     "cat": {
       "surf": "Surf",
       "skate": "Skate",
@@ -85,6 +86,8 @@
     "highlights": "Points forts",
     "secure_checkout": "Paiement sécurisé · transaction chiffrée",
     "sale": "Promo",
+    "new": "Nouveau",
+    "card_eco": "Fait main · chêne massif",
     "from_price_html": "À partir de {{ price }}",
     "reassurance": {
       "handmade": "Fait main dans les Landes, France",

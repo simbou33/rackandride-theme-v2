@@ -51,6 +51,7 @@
     "results_html": "{{ count }} products",
     "empty": "No products found.",
     "faq_title": "Frequently asked questions",
+    "rated_html": "Rated {{ rating }}/5 by riders",
     "cat": {
       "surf": "Surf",
       "skate": "Skate",
@@ -85,6 +86,8 @@
     "highlights": "Highlights",
     "secure_checkout": "Secure payment · encrypted checkout",
     "sale": "Sale",
+    "new": "New",
+    "card_eco": "Handmade · solid oak",
     "from_price_html": "From {{ price }}",
     "reassurance": {
       "handmade": "Handmade in Les Landes, France",
