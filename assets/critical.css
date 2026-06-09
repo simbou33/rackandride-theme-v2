@@ -95,6 +95,42 @@ h6 {
   line-height: 1.15;
 }
 
+/* Shared rich-text (rte) styling: product description, footer text, accordions */
+.rte > :first-child {
+  margin-top: 0;
+}
+.rte > :last-child {
+  margin-bottom: 0;
+}
+.rte h2,
+.rte h3,
+.rte h4 {
+  margin: 2rem 0 0.5rem;
+  line-height: 1.2;
+}
+.rte p {
+  margin: 0 0 1rem;
+}
+.rte a {
+  color: var(--rar-accent);
+  text-underline-offset: 2px;
+}
+.rte ul,
+.rte ol {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+.rte li {
+  margin-bottom: 0.35rem;
+}
+.rte img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 1.75rem auto;
+  border-radius: var(--rar-radius-card);
+}
+
 /** Section layout utilities */
 
 /**
