@@ -41,15 +41,19 @@
               hidden
             {% endunless %}
           >
-            {{
-              media.preview_image
-              | image_url: width: 1400
-              | image_tag:
-                widths: '400, 600, 800, 1000, 1200, 1400',
-                sizes: '(min-width: 750px) 50vw, 100vw',
-                loading: media_loading,
-                alt: media.preview_image.alt | default: product.title
-            }}
+            {% if media.media_type == 'image' %}
+              {{
+                media
+                | image_url: width: 1400
+                | image_tag:
+                  widths: '400, 600, 800, 1000, 1200, 1400',
+                  sizes: '(min-width: 750px) 50vw, 100vw',
+                  loading: media_loading,
+                  alt: media.alt | default: product.title
+              }}
+            {% else %}
+              {{ media | media_tag: image_size: '1400x' }}
+            {% endif %}
           </div>
         {% else %}
           <div class="product__media-slide product__media-slide--placeholder">
@@ -132,28 +136,42 @@
           </variant-selector>
         {% endunless %}
 
+        {% if short_description != blank %}
+          <div class="product__short-description">{{ short_description | metafield_tag }}</div>
+        {% endif %}
+
         <div class="product__quantity">
           <label class="product__quantity-label" for="Quantity-{{ section.id }}">
             {{ 'product.quantity' | t }}
           </label>
-          <input
-            type="number"
-            id="Quantity-{{ section.id }}"
-            class="product__quantity-input"
-            name="quantity"
-            value="1"
-            min="1"
-            inputmode="numeric"
-          >
+          <quantity-input class="product__quantity-control">
+            <button
+              type="button"
+              class="product__quantity-button"
+              data-quantity-minus
+              aria-label="{{ 'cart.decrease' | t }}"
+            >
+              &minus;
+            </button>
+            <input
+              type="number"
+              id="Quantity-{{ section.id }}"
+              class="product__quantity-input"
+              name="quantity"
+              value="1"
+              min="1"
+              inputmode="numeric"
+            >
+            <button
+              type="button"
+              class="product__quantity-button"
+              data-quantity-plus
+              aria-label="{{ 'cart.increase' | t }}"
+            >
+              &plus;
+            </button>
+          </quantity-input>
         </div>
-
-        {% if key_features != blank %}
-          <div class="product__usp rte">{{ key_features | metafield_tag }}</div>
-        {% endif %}
-
-        {% if short_description != blank %}
-          <div class="product__short-description">{{ short_description | metafield_tag }}</div>
-        {% endif %}
 
         <div class="product__buy" data-buy-buttons>
           <button
@@ -201,6 +219,13 @@
             <span>{{ 'product.reassurance.packaging' | t }}</span>
           </li>
         </ul>
+      {% endif %}
+
+      {% if key_features != blank %}
+        <div class="product__highlights">
+          <h2 class="product__highlights-title">{{ 'product.highlights' | t }}</h2>
+          <div class="product__usp rte">{{ key_features | metafield_tag }}</div>
+        </div>
       {% endif %}
 
       {% if section.blocks.size > 0 %}
@@ -300,7 +325,11 @@
   .product__media-slide[hidden] {
     display: none;
   }
-  .product__media-slide img {
+  .product__media-slide img,
+  .product__media-slide video,
+  .product__media-slide iframe,
+  .product__media-slide model-viewer {
+    display: block;
     width: 100%;
     height: auto;
   }
@@ -394,12 +423,41 @@
     font-size: 0.875rem;
     color: rgb(28 40 48 / 70%);
   }
-  .product__quantity-input {
-    width: 5rem;
-    padding: 0.6rem 0.75rem;
+  .product__quantity-control {
+    display: inline-flex;
+    align-items: center;
     border: 1.5px solid rgb(28 40 48 / 20%);
     border-radius: var(--rar-radius-button);
+    overflow: hidden;
+  }
+  .product__quantity-button {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    background: transparent;
+    color: var(--rar-text);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .product__quantity-button:hover {
+    background-color: var(--rar-color-surface);
+  }
+  .product__quantity-input {
+    width: 3rem;
+    height: 2.75rem;
+    border: 0;
+    border-inline: 1.5px solid rgb(28 40 48 / 16%);
+    border-radius: 0;
     text-align: center;
+    font: inherit;
+    color: var(--rar-text);
+    -moz-appearance: textfield;
+  }
+  .product__quantity-input::-webkit-outer-spin-button,
+  .product__quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .product__usp {
@@ -413,8 +471,16 @@
     margin-bottom: 0.4rem;
   }
   .product__short-description {
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem;
     color: rgb(28 40 48 / 80%);
+  }
+
+  .product__highlights {
+    margin: 2rem 0;
+  }
+  .product__highlights-title {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
   }
 
   .product__buy {
@@ -513,6 +579,12 @@
   .product__reassurance-item svg {
     flex: 0 0 auto;
     color: var(--rar-eco);
+  }
+  @media (max-width: 749px) {
+    .product__reassurance {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
   }
 
   .product__accordions {
@@ -660,6 +732,24 @@
   }
   if (!customElements.get('product-gallery')) {
     customElements.define('product-gallery', ProductGallery);
+  }
+
+  class QuantityInput extends HTMLElement {
+    connectedCallback() {
+      this.input = this.querySelector('input');
+      this.querySelector('[data-quantity-minus]').addEventListener('click', () => this.step(-1));
+      this.querySelector('[data-quantity-plus]').addEventListener('click', () => this.step(1));
+    }
+
+    step(delta) {
+      const min = parseInt(this.input.min, 10) || 1;
+      const current = parseInt(this.input.value, 10) || min;
+      this.input.value = Math.max(min, current + delta);
+      this.input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  }
+  if (!customElements.get('quantity-input')) {
+    customElements.define('quantity-input', QuantityInput);
   }
 
   class VariantSelector extends HTMLElement {
