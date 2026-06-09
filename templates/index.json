@@ -16,9 +16,11 @@
         "subheading": "<p>Handmade wall mounts in solid oak — crafted in Les Landes, France. Functional objects, designed to be seen.</p>",
         "button_label": "Shop all",
         "button_link": "/collections/all",
+        "button_2_label": "Shop surfboards",
+        "button_2_link": "/collections/surfboard-wall-mount",
         "height": "large",
         "text_alignment": "left",
-        "overlay_opacity": 30
+        "overlay_opacity": 35
       }
     },
     "reassurance": {

@@ -84,7 +84,11 @@
   .story-rows__list {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 2.75rem;
+  }
+  /* Rows that have an image get more breathing room than text-only rows */
+  .story-row:not(.story-row--text-only) {
+    margin-block: 1.25rem;
   }
 
   .story-row {

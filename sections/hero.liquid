@@ -5,11 +5,11 @@
 {% endcomment %}
 
 <section
-  class="hero full-width hero--{{ section.settings.height }}{% unless section.settings.image %} hero--plain{% endunless %} hero--align-{{ section.settings.text_alignment }}"
+  class="hero full-width hero--{{ section.settings.height }} hero--align-{{ section.settings.text_alignment }}"
   style="--hero-overlay: {{ section.settings.overlay_opacity }}%;"
 >
-  {% if section.settings.image %}
-    <div class="hero__media">
+  <div class="hero__media">
+    {% if section.settings.image %}
       {{
         section.settings.image
         | image_url: width: 3000
@@ -20,8 +20,17 @@
           fetchpriority: 'high',
           alt: section.settings.heading | default: shop.name
       }}
-    </div>
-  {% endif %}
+    {% else %}
+      <img
+        src="{{ 'hero-rackandride.webp' | asset_url }}"
+        alt="{{ section.settings.heading | default: shop.name | escape }}"
+        width="2048"
+        height="1365"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {% endif %}
+  </div>
 
   <div class="hero__content">
     {% if section.settings.heading != blank %}
@@ -82,7 +91,10 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: rgb(28 40 48 / var(--hero-overlay));
+    background:
+      linear-gradient(to top, rgb(28 40 48 / 45%), transparent 55%),
+      linear-gradient(to right, rgb(28 40 48 / 35%), transparent 65%),
+      rgb(28 40 48 / var(--hero-overlay));
   }
 
   .hero__content {
