@@ -1493,7 +1493,7 @@ Schema locale files, saved with a .schema.json extension, store translation stri
 
 ## 1. Brand
 
-**Rack And Ride** — supports muraux haut de gamme en **chêne massif** pour : surf, skate, snowboard, skis, vélo, wake & kite, et déco. Fait main dans les **Landes (France)**. Éco-responsable : finition **cire d'abeille + huile de lin**, **patins liège**, **emballage recyclable**.
+**Rack And Ride** — supports muraux haut de gamme en **chêne massif** pour : surf, skate, snowboard, skis, vélo, wake & kite, et déco. Fait main en **Gironde (France)**. Éco-responsable : finition **cire d'abeille + huile de lin**, **patins liège**, **emballage recyclable**.
 
 **Positionnement :** objet **déco fonctionnel premium** — PAS un "rack de garage". Le ton, le design et les visuels doivent toujours refléter l'artisanat, le bois noble et l'élégance discrète.
 

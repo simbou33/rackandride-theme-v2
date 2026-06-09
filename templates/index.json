@@ -13,7 +13,7 @@
       "type": "hero",
       "settings": {
         "heading": "Display your boards like art",
-        "subheading": "<p>Handmade wall mounts in solid oak — crafted in Les Landes, France. Functional objects, designed to be seen.</p>",
+        "subheading": "<p>Handmade wall mounts in solid oak — crafted in Gironde, France. Functional objects, designed to be seen.</p>",
         "button_label": "Shop all",
         "button_link": "/collections/all",
         "button_2_label": "Shop surfboards",
@@ -26,7 +26,7 @@
     "reassurance": {
       "type": "reassurance",
       "blocks": {
-        "r1": { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Les Landes, France" } },
+        "r1": { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Gironde, France" } },
         "r2": { "type": "promise", "settings": { "icon": "eco", "text": "Beeswax & linseed oil finish" } },
         "r3": { "type": "promise", "settings": { "icon": "secure", "text": "Secure, no-fall hold" } },
         "r4": { "type": "promise", "settings": { "icon": "packaging", "text": "100% recyclable packaging" } }
@@ -84,7 +84,7 @@
             "image_asset": "story-surf.webp",
             "image_position": "left",
             "heading": "Handmade & eco-friendly",
-            "text": "<p>Made by hand in Les Landes, France, and shipped in 100% recyclable packaging.</p>"
+            "text": "<p>Made by hand in Gironde, France, and shipped in 100% recyclable packaging.</p>"
           }
         }
       },
