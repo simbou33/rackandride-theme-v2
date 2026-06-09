@@ -89,5 +89,23 @@
         "default": 12
       }
     ]
+  },
+  {
+    "name": "t:general.cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "label": "t:labels.show_free_shipping_bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "t:labels.free_shipping_threshold",
+        "info": "t:info.free_shipping_threshold",
+        "default": 100
+      }
+    ]
   }
 ]

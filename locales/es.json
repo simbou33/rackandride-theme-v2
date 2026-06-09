@@ -24,7 +24,9 @@
     "taxes_note": "Impuestos y envío calculados al finalizar la compra",
     "quantity": "Cantidad",
     "decrease": "Disminuir cantidad",
-    "increase": "Aumentar cantidad"
+    "increase": "Aumentar cantidad",
+    "free_shipping_progress_html": "Añade {{ amount }} más para el envío gratis",
+    "free_shipping_reached": "¡Envío gratis desbloqueado!"
   },
   "general": {
     "accessibility": {

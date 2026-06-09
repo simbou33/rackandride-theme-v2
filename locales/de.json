@@ -24,7 +24,9 @@
     "taxes_note": "Steuern und Versand werden an der Kasse berechnet",
     "quantity": "Menge",
     "decrease": "Menge verringern",
-    "increase": "Menge erhöhen"
+    "increase": "Menge erhöhen",
+    "free_shipping_progress_html": "Noch {{ amount }} bis zum kostenlosen Versand",
+    "free_shipping_reached": "Kostenloser Versand freigeschaltet!"
   },
   "general": {
     "accessibility": {

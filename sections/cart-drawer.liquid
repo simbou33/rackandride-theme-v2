@@ -112,7 +112,35 @@
           </ul>
 
           <div class="cart-drawer__footer">
-            {% comment %} Phase 1: barre de livraison offerte (seuil 100 €) à insérer ici. {% endcomment %}
+            {% if settings.show_free_shipping_bar and settings.free_shipping_threshold > 0 %}
+              {% liquid
+                assign threshold = settings.free_shipping_threshold | times: 100
+                assign remaining = threshold | minus: cart.total_price
+                assign progress = cart.total_price | times: 100 | divided_by: threshold
+                if progress > 100
+                  assign progress = 100
+                endif
+                assign remaining_money = remaining | money
+              %}
+              <div class="cart-drawer__shipping">
+                <p class="cart-drawer__shipping-text">
+                  {% if remaining > 0 %}
+                    {{ 'cart.free_shipping_progress_html' | t: amount: remaining_money }}
+                  {% else %}
+                    {{ 'cart.free_shipping_reached' | t }}
+                  {% endif %}
+                </p>
+                <div
+                  class="cart-drawer__shipping-track"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="{{ progress }}"
+                >
+                  <div class="cart-drawer__shipping-fill" style="width: {{ progress }}%"></div>
+                </div>
+              </div>
+            {% endif %}
 
             <div class="cart-drawer__subtotal">
               <span class="cart-drawer__subtotal-label">{{ 'cart.subtotal' | t }}</span>
@@ -343,6 +371,27 @@
     border-top: 1px solid rgb(28 40 48 / 8%);
     background-color: var(--rar-color-surface);
   }
+  .cart-drawer__shipping {
+    margin-bottom: 1.25rem;
+  }
+  .cart-drawer__shipping-text {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--rar-text);
+  }
+  .cart-drawer__shipping-track {
+    height: 6px;
+    border-radius: 999px;
+    background-color: rgb(28 40 48 / 10%);
+    overflow: hidden;
+  }
+  .cart-drawer__shipping-fill {
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--rar-eco);
+    transition: width 0.35s ease;
+  }
+
   .cart-drawer__subtotal {
     display: flex;
     align-items: baseline;

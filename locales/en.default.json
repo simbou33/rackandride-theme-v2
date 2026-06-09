@@ -24,7 +24,9 @@
     "taxes_note": "Taxes and shipping calculated at checkout",
     "quantity": "Quantity",
     "decrease": "Decrease quantity",
-    "increase": "Increase quantity"
+    "increase": "Increase quantity",
+    "free_shipping_progress_html": "Add {{ amount }} more for free shipping",
+    "free_shipping_reached": "You've unlocked free shipping!"
   },
   "general": {
     "accessibility": {

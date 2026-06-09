@@ -24,7 +24,9 @@
     "taxes_note": "Taxes et livraison calculées au paiement",
     "quantity": "Quantité",
     "decrease": "Diminuer la quantité",
-    "increase": "Augmenter la quantité"
+    "increase": "Augmenter la quantité",
+    "free_shipping_progress_html": "Plus que {{ amount }} pour la livraison offerte",
+    "free_shipping_reached": "Livraison offerte débloquée !"
   },
   "general": {
     "accessibility": {
