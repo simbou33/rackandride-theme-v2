@@ -11,3 +11,8 @@
 #
 # Ignore templates and sections with a regular expression:
 #   /(templates|sections)/.*\.json/
+
+# Transient editor/atomic-write temp files (avoid "must have .json extension" upload errors)
+*.tmp
+*.tmp.*
+*~
