@@ -17,7 +17,20 @@
     "checkout": "Paiement",
     "title": "Panier",
     "update": "Mettre à jour",
-    "remove": "Retirer"
+    "remove": "Retirer",
+    "empty": "Votre panier est vide",
+    "continue_shopping": "Continuer mes achats",
+    "subtotal": "Sous-total",
+    "taxes_note": "Taxes et livraison calculées au paiement",
+    "quantity": "Quantité",
+    "decrease": "Diminuer la quantité",
+    "increase": "Augmenter la quantité"
+  },
+  "general": {
+    "accessibility": {
+      "close": "Fermer",
+      "cart_drawer": "Panier"
+    }
   },
   "customers": {
     "login": {

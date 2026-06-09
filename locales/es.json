@@ -17,7 +17,20 @@
     "checkout": "Finalizar compra",
     "title": "Carrito",
     "update": "Actualizar",
-    "remove": "Quitar"
+    "remove": "Quitar",
+    "empty": "Tu carrito está vacío",
+    "continue_shopping": "Seguir comprando",
+    "subtotal": "Subtotal",
+    "taxes_note": "Impuestos y envío calculados al finalizar la compra",
+    "quantity": "Cantidad",
+    "decrease": "Disminuir cantidad",
+    "increase": "Aumentar cantidad"
+  },
+  "general": {
+    "accessibility": {
+      "close": "Cerrar",
+      "cart_drawer": "Carrito"
+    }
   },
   "customers": {
     "login": {

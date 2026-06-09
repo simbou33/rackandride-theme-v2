@@ -28,5 +28,8 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    {% # Global cart drawer (no dedicated cart page) — addressable by the Section Rendering API %}
+    {% section 'cart-drawer' %}
   </body>
 </html>

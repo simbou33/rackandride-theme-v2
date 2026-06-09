@@ -17,7 +17,20 @@
     "checkout": "Zur Kasse",
     "title": "Warenkorb",
     "update": "Aktualisieren",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "empty": "Dein Warenkorb ist leer",
+    "continue_shopping": "Weiter einkaufen",
+    "subtotal": "Zwischensumme",
+    "taxes_note": "Steuern und Versand werden an der Kasse berechnet",
+    "quantity": "Menge",
+    "decrease": "Menge verringern",
+    "increase": "Menge erhöhen"
+  },
+  "general": {
+    "accessibility": {
+      "close": "Schließen",
+      "cart_drawer": "Warenkorb"
+    }
   },
   "customers": {
     "login": {
