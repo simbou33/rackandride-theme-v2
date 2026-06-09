@@ -47,7 +47,35 @@
       "settings": {
         "show_reassurance": true
       }
+    },
+    "story": {
+      "type": "story-rows",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "heading": "Solid French oak",
+            "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture and coastal conditions while staying beautiful.</p>"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "heading": "A secure, invisible hold",
+            "text": "<p>The cork-lined hanger hugs your board's rails — no scratches, no slipping. Your gear is stored safely and displayed like a piece of art.</p>"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "heading": "Handmade & eco-friendly",
+            "text": "<p>Made by hand in Les Landes, France, and shipped in 100% recyclable packaging. A functional object, designed to last and to be seen.</p>"
+          }
+        }
+      },
+      "block_order": ["row-1", "row-2", "row-3"],
+      "settings": {}
     }
   },
-  "order": ["main"]
+  "order": ["main", "story"]
 }
