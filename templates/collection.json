@@ -11,10 +11,19 @@
   "sections": {
     "main": {
       "type": "collection",
-      "settings": {}
+      "settings": {
+        "products_per_page": 24,
+        "category_nav": [
+          "surfboard-wall-mount",
+          "skateboard-wall-mounts",
+          "snowboard-wall-mounts",
+          "skis-wall-mounts",
+          "bike-racks",
+          "kitesurf-racks",
+          "deco"
+        ]
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

@@ -81,6 +81,7 @@
     "image_position": "Image position",
     "products_to_show": "Products to show",
     "products_per_page": "Products per page",
+    "category_nav": "Category navigation",
     "show_view_all": "Show \"View all\" link",
     "rating": "Rating (stars)",
     "quote": "Quote",
@@ -111,7 +112,8 @@
     "tile_image": "Optional — falls back to the collection image, then its first product image.",
     "image_asset": "Optional — filename of an image in /assets (used when no image is picked above).",
     "products": "Pick the exact products to feature. Leave empty to use the collection below.",
-    "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above."
+    "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above.",
+    "category_nav": "Sport categories shown as an icon switcher at the top of every collection page."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Les Landes, France"
