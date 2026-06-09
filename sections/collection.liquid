@@ -54,7 +54,9 @@
         {% liquid
           assign nh = nav_collection.handle | downcase
           assign cat_label = nav_collection.title
-          if nh contains 'surf'
+          if nh contains 'kite' or nh contains 'wake'
+            assign cat_label = 'collection.cat.wake' | t
+          elsif nh contains 'surf'
             assign cat_label = 'collection.cat.surf' | t
           elsif nh contains 'skate'
             assign cat_label = 'collection.cat.skate' | t
@@ -64,8 +66,6 @@
             assign cat_label = 'collection.cat.skis' | t
           elsif nh contains 'bike' or nh contains 'velo'
             assign cat_label = 'collection.cat.bike' | t
-          elsif nh contains 'kite' or nh contains 'wake'
-            assign cat_label = 'collection.cat.wake' | t
           elsif nh contains 'deco'
             assign cat_label = 'collection.cat.deco' | t
           endif
@@ -103,66 +103,6 @@
           </div>
         </details>
 
-        {% if collection.filters.size > 0 %}
-          <facet-filters class="facet-bar">
-            <form method="get">
-              {% for filter in collection.filters %}
-                <details class="facet">
-                  <summary class="facet__pill">
-                    {{ filter.label }}
-                    <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </summary>
-                  <div class="facet__panel">
-                    {% case filter.type %}
-                      {% when 'price_range' %}
-                        <div class="facet__price">
-                          <input
-                            type="number"
-                            name="{{ filter.min_value.param_name }}"
-                            value="{{ filter.min_value.value }}"
-                            placeholder="0"
-                            min="0"
-                          >
-                          <span>–</span>
-                          <input
-                            type="number"
-                            name="{{ filter.max_value.param_name }}"
-                            value="{{ filter.max_value.value }}"
-                            placeholder="{{ filter.range_max | money_without_currency }}"
-                            min="0"
-                          >
-                        </div>
-                      {% else %}
-                        <ul class="facet__values" role="list">
-                          {% for value in filter.values %}
-                            <li>
-                              <label class="facet__value{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
-                                <input
-                                  type="checkbox"
-                                  name="{{ value.param_name }}"
-                                  value="{{ value.value }}"
-                                  {% if value.active %}checked{% endif %}
-                                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
-                                >
-                                <span>{{ value.label }} ({{ value.count }})</span>
-                              </label>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                    {% endcase %}
-                  </div>
-                </details>
-              {% endfor %}
-
-              {% if collection.sort_by != blank %}
-                <input type="hidden" name="sort_by" value="{{ collection.sort_by }}">
-              {% endif %}
-              <noscript><button type="submit" class="facet__apply">{{ 'collection.apply' | t }}</button></noscript>
-            </form>
-          </facet-filters>
-
-          <a class="facet__clear-all" href="{{ collection.url }}">{{ 'collection.clear_all' | t }}</a>
-        {% endif %}
       </div>
 
       <span class="collection__count">
