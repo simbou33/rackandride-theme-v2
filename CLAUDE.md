@@ -1,0 +1,1 @@
+/Users/s.boulat/rackandride-theme/AGENTS.md
