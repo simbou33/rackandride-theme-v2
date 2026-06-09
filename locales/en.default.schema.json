@@ -80,6 +80,7 @@
     "products": "Products",
     "image_position": "Image position",
     "products_to_show": "Products to show",
+    "products_per_page": "Products per page",
     "show_view_all": "Show \"View all\" link",
     "rating": "Rating (stars)",
     "quote": "Quote",

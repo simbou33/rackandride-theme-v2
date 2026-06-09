@@ -37,7 +37,20 @@
       "menu": "Menu",
       "skip_to_content": "Aller au contenu"
     },
-    "view_all": "Tout voir"
+    "view_all": "Tout voir",
+    "home": "Accueil"
+  },
+  "collection": {
+    "read_more": "Lire la suite",
+    "read_less": "Réduire",
+    "filters": "Filtres",
+    "sort_by": "Trier par",
+    "clear": "Effacer",
+    "clear_all": "Tout effacer",
+    "apply": "Appliquer",
+    "results_html": "{{ count }} produits",
+    "empty": "Aucun produit trouvé.",
+    "faq_title": "Questions fréquentes"
   },
   "customers": {
     "login": {
