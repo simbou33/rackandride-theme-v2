@@ -148,11 +148,11 @@
         </div>
 
         {% if key_features != blank %}
-          <div class="product__usp rte">{{ key_features }}</div>
+          <div class="product__usp rte">{{ key_features | metafield_tag }}</div>
         {% endif %}
 
         {% if short_description != blank %}
-          <div class="product__short-description">{{ short_description }}</div>
+          <div class="product__short-description">{{ short_description | metafield_tag }}</div>
         {% endif %}
 
         <div class="product__buy" data-buy-buttons>
@@ -228,12 +228,14 @@
         </div>
       {% endif %}
 
-      {% if product.description != blank %}
-        <hr class="product__divider">
-        <div class="product__description rte">{{ product.description }}</div>
-      {% endif %}
     </div>
   </div>
+
+  {% if product.description != blank %}
+    <div class="product__description-wrapper">
+      <div class="product__description rte">{{ product.description }}</div>
+    </div>
+  {% endif %}
 
   {% comment %} ---------- STICKY ADD TO CART ---------- {% endcomment %}
   <sticky-atc class="product__sticky full-width" data-target="[data-buy-buttons]" hidden>
@@ -494,13 +496,17 @@
     font-size: 0.9375rem;
   }
 
-  .product__divider {
-    margin: 2rem 0;
-    border: 0;
+  .product__description-wrapper {
+    max-width: 800px;
+    margin: 3.5rem auto 0;
+    padding-top: 3rem;
     border-top: 1px solid rgb(28 40 48 / 10%);
   }
   .product__description {
     line-height: 1.7;
+  }
+  .product__description > :first-child {
+    margin-top: 0;
   }
 
   .product__sticky {
