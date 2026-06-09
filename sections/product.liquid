@@ -504,9 +504,26 @@
   }
   .product__description {
     line-height: 1.7;
+    display: flow-root;
   }
   .product__description > :first-child {
     margin-top: 0;
+  }
+  /* Let copy wrap around description images on larger screens (editorial feel,
+     less vertical height). Images stack centered full-width on mobile. */
+  @media (min-width: 700px) {
+    .product__description :is(p, div):has(> img) {
+      float: right;
+      width: min(42%, 340px);
+      margin: 0.4rem 0 1rem 2rem;
+      clear: right;
+      text-align: center;
+    }
+    .product__description :is(p, div):has(> img) img {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
   }
 
   .product__sticky {
