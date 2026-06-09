@@ -1,0 +1,145 @@
+{% comment %}
+  Editable testimonials (no reviews app required). Each block is a quote with an
+  author and an optional 1–5 star rating. Renders nothing if empty.
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+  <section class="testimonials full-width">
+    <div class="testimonials__inner">
+      {% if section.settings.heading != blank %}
+        <div class="testimonials__header">
+          <h2 class="testimonials__title">{{ section.settings.heading }}</h2>
+        </div>
+      {% endif %}
+
+      <div class="testimonials__grid">
+        {% for block in section.blocks %}
+          <figure class="testimonial" {{ block.shopify_attributes }}>
+            {% if block.settings.rating > 0 %}
+              <div class="testimonial__stars" aria-label="{{ block.settings.rating }}/5">
+                {% for i in (1..5) %}
+                  <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false" class="{% if i <= block.settings.rating %}is-filled{% endif %}"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if block.settings.quote != blank %}
+              <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
+            {% endif %}
+            {% if block.settings.author != blank %}
+              <figcaption class="testimonial__author">{{ block.settings.author }}</figcaption>
+            {% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .testimonials {
+    background-color: var(--rar-color-surface);
+  }
+  .testimonials__inner {
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 4rem var(--rar-page-margin);
+  }
+  .testimonials__header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  .testimonials__title {
+    margin: 0;
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  }
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .testimonial {
+    margin: 0;
+    padding: 1.75rem;
+    background-color: var(--rar-color-background);
+    border-radius: var(--rar-radius-card);
+  }
+  .testimonial__stars {
+    display: flex;
+    gap: 0.15rem;
+    margin-bottom: 0.85rem;
+  }
+  .testimonial__stars svg {
+    fill: rgb(28 40 48 / 15%);
+  }
+  .testimonial__stars svg.is-filled {
+    fill: var(--rar-accent);
+  }
+  .testimonial__quote {
+    margin: 0 0 1rem;
+    font-family: var(--rar-font-heading);
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  .testimonial__author {
+    color: rgb(28 40 48 / 60%);
+    font-size: 0.875rem;
+  }
+  @media (min-width: 750px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "What riders say"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:general.testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "t:labels.rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "t:labels.quote",
+          "default": "Beautiful craftsmanship — my board looks like a piece of art on the wall."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:labels.author",
+          "default": "Customer name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.testimonials",
+      "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

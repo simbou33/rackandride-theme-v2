@@ -36,7 +36,8 @@
       "account": "Cuenta",
       "menu": "Menú",
       "skip_to_content": "Ir al contenido"
-    }
+    },
+    "view_all": "Ver todo"
   },
   "customers": {
     "login": {
@@ -61,6 +62,8 @@
     "quantity": "Cantidad",
     "highlights": "Puntos destacados",
     "secure_checkout": "Pago seguro · transacción cifrada",
+    "sale": "Oferta",
+    "from_price_html": "Desde {{ price }}",
     "reassurance": {
       "handmade": "Hecho a mano en Les Landes, Francia",
       "eco": "Acabado con cera de abejas y aceite de lino",

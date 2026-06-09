@@ -1,0 +1,235 @@
+{% comment %}
+  Homepage hero. Full-bleed image (or solid surface when no image is set — no
+  Dawn placeholder), with a headline, subtext and up to two CTAs. Overlay and
+  height are configurable. The headline is the page H1 on the homepage.
+{% endcomment %}
+
+<section
+  class="hero full-width hero--{{ section.settings.height }}{% unless section.settings.image %} hero--plain{% endunless %} hero--align-{{ section.settings.text_alignment }}"
+  style="--hero-overlay: {{ section.settings.overlay_opacity }}%;"
+>
+  {% if section.settings.image %}
+    <div class="hero__media">
+      {{
+        section.settings.image
+        | image_url: width: 3000
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 3000',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.heading | default: shop.name
+      }}
+    </div>
+  {% endif %}
+
+  <div class="hero__content">
+    {% if section.settings.heading != blank %}
+      <h1 class="hero__title">{{ section.settings.heading }}</h1>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <div class="hero__subtitle">{{ section.settings.subheading }}</div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+      <div class="hero__buttons">
+        <a class="hero__button hero__button--primary" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_label }}
+        </a>
+        {% if section.settings.button_2_label != blank and section.settings.button_2_link != blank %}
+          <a class="hero__button hero__button--ghost" href="{{ section.settings.button_2_link }}">
+            {{ section.settings.button_2_label }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero--small {
+    min-height: 52vh;
+  }
+  .hero--medium {
+    min-height: 68vh;
+  }
+  .hero--large {
+    min-height: 86vh;
+  }
+  .hero--plain {
+    background-color: var(--rar-color-surface);
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero:not(.hero--plain) .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgb(28 40 48 / var(--hero-overlay));
+  }
+
+  .hero__content {
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 3rem var(--rar-page-margin);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: min(var(--rar-page-width), 100%);
+  }
+  .hero:not(.hero--plain) .hero__content {
+    color: #fff;
+  }
+  .hero__content > * {
+    max-width: 36rem;
+  }
+  .hero--align-center .hero__content {
+    align-items: center;
+    text-align: center;
+  }
+  .hero--align-center .hero__content > * {
+    margin-inline: auto;
+  }
+
+  .hero__title {
+    margin: 0;
+    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4rem);
+    line-height: 1.05;
+  }
+  .hero:not(.hero--plain) .hero__title {
+    color: #fff;
+  }
+  .hero__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .hero__button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--rar-radius-button);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .hero__button--primary {
+    background-color: var(--rar-accent);
+    color: #fff;
+  }
+  .hero__button--primary:hover {
+    filter: brightness(0.94);
+  }
+  .hero__button--ghost {
+    border: 1.5px solid currentColor;
+    color: inherit;
+  }
+  .hero--plain .hero__button--ghost {
+    color: var(--rar-accent);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:labels.image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Display your boards like art"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "t:labels.subheading",
+      "default": "<p>Handmade wall mounts in solid oak — crafted in Les Landes, France.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:labels.button_label",
+      "default": "Shop all"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.button_link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "t:labels.button_2_label"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "t:labels.button_2_link"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "t:labels.height",
+      "default": "medium",
+      "options": [
+        { "value": "small", "label": "t:options.size.small" },
+        { "value": "medium", "label": "t:options.size.medium" },
+        { "value": "large", "label": "t:options.size.large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "t:labels.alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "t:options.alignment.left" },
+        { "value": "center", "label": "t:options.alignment.center" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:labels.overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    }
+  ],
+  "presets": [{ "name": "t:general.hero" }],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

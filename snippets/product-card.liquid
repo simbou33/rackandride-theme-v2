@@ -1,0 +1,121 @@
+{% doc %}
+  Renders a product card (image with hover swap, title, price in ink, optional
+  terracotta sale badge). Reused by featured products and collection grids.
+
+  @param {object} card_product - The product to render
+  @param {string} [sizes] - The responsive `sizes` attribute (default 25vw desktop)
+
+  @example
+  {% render 'product-card', card_product: product %}
+{% enddoc %}
+
+<a class="card" href="{{ card_product.url }}">
+  <div class="card__media">
+    {% if card_product.featured_media %}
+      {{
+        card_product.featured_media.preview_image
+        | image_url: width: 800
+        | image_tag:
+          widths: '300, 400, 600, 800',
+          sizes: sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+          loading: 'lazy',
+          class: 'card__image',
+          alt: card_product.featured_media.preview_image.alt | default: card_product.title
+      }}
+      {% if card_product.media[1] %}
+        {{
+          card_product.media[1].preview_image
+          | image_url: width: 800
+          | image_tag:
+            widths: '300, 400, 600, 800',
+            sizes: sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+            loading: 'lazy',
+            class: 'card__image card__image--hover',
+            alt: ''
+        }}
+      {% endif %}
+    {% endif %}
+
+    {% if card_product.compare_at_price > card_product.price %}
+      <span class="card__badge">{{ 'product.sale' | t }}</span>
+    {% endif %}
+  </div>
+
+  <div class="card__info">
+    <h3 class="card__title">{{ card_product.title }}</h3>
+    <div class="card__price">
+      {% if card_product.price_varies %}
+        <span class="card__price-current">
+          {{ 'product.from_price_html' | t: price: card_product.price_min | money }}
+        </span>
+      {% else %}
+        <span class="card__price-current">{{ card_product.price | money }}</span>
+      {% endif %}
+      {% if card_product.compare_at_price > card_product.price %}
+        <s class="card__price-compare">{{ card_product.compare_at_price | money }}</s>
+      {% endif %}
+    </div>
+  </div>
+</a>
+
+{% stylesheet %}
+  .card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  .card__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    margin-bottom: 0.85rem;
+    border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .card__image--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+  .card:hover .card__image--hover {
+    opacity: 1;
+  }
+  .card:hover .card__image:not(.card__image--hover) {
+    transform: scale(1.03);
+  }
+  .card__badge {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background-color: var(--rar-promo);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .card__title {
+    margin: 0 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .card__price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: var(--rar-price);
+    font-weight: 600;
+  }
+  .card__price-compare {
+    color: rgb(28 40 48 / 45%);
+    font-weight: 400;
+  }
+{% endstylesheet %}

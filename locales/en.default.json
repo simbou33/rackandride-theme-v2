@@ -36,7 +36,8 @@
       "account": "Account",
       "menu": "Menu",
       "skip_to_content": "Skip to content"
-    }
+    },
+    "view_all": "View all"
   },
   "customers": {
     "login": {
@@ -61,6 +62,8 @@
     "quantity": "Quantity",
     "highlights": "Highlights",
     "secure_checkout": "Secure payment · encrypted checkout",
+    "sale": "Sale",
+    "from_price_html": "From {{ price }}",
     "reassurance": {
       "handmade": "Handmade in Les Landes, France",
       "eco": "Beeswax & linseed oil finish",

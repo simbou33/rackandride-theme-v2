@@ -1,0 +1,114 @@
+{% comment %}
+  Reassurance band: a row of icon + text items (brand promises). Block-based so
+  merchants can edit/add. Icons are picked from a small on-brand set.
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+  <section class="reassurance full-width">
+    <ul class="reassurance__list" role="list">
+      {% for block in section.blocks %}
+        <li class="reassurance__item" {{ block.shopify_attributes }}>
+          <span class="reassurance__icon">
+            {% case block.settings.icon %}
+              {% when 'handmade' %}
+                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9 2.6.9-5.5-4-3.9 5.5-.8z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              {% when 'eco' %}
+                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M12 21s-7-4-7-10a7 7 0 0114 0c0 6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 4c0 6 0 11 0 11" stroke="currentColor" stroke-width="1.4"/></svg>
+              {% when 'secure' %}
+                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {% when 'shipping' %}
+                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="17.5" cy="17" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+              {% else %}
+                <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M3 7l9-4 9 4-9 4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 7v10l9 4 9-4V7M12 11v10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            {% endcase %}
+          </span>
+          <span class="reassurance__text">{{ block.settings.text }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .reassurance {
+    background-color: var(--rar-color-surface);
+  }
+  .reassurance__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 2rem;
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 2rem var(--rar-page-margin);
+    list-style: none;
+  }
+  .reassurance__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+  }
+  .reassurance__icon {
+    flex: 0 0 auto;
+    color: var(--rar-eco);
+    line-height: 0;
+  }
+  @media (min-width: 750px) {
+    .reassurance__list {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .reassurance__item {
+      justify-content: center;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.reassurance",
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "t:general.reassurance_item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:labels.icon",
+          "default": "handmade",
+          "options": [
+            { "value": "handmade", "label": "t:options.icon.handmade" },
+            { "value": "eco", "label": "t:options.icon.eco" },
+            { "value": "secure", "label": "t:options.icon.secure" },
+            { "value": "shipping", "label": "t:options.icon.shipping" },
+            { "value": "packaging", "label": "t:options.icon.packaging" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:labels.text",
+          "default": "Brand promise"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "t:general.reassurance",
+      "blocks": [
+        { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Les Landes, France" } },
+        { "type": "promise", "settings": { "icon": "eco", "text": "Beeswax & linseed oil finish" } },
+        { "type": "promise", "settings": { "icon": "secure", "text": "Secure, no-fall hold" } },
+        { "type": "promise", "settings": { "icon": "packaging", "text": "100% recyclable packaging" } }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

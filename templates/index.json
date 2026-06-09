@@ -9,12 +9,93 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Display your boards like art",
+        "subheading": "<p>Handmade wall mounts in solid oak — crafted in Les Landes, France. Functional objects, designed to be seen.</p>",
+        "button_label": "Shop all",
+        "button_link": "/collections/all",
+        "height": "large",
+        "text_alignment": "left",
+        "overlay_opacity": 30
+      }
+    },
+    "reassurance": {
+      "type": "reassurance",
+      "blocks": {
+        "r1": { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Les Landes, France" } },
+        "r2": { "type": "promise", "settings": { "icon": "eco", "text": "Beeswax & linseed oil finish" } },
+        "r3": { "type": "promise", "settings": { "icon": "secure", "text": "Secure, no-fall hold" } },
+        "r4": { "type": "promise", "settings": { "icon": "packaging", "text": "100% recyclable packaging" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"]
+    },
+    "categories": {
+      "type": "category-tiles",
+      "settings": { "heading": "Shop by sport" },
+      "blocks": {
+        "c1": { "type": "tile", "settings": { "collection": "surfboard-wall-mount" } },
+        "c2": { "type": "tile", "settings": { "collection": "skateboard-wall-mounts" } },
+        "c3": { "type": "tile", "settings": { "collection": "snowboard-wall-mounts" } },
+        "c4": { "type": "tile", "settings": { "collection": "skis-wall-mounts" } },
+        "c5": { "type": "tile", "settings": { "collection": "bike-racks" } },
+        "c6": { "type": "tile", "settings": { "collection": "kitesurf-racks" } },
+        "c7": { "type": "tile", "settings": { "collection": "deco" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"]
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "Bestsellers",
+        "collection": "surfboard-wall-mount",
+        "products_to_show": 4,
+        "show_view_all": true
+      }
+    },
+    "story": {
+      "type": "story-rows",
+      "settings": { "heading": "Made to last, made to be seen" },
+      "blocks": {
+        "s1": {
+          "type": "row",
+          "settings": {
+            "heading": "Solid French oak",
+            "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture while staying beautiful.</p>"
+          }
+        },
+        "s2": {
+          "type": "row",
+          "settings": {
+            "heading": "A secure, invisible hold",
+            "text": "<p>Cork-lined hangers hug your gear — no scratches, no slipping. Stored safely and displayed like a piece of art.</p>"
+          }
+        },
+        "s3": {
+          "type": "row",
+          "settings": {
+            "heading": "Handmade & eco-friendly",
+            "text": "<p>Made by hand in Les Landes, France, and shipped in 100% recyclable packaging.</p>"
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": { "heading": "What riders say" },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "rating": 5, "quote": "Beautiful craftsmanship — my board looks like a piece of art on the wall.", "author": "Léa, Hossegor" } },
+        "t2": { "type": "testimonial", "settings": { "rating": 5, "quote": "Solid, elegant and easy to install. Exactly what I hoped for.", "author": "Marc, Biarritz" } },
+        "t3": { "type": "testimonial", "settings": { "rating": 5, "quote": "The oak is gorgeous and the cork protects my deck perfectly.", "author": "Tom, Anglet" } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
+    "newsletter": {
+      "type": "newsletter",
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["hero", "reassurance", "categories", "featured", "story", "testimonials", "newsletter"]
 }

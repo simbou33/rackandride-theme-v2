@@ -5,6 +5,13 @@
     "article": "Article",
     "block": "Block",
     "blog": "Blog",
+    "category_tiles": "Category tiles",
+    "category_tile": "Category tile",
+    "featured_products": "Featured products",
+    "reassurance": "Reassurance",
+    "reassurance_item": "Reassurance item",
+    "testimonials": "Testimonials",
+    "testimonial": "Testimonial",
     "cart": "Cart",
     "collection": "Collection",
     "collections": "Collections",
@@ -21,6 +28,7 @@
     "footer_menu": "Footer menu",
     "group": "Group",
     "header": "Header",
+    "hero": "Hero",
     "layout": "Layout",
     "main": "Main",
     "message": "Message",
@@ -61,6 +69,18 @@
     "image": "Image",
     "button_label": "Button label",
     "button_link": "Button link",
+    "button_2_label": "Second button label",
+    "button_2_link": "Second button link",
+    "subheading": "Subheading",
+    "height": "Height",
+    "overlay_opacity": "Image overlay opacity",
+    "icon": "Icon",
+    "custom_title": "Custom title",
+    "products_to_show": "Products to show",
+    "show_view_all": "Show \"View all\" link",
+    "rating": "Rating (stars)",
+    "quote": "Quote",
+    "author": "Author",
     "tagline": "Tagline",
     "show_free_shipping_bar": "Show free shipping progress bar",
     "free_shipping_threshold": "Free shipping threshold",
@@ -81,7 +101,8 @@
   "info": {
     "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
-    "free_shipping_threshold": "Amount (in your store currency) the customer must reach for free shipping. Set to 0 to hide the bar."
+    "free_shipping_threshold": "Amount (in your store currency) the customer must reach for free shipping. Set to 0 to hide the bar.",
+    "tile_image": "Optional — falls back to the collection image, then its first product image."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Les Landes, France"
@@ -100,8 +121,16 @@
       "narrow": "Narrow",
       "wide": "Wide"
     },
+    "icon": {
+      "handmade": "Handmade",
+      "eco": "Eco",
+      "secure": "Secure",
+      "shipping": "Shipping",
+      "packaging": "Packaging"
+    },
     "size": {
       "large": "Large",
+      "medium": "Medium",
       "small": "Small"
     },
     "text_style": {

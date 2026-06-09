@@ -36,7 +36,8 @@
       "account": "Konto",
       "menu": "Menü",
       "skip_to_content": "Zum Inhalt springen"
-    }
+    },
+    "view_all": "Alle ansehen"
   },
   "customers": {
     "login": {
@@ -61,6 +62,8 @@
     "quantity": "Menge",
     "highlights": "Highlights",
     "secure_checkout": "Sichere Zahlung · verschlüsselter Checkout",
+    "sale": "Sale",
+    "from_price_html": "Ab {{ price }}",
     "reassurance": {
       "handmade": "Handgefertigt in Les Landes, Frankreich",
       "eco": "Finish aus Bienenwachs & Leinöl",

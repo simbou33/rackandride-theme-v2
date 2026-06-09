@@ -36,7 +36,8 @@
       "account": "Compte",
       "menu": "Menu",
       "skip_to_content": "Aller au contenu"
-    }
+    },
+    "view_all": "Tout voir"
   },
   "customers": {
     "login": {
@@ -61,6 +62,8 @@
     "quantity": "Quantité",
     "highlights": "Points forts",
     "secure_checkout": "Paiement sécurisé · transaction chiffrée",
+    "sale": "Promo",
+    "from_price_html": "À partir de {{ price }}",
     "reassurance": {
       "handmade": "Fait main dans les Landes, France",
       "eco": "Finition cire d'abeille & huile de lin",
