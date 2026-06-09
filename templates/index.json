@@ -63,7 +63,8 @@
         "s1": {
           "type": "row",
           "settings": {
-            "image_asset": "story-oak.webp",
+            "image_asset": "story-skate.webp",
+            "image_position": "left",
             "heading": "Solid French oak",
             "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture while staying beautiful.</p>"
           }
@@ -71,7 +72,8 @@
         "s2": {
           "type": "row",
           "settings": {
-            "image_asset": "story-skate.webp",
+            "image_asset": "story-oak.webp",
+            "image_position": "right",
             "heading": "A secure, invisible hold",
             "text": "<p>Cork-lined hangers hug your gear — no scratches, no slipping. Stored safely and displayed like a piece of art.</p>"
           }
@@ -80,6 +82,7 @@
           "type": "row",
           "settings": {
             "image_asset": "story-surf.webp",
+            "image_position": "left",
             "heading": "Handmade & eco-friendly",
             "text": "<p>Made by hand in Les Landes, France, and shipped in 100% recyclable packaging.</p>"
           }
