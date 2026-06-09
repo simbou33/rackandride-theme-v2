@@ -1,63 +1,293 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+{% comment %}
+  Global header. Full-width sticky bar with on-scroll-up behavior: visible at
+  the top of the page, hides when scrolling down, reappears when scrolling up.
+  Holds the brand logo, a category navigation with one level of dropdowns
+  (driven by a Shopify menu / linklist), and the account / search / cart icons.
+  The cart icon opens the global cart drawer (data-cart-toggle).
+{% endcomment %}
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+<sticky-header class="header full-width" data-sticky>
+  <div class="header__bar">
+    {% render 'logo', size: 44 %}
 
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      <shopify-account menu="{{ section.settings.customer_account_menu }}">
-        {{ 'icon-account.svg' | inline_asset_content }}
-      </shopify-account>
+    {% if section.settings.menu != blank %}
+      <nav class="header__nav" aria-label="{{ 'general.accessibility.menu' | t }}">
+        <ul class="header__menu" role="list">
+          {% for link in section.settings.menu.links %}
+            <li
+              class="header__item{% if link.links.size > 0 %} header__item--has-children{% endif %}"
+            >
+              <a
+                class="header__link"
+                href="{{ link.url }}"
+                {% if link.current or link.child_active %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{ link.title }}
+              </a>
+
+              {% if link.links.size > 0 %}
+                <div class="header__dropdown">
+                  <ul class="header__submenu" role="list">
+                    {% for child in link.links %}
+                      <li>
+                        <a
+                          class="header__sublink"
+                          href="{{ child.url }}"
+                          {% if child.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ child.title }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
     {% endif %}
 
-    <a
-      href="{{ routes.cart_url }}"
-      data-cart-toggle
-      aria-label="{{ 'general.accessibility.cart_drawer' | t }}"
-    >
-      <sup data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</sup>
+    <div class="header__icons">
+      {% if shop.customer_accounts_enabled %}
+        <shopify-account
+          class="header__icon"
+          menu="{{ section.settings.customer_account_menu }}"
+        >
+          <span class="visually-hidden">{{ 'general.accessibility.account' | t }}</span>
+          {{ 'icon-account.svg' | inline_asset_content }}
+        </shopify-account>
+      {% endif %}
 
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+      <a class="header__icon" href="{{ routes.search_url }}">
+        <span class="visually-hidden">{{ 'general.accessibility.search' | t }}</span>
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </a>
+
+      <a
+        class="header__icon header__cart"
+        href="{{ routes.cart_url }}"
+        data-cart-toggle
+        aria-label="{{ 'general.accessibility.cart_drawer' | t }}"
+      >
+        <sup class="header__cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>
+          {{- cart.item_count -}}
+        </sup>
+        {{ 'icon-cart.svg' | inline_asset_content }}
+      </a>
+    </div>
   </div>
-</header>
+</sticky-header>
 
 {% stylesheet %}
-  header {
-    height: 5rem;
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--rar-color-background);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .header[data-hidden] {
+    transform: translateY(-100%);
+  }
+  .header[data-scrolled] {
+    box-shadow: 0 1px 0 rgb(28 40 48 / 8%);
+  }
+
+  .header__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    max-width: var(--rar-page-width);
+    min-height: 5rem;
+    margin-inline: auto;
+    padding-inline: var(--rar-page-margin);
   }
-  header a {
+
+  .header__nav {
+    flex: 1 1 auto;
+  }
+  .header__menu {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .header__item {
     position: relative;
+  }
+  .header__link,
+  .header__sublink {
+    display: inline-block;
+    color: var(--rar-text);
+    font-size: 0.9375rem;
     text-decoration: none;
-    color: var(--color-foreground);
+  }
+  .header__link {
+    padding: 0.5rem 0;
+  }
+  .header__link::after {
+    content: '';
+    display: block;
+    height: 1.5px;
+    margin-top: 2px;
+    background-color: var(--rar-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+  .header__link:hover::after,
+  .header__item:focus-within > .header__link::after,
+  .header__link[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
+  .header__dropdown {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 100%;
+    z-index: 60;
+    min-width: 13rem;
+    padding-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  .header__item--has-children:hover .header__dropdown,
+  .header__item--has-children:focus-within .header__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .header__submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0.75rem;
+    list-style: none;
+    background-color: var(--rar-color-background);
+    border-radius: var(--rar-radius-card);
+    box-shadow: 0 12px 32px rgb(28 40 48 / 12%);
+  }
+  .header__sublink {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--rar-radius-button);
+    white-space: nowrap;
+  }
+  .header__sublink:hover,
+  .header__sublink[aria-current='page'] {
+    background-color: var(--rar-color-surface);
+    color: var(--rar-accent);
+  }
+
+  .header__icons {
     display: flex;
     align-items: center;
+    gap: 1.25rem;
+  }
+  .header__icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    color: var(--rar-text);
+    text-decoration: none;
+    cursor: pointer;
   }
-  header a sup {
+  .header__icon:hover {
+    color: var(--rar-accent);
+  }
+  .header__icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .header__cart-count {
     position: absolute;
-    left: 100%;
+    inset-block-start: -0.4rem;
+    inset-inline-start: 100%;
+    min-width: 1.1rem;
+    margin-inline-start: -0.4rem;
+    padding: 0 0.3rem;
+    border-radius: 1rem;
+    background-color: var(--rar-accent);
+    color: #fff;
+    font-size: 0.6875rem;
+    line-height: 1.1rem;
+    text-align: center;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
     overflow: hidden;
-    max-width: var(--page-margin);
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
+
+  @media (max-width: 749px) {
+    .header__nav {
+      display: none;
+    }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  class StickyHeader extends HTMLElement {
+    connectedCallback() {
+      this.lastY = window.scrollY;
+      this.ticking = false;
+      this.handler = this.onScroll.bind(this);
+      window.addEventListener('scroll', this.handler, { passive: true });
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('scroll', this.handler);
+    }
+
+    onScroll() {
+      if (this.ticking) return;
+      this.ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y <= 0) {
+          this.removeAttribute('data-scrolled');
+          this.removeAttribute('data-hidden');
+        } else {
+          this.setAttribute('data-scrolled', '');
+          if (y > this.lastY && y - this.lastY > 4 && y > 120) {
+            this.setAttribute('data-hidden', '');
+          } else if (y < this.lastY) {
+            this.removeAttribute('data-hidden');
+          }
+        }
+        this.lastY = y;
+        this.ticking = false;
+      });
+    }
+  }
+
+  if (!customElements.get('sticky-header')) {
+    customElements.define('sticky-header', StickyHeader);
+  }
+{% endjavascript %}
 
 {% schema %}
 {
@@ -66,7 +296,8 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "t:labels.menu",
+      "default": "main-menu"
     },
     {
       "type": "link_list",

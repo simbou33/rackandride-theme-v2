@@ -1,0 +1,35 @@
+{% doc %}
+  Renders the Rack And Ride brand mark as an inline SVG wrapped in a link to
+  the homepage. The artwork inherits `currentColor`, so the surrounding text
+  color controls the logo color (ink by default). Never renders the shop name
+  as text.
+
+  @param {string} [class] - Extra class(es) added to the logo link
+  @param {number} [size] - Logo height in px (default 40)
+
+  @example
+  {% render 'logo' %}
+  {% render 'logo', class: 'footer__logo', size: 56 %}
+{% enddoc %}
+
+<a
+  class="logo {{ class }}"
+  href="{{ routes.root_url }}"
+  aria-label="{{ shop.name }}"
+  style="--logo-size: {{ size | default: 40 }}px"
+>
+  {{ 'logo-rackandride-noir.svg' | inline_asset_content }}
+</a>
+
+{% stylesheet %}
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    color: var(--rar-heading);
+    line-height: 0;
+  }
+  .logo svg {
+    width: auto;
+    height: var(--logo-size, 40px);
+  }
+{% endstylesheet %}

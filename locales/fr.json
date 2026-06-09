@@ -29,7 +29,11 @@
   "general": {
     "accessibility": {
       "close": "Fermer",
-      "cart_drawer": "Panier"
+      "cart_drawer": "Panier",
+      "search": "Recherche",
+      "account": "Compte",
+      "menu": "Menu",
+      "skip_to_content": "Aller au contenu"
     }
   },
   "customers": {
