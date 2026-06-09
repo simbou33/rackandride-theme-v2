@@ -81,6 +81,8 @@
     "rating": "Rating (stars)",
     "quote": "Quote",
     "author": "Author",
+    "date": "Date",
+    "proof_text": "Social proof text",
     "tagline": "Tagline",
     "show_free_shipping_bar": "Show free shipping progress bar",
     "free_shipping_threshold": "Free shipping threshold",

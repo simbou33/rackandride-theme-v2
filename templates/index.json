@@ -88,16 +88,20 @@
       "type": "testimonials",
       "settings": { "heading": "What riders say" },
       "blocks": {
-        "t1": { "type": "testimonial", "settings": { "rating": 5, "quote": "Beautiful craftsmanship — my board looks like a piece of art on the wall.", "author": "Léa, Hossegor" } },
-        "t2": { "type": "testimonial", "settings": { "rating": 5, "quote": "Solid, elegant and easy to install. Exactly what I hoped for.", "author": "Marc, Biarritz" } },
-        "t3": { "type": "testimonial", "settings": { "rating": 5, "quote": "The oak is gorgeous and the cork protects my deck perfectly.", "author": "Tom, Anglet" } }
+        "t1": { "type": "testimonial", "settings": { "rating": 5, "quote": "Very nice massive oakwood racks, delivered quickly with all necessary screws. Item as described. Merci beaucoup :)", "author": "Bill", "date": "April 2025" } },
+        "t2": { "type": "testimonial", "settings": { "rating": 5, "quote": "Great skateboard wall rack. Exactly what I was looking for... and looks amazing. Best vertical wall rack on the market! Thank you, very much!", "author": "Brian Gross", "date": "October 2022" } },
+        "t3": { "type": "testimonial", "settings": { "rating": 5, "quote": "The product is of excellent quality! It looks amazing once mounted with the skateboards. The Rackandride team was extremely attentive throughout the entire process.", "author": "Meztli", "date": "June 2025" } },
+        "t4": { "type": "testimonial", "settings": { "rating": 5, "quote": "Really nice. My son loves it!", "author": "Yvan", "date": "October 2022" } },
+        "t5": { "type": "testimonial", "settings": { "rating": 5, "quote": "Great quality as advertised. Quickly delivered since it came from France.", "author": "Annabel Docherty", "date": "June 2022" } },
+        "t6": { "type": "testimonial", "settings": { "rating": 5, "quote": "Beautiful item, lovely quality oak and well finished. There was a delay with postage which the seller sorted quickly and without fuss. Very happy and would recommend.", "author": "Victoria", "date": "October 2024" } },
+        "t7": { "type": "testimonial", "settings": { "rating": 5, "quote": "Exactly what we were looking for! Great quality. Would definitely buy from here again!", "author": "Emily Bouchard", "date": "December 2022" } }
       },
-      "block_order": ["t1", "t2", "t3"]
+      "block_order": ["t1", "t2", "t3", "t4", "t5", "t6", "t7"]
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {}
     }
   },
-  "order": ["hero", "reassurance", "categories", "featured", "story", "testimonials", "newsletter"]
+  "order": ["hero", "reassurance", "featured", "categories", "story", "testimonials", "newsletter"]
 }

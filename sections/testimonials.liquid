@@ -25,8 +25,15 @@
             {% if block.settings.quote != blank %}
               <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
             {% endif %}
-            {% if block.settings.author != blank %}
-              <figcaption class="testimonial__author">{{ block.settings.author }}</figcaption>
+            {% if block.settings.author != blank or block.settings.date != blank %}
+              <figcaption class="testimonial__author">
+                {% if block.settings.author != blank %}
+                  <span class="testimonial__name">{{ block.settings.author }}</span>
+                {% endif %}
+                {% if block.settings.date != blank %}
+                  <span class="testimonial__date">{{ block.settings.date }}</span>
+                {% endif %}
+              </figcaption>
             {% endif %}
           </figure>
         {% endfor %}
@@ -82,8 +89,18 @@
     line-height: 1.5;
   }
   .testimonial__author {
-    color: rgb(28 40 48 / 60%);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
     font-size: 0.875rem;
+  }
+  .testimonial__name {
+    font-weight: 600;
+  }
+  .testimonial__date {
+    color: rgb(28 40 48 / 50%);
+    font-size: 0.8125rem;
   }
   @media (min-width: 750px) {
     .testimonials__grid {
@@ -128,6 +145,11 @@
           "id": "author",
           "label": "t:labels.author",
           "default": "Customer name"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "t:labels.date"
         }
       ]
     }
