@@ -80,10 +80,6 @@
         <s class="card__price-compare">{{ card_product.compare_at_price | money }}</s>
       {% endif %}
     </div>
-    <p class="card__eco">
-      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 21s-7-4-7-10a7 7 0 0114 0c0 6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 5v11" stroke="currentColor" stroke-width="1.6"/></svg>
-      {{ 'product.card_eco' | t }}
-    </p>
   </div>
 </a>
 
@@ -161,16 +157,5 @@
   .card__price-compare {
     color: rgb(28 40 48 / 45%);
     font-weight: 400;
-  }
-  .card__eco {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin: 0.45rem 0 0;
-    color: var(--rar-eco);
-    font-size: 0.75rem;
-  }
-  .card__eco svg {
-    flex: 0 0 auto;
   }
 {% endstylesheet %}
