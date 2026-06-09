@@ -16,3 +16,6 @@
 *.tmp
 *.tmp.*
 *~
+
+# Local SEO working files (drafts only — never pushed to Shopify)
+seo-content/
