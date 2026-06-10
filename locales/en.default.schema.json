@@ -1,7 +1,9 @@
 {
   "general": {
     "404": "Not found",
+    "about": "About / Our story",
     "announcement_bar": "Announcement bar",
+    "team_member": "Team member",
     "article": "Article",
     "block": "Block",
     "blog": "Blog",
@@ -86,6 +88,9 @@
     "rating": "Rating (stars)",
     "quote": "Quote",
     "author": "Author",
+    "name": "Name",
+    "role": "Role",
+    "bio": "Bio",
     "date": "Date",
     "proof_text": "Social proof text",
     "tagline": "Tagline",

@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "main": {
+      "type": "about",
+      "settings": {
+        "heading": "Our story",
+        "body": "<p>We were so eager to organise our own gear properly that we ended up building our own racks — as much a design object as a storage solution. What better way to keep your boards than by turning them into part of your interior? We loved the result so much that we decided to share our racks with the whole riding community. Many of you quickly joined the adventure, so we kept creating new pieces — always in solid oak, always handmade in Gironde, always true to the values of riding.</p>",
+        "team_heading": "The team behind Rack And Ride"
+      },
+      "blocks": {
+        "florian": {
+          "type": "member",
+          "settings": {
+            "image_asset": "about-florian.webp",
+            "name": "Florian",
+            "role": "Architect & designer",
+            "bio": "<p>An architect and designer, Florian brings a real commitment to eco-design to every project. Every detail is considered, from the first sketch to the choice of materials — for products with a contemporary, understated look that pairs quality with durability.</p>"
+          }
+        },
+        "simon": {
+          "type": "member",
+          "settings": {
+            "image_asset": "about-simon.webp",
+            "name": "Simon",
+            "role": "Web marketer",
+            "bio": "<p>Simon connects our creations to your needs. A surfer and snowboarder himself, he builds a genuine link between what we make and what riders are really looking for.</p>"
+          }
+        },
+        "eric": {
+          "type": "member",
+          "settings": {
+            "image_asset": "about-eric.webp",
+            "name": "Eric",
+            "role": "Craftsman",
+            "bio": "<p>A true wood enthusiast, Eric is behind every piece that leaves our workshop. Each product passes through his meticulous hands — the mark of real woodworking craftsmanship.</p>"
+          }
+        }
+      },
+      "block_order": ["florian", "simon", "eric"]
+    }
+  },
+  "order": ["main"]
+}
