@@ -33,6 +33,7 @@
   </div>
 
   <div class="hero__content">
+    <span class="hero__wordmark" aria-hidden="true">{{ 'logo-wordmark.svg' | inline_asset_content }}</span>
     {% if section.settings.heading != blank %}
       <h1 class="hero__title">{{ section.settings.heading }}</h1>
     {% endif %}
@@ -131,13 +132,18 @@
     margin-inline: auto;
   }
 
-  .hero__kicker {
-    margin: 0 0 0.6rem;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.85;
+  .hero__wordmark {
+    display: block;
+    margin: 0 0 1.35rem;
+    line-height: 0;
+  }
+  .hero__wordmark svg {
+    width: auto;
+    height: clamp(24px, 3vw, 38px);
+    fill: currentColor;
+  }
+  .hero--align-center .hero__wordmark svg {
+    margin-inline: auto;
   }
   .hero__title {
     margin: 0;

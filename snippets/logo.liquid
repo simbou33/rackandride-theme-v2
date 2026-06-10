@@ -12,13 +12,20 @@
   {% render 'logo', class: 'footer__logo', size: 56 %}
 {% enddoc %}
 
+{% liquid
+  assign variant = variant | default: 'mark'
+  assign logo_asset = 'logo-rackandride-noir.svg'
+  if variant == 'wordmark'
+    assign logo_asset = 'logo-wordmark.svg'
+  endif
+%}
 <a
-  class="logo {{ class }}"
+  class="logo logo--{{ variant }} {{ class }}"
   href="{{ routes.root_url }}"
   aria-label="{{ shop.name }}"
   style="--logo-size: {{ size | default: 40 }}px"
 >
-  {{ 'logo-wordmark.svg' | inline_asset_content }}
+  {{ logo_asset | inline_asset_content }}
 </a>
 
 {% stylesheet %}
