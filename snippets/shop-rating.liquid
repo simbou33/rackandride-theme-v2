@@ -1,0 +1,78 @@
+{% doc %}
+  Shop-level trust badge: a 4.5-star display + "4.5/5 · 121 reviews on Etsy".
+  This is the SHOP/marketplace rating — NOT a per-product rating — so it carries
+  no Product structured data (which would be misleading for SEO). Use it as a
+  credibility cue on the hero, collection and product pages.
+
+  @param {string} [value] - Average rating out of 5 (default 4.5)
+  @param {string} [count] - Number of reviews (default 121)
+  @param {string} [source] - Source name (default Etsy)
+  @param {string} [url] - Optional link to the reviews source
+  @param {string} [class] - Optional extra class
+
+  @example
+  {% render 'shop-rating' %}
+  {% render 'shop-rating', value: '4.5', count: '121', source: 'Etsy' %}
+{% enddoc %}
+
+{% liquid
+  assign v = value | default: '4.5'
+  assign c = count | default: '121'
+  assign src = source | default: 'Etsy'
+  assign pct = v | times: 20
+%}
+{%- capture stars -%}{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}{%- endcapture -%}
+{%- if url != blank -%}
+  <a class="shop-rating {{ class }}" href="{{ url }}" target="_blank" rel="noopener nofollow">
+{%- else -%}
+  <span class="shop-rating {{ class }}">
+{%- endif -%}
+  <span class="shop-rating__stars" aria-hidden="true">
+    <span class="shop-rating__bg">{{ stars }}</span>
+    <span class="shop-rating__fg" style="width: {{ pct }}%">{{ stars }}</span>
+  </span>
+  <span class="shop-rating__text"><strong>{{ v }}/5</strong> · {{ 'general.reviews_count' | t: count: c, source: src }}</span>
+{%- if url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+
+{% stylesheet %}
+  .shop-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--rar-text);
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .shop-rating__stars {
+    position: relative;
+    display: inline-flex;
+    line-height: 0;
+  }
+  .shop-rating__bg {
+    display: inline-flex;
+    gap: 0.06rem;
+  }
+  .shop-rating__bg svg {
+    fill: rgb(28 40 48 / 18%);
+  }
+  .shop-rating__fg {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: inline-flex;
+    gap: 0.06rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .shop-rating__fg svg {
+    fill: var(--rar-accent);
+    flex: 0 0 auto;
+  }
+  .shop-rating__text strong {
+    color: var(--rar-heading);
+  }
+  a.shop-rating:hover .shop-rating__text {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+{% endstylesheet %}

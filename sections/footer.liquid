@@ -9,6 +9,7 @@
   <div class="footer__inner">
     <div class="footer__brand">
       {% render 'logo', class: 'footer__logo', size: 52 %}
+      <p class="footer__brandname">{{ shop.name }}</p>
       {% if section.settings.tagline != blank %}
         <p class="footer__tagline">{{ section.settings.tagline }}</p>
       {% endif %}
@@ -126,6 +127,13 @@
     max-width: var(--rar-page-width);
     margin-inline: auto;
     padding: 4rem var(--rar-page-margin) 2.5rem;
+  }
+  .footer__brandname {
+    margin: 0.85rem 0 0;
+    font-family: var(--rar-font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
   .footer__tagline {
     max-width: 32ch;
