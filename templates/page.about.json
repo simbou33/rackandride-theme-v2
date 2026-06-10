@@ -9,7 +9,7 @@
       },
       "blocks": {
         "florian": {
-          "type": "member",
+          "type": "teammate",
           "settings": {
             "image_asset": "about-florian.webp",
             "name": "Florian",
@@ -18,7 +18,7 @@
           }
         },
         "simon": {
-          "type": "member",
+          "type": "teammate",
           "settings": {
             "image_asset": "about-simon.webp",
             "name": "Simon",
@@ -27,7 +27,7 @@
           }
         },
         "eric": {
-          "type": "member",
+          "type": "teammate",
           "settings": {
             "image_asset": "about-eric.webp",
             "name": "Eric",

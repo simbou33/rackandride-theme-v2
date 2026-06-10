@@ -23,7 +23,7 @@
 
       <div class="about__grid">
         {% for block in section.blocks %}
-          {% if block.type == 'member' %}
+          {% if block.type == 'teammate' %}
             <figure class="member" {{ block.shopify_attributes }}>
               <div class="member__media">
                 {% if block.settings.image %}
@@ -162,7 +162,7 @@
   ],
   "blocks": [
     {
-      "type": "member",
+      "type": "teammate",
       "name": "t:general.team_member",
       "settings": [
         {

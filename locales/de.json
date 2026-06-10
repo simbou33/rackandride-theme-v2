@@ -73,6 +73,14 @@
   "collections": {
     "title": "Kollektionen"
   },
+  "contact": {
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon (optional)",
+    "message": "Nachricht",
+    "send": "Senden",
+    "success": "Danke — wir melden uns in Kürze."
+  },
   "newsletter": {
     "email_label": "E-Mail",
     "button": "Abonnieren",
