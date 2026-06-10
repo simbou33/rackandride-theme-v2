@@ -1,113 +1,268 @@
 {% comment %}
-  Editable testimonials (no reviews app required). Each block is a quote with an
-  author and an optional 1–5 star rating. Renders nothing if empty.
+  Customer reviews carousel (no reviews app required). Each block is a real
+  review: photo + 1–5 stars + quote + author + date. A header shows the
+  aggregate rating (e.g. 4.5/5 · 121 reviews on Etsy). Renders nothing if empty.
 {% endcomment %}
 
 {% if section.blocks.size > 0 %}
-  <section class="testimonials full-width">
-    <div class="testimonials__inner">
-      {% if section.settings.heading != blank %}
-        <div class="testimonials__header">
-          <h2 class="testimonials__title">{{ section.settings.heading }}</h2>
-        </div>
-      {% endif %}
-
-      <div class="testimonials__grid">
-        {% for block in section.blocks %}
-          <figure class="testimonial" {{ block.shopify_attributes }}>
-            {% if block.settings.rating > 0 %}
-              <div class="testimonial__stars" aria-label="{{ block.settings.rating }}/5">
-                {% for i in (1..5) %}
-                  <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false" class="{% if i <= block.settings.rating %}is-filled{% endif %}"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>
-                {% endfor %}
-              </div>
-            {% endif %}
-            {% if block.settings.quote != blank %}
-              <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
-            {% endif %}
-            {% if block.settings.author != blank or block.settings.date != blank %}
-              <figcaption class="testimonial__author">
-                {% if block.settings.author != blank %}
-                  <span class="testimonial__name">{{ block.settings.author }}</span>
-                {% endif %}
-                {% if block.settings.date != blank %}
-                  <span class="testimonial__date">{{ block.settings.date }}</span>
-                {% endif %}
-              </figcaption>
-            {% endif %}
-          </figure>
-        {% endfor %}
+  <section class="reviews full-width">
+    <div class="reviews__inner">
+      <div class="reviews__header">
+        {% if section.settings.heading != blank %}
+          <h2 class="reviews__title">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.rating_value != blank %}
+          {% assign rating_pct = section.settings.rating_value | times: 20 %}
+          <p class="reviews__agg">
+            <span class="reviews__agg-stars" aria-hidden="true">
+              <span class="reviews__agg-bg">{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="18" height="18"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}</span>
+              <span class="reviews__agg-fg" style="width: {{ rating_pct }}%">{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="18" height="18"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}</span>
+            </span>
+            <span class="reviews__agg-text">
+              <strong>{{ section.settings.rating_value }}/5</strong>
+              {%- if section.settings.rating_count != blank %} · {{ 'general.reviews_count' | t: count: section.settings.rating_count, source: section.settings.rating_source }}{% endif -%}
+            </span>
+          </p>
+        {% endif %}
       </div>
+
+      <review-carousel class="reviews__carousel">
+        <button type="button" class="reviews__nav reviews__nav--prev" data-prev aria-label="{{ 'general.accessibility.previous' | t }}">
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M12.5 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <ul class="reviews__track" data-track role="list">
+          {% for block in section.blocks %}
+            {% liquid
+              assign r_img = block.settings.image
+              assign r_asset = block.settings.image_asset
+            %}
+            <li class="review-card" {{ block.shopify_attributes }}>
+              {% if r_img or r_asset != blank %}
+                <div class="review-card__media">
+                  {% if r_img %}
+                    {{ r_img | image_url: width: 600 | image_tag: widths: '300, 450, 600', sizes: '(min-width: 750px) 320px, 78vw', loading: 'lazy', alt: block.settings.author }}
+                  {% else %}
+                    <img src="{{ r_asset | asset_url }}" alt="{{ block.settings.author | escape }}" width="600" height="600" loading="lazy">
+                  {% endif %}
+                </div>
+              {% endif %}
+              <div class="review-card__body">
+                {% if block.settings.rating > 0 %}
+                  <div class="review-card__stars" aria-label="{{ block.settings.rating }}/5">
+                    {% for i in (1..5) %}
+                      <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true" class="{% if i <= block.settings.rating %}is-filled{% endif %}"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                {% if block.settings.quote != blank %}
+                  <blockquote class="review-card__quote">{{ block.settings.quote }}</blockquote>
+                {% endif %}
+                <figcaption class="review-card__author">
+                  {% if block.settings.author != blank %}<span class="review-card__name">{{ block.settings.author }}</span>{% endif %}
+                  {% if block.settings.date != blank %}<span class="review-card__date">{{ block.settings.date }}</span>{% endif %}
+                </figcaption>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <button type="button" class="reviews__nav reviews__nav--next" data-next aria-label="{{ 'general.accessibility.next' | t }}">
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M7.5 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </review-carousel>
     </div>
   </section>
 {% endif %}
 
 {% stylesheet %}
-  .testimonials {
+  .reviews {
     background-color: var(--rar-color-surface);
   }
-  .testimonials__inner {
+  .reviews__inner {
     width: 100%;
     max-width: var(--rar-page-width);
     margin-inline: auto;
-    padding: 4rem var(--rar-page-margin);
+    padding: 4.5rem var(--rar-page-margin);
   }
-  .testimonials__header {
-    margin-bottom: 2.5rem;
+  .reviews__header {
+    margin-bottom: 2.25rem;
     text-align: center;
   }
-  .testimonials__title {
-    margin: 0;
+  .reviews__title {
+    margin: 0 0 0.85rem;
     font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
   }
-  .testimonials__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .testimonial {
+  .reviews__agg {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     margin: 0;
-    padding: 1.75rem;
+    font-size: 0.95rem;
+  }
+  .reviews__agg-stars {
+    position: relative;
+    display: inline-flex;
+    line-height: 0;
+  }
+  .reviews__agg-bg {
+    display: inline-flex;
+    gap: 0.08rem;
+  }
+  .reviews__agg-bg svg {
+    fill: rgb(28 40 48 / 18%);
+  }
+  .reviews__agg-fg {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: inline-flex;
+    gap: 0.08rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .reviews__agg-fg svg {
+    fill: var(--rar-accent);
+    flex: 0 0 auto;
+  }
+  .reviews__agg-text strong {
+    color: var(--rar-heading);
+  }
+
+  .reviews__carousel {
+    position: relative;
+    display: block;
+  }
+  .reviews__track {
+    display: flex;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0.25rem 0 1rem;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .reviews__track::-webkit-scrollbar {
+    display: none;
+  }
+  .review-card {
+    flex: 0 0 auto;
+    width: clamp(258px, 80vw, 320px);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
     background-color: var(--rar-color-background);
     border-radius: var(--rar-radius-card);
+    overflow: hidden;
   }
-  .testimonial__stars {
+  .review-card__media {
+    aspect-ratio: 1;
+    background-color: var(--rar-color-surface);
+  }
+  .review-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .review-card__body {
     display: flex;
-    gap: 0.15rem;
-    margin-bottom: 0.85rem;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem;
   }
-  .testimonial__stars svg {
+  .review-card__stars {
+    display: flex;
+    gap: 0.1rem;
+  }
+  .review-card__stars svg {
     fill: rgb(28 40 48 / 15%);
   }
-  .testimonial__stars svg.is-filled {
+  .review-card__stars svg.is-filled {
     fill: var(--rar-accent);
   }
-  .testimonial__quote {
-    margin: 0 0 1rem;
-    font-family: var(--rar-font-heading);
-    font-size: 1.125rem;
-    line-height: 1.5;
+  .review-card__quote {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: rgb(28 40 48 / 85%);
   }
-  .testimonial__author {
+  .review-card__author {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.5rem;
+    margin-top: auto;
+  }
+  .review-card__name {
+    font-weight: 600;
     font-size: 0.875rem;
   }
-  .testimonial__name {
-    font-weight: 600;
-  }
-  .testimonial__date {
+  .review-card__date {
     color: rgb(28 40 48 / 50%);
     font-size: 0.8125rem;
   }
+
+  .reviews__nav {
+    position: absolute;
+    top: 38%;
+    z-index: 2;
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--rar-color-background);
+    color: var(--rar-text);
+    box-shadow: 0 6px 20px rgb(28 40 48 / 14%);
+    cursor: pointer;
+  }
+  .reviews__nav--prev { inset-inline-start: -0.5rem; }
+  .reviews__nav--next { inset-inline-end: -0.5rem; }
+  .reviews__nav:hover { color: var(--rar-accent); }
+  .reviews__nav[hidden] { display: none !important; }
+
   @media (min-width: 750px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(3, 1fr);
+    .reviews__nav {
+      display: inline-flex;
     }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  class ReviewCarousel extends HTMLElement {
+    connectedCallback() {
+      this.track = this.querySelector('[data-track]');
+      this.prev = this.querySelector('[data-prev]');
+      this.next = this.querySelector('[data-next]');
+      if (!this.track) return;
+      this.prev && this.prev.addEventListener('click', () => this.scrollByCard(-1));
+      this.next && this.next.addEventListener('click', () => this.scrollByCard(1));
+      this.track.addEventListener('scroll', () => this.update(), { passive: true });
+      this.update();
+    }
+    step() {
+      const card = this.track.querySelector('.review-card');
+      const gap = parseFloat(getComputedStyle(this.track).columnGap) || 20;
+      return card ? card.offsetWidth + gap : 320;
+    }
+    scrollByCard(dir) {
+      this.track.scrollBy({ left: dir * this.step(), behavior: 'smooth' });
+    }
+    update() {
+      const max = this.track.scrollWidth - this.track.clientWidth - 2;
+      if (this.prev) this.prev.hidden = this.track.scrollLeft <= 2;
+      if (this.next) this.next.hidden = this.track.scrollLeft >= max;
+    }
+  }
+  if (!customElements.get('review-carousel')) {
+    customElements.define('review-carousel', ReviewCarousel);
+  }
+{% endjavascript %}
 
 {% schema %}
 {
@@ -118,6 +273,24 @@
       "id": "heading",
       "label": "t:labels.heading",
       "default": "What riders say"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "t:labels.rating_value",
+      "default": "4.5"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "t:labels.rating_count",
+      "default": "121"
+    },
+    {
+      "type": "text",
+      "id": "rating_source",
+      "label": "t:labels.rating_source",
+      "default": "Etsy"
     }
   ],
   "blocks": [
@@ -125,6 +298,17 @@
       "type": "testimonial",
       "name": "t:general.testimonial",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:labels.image"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "t:labels.image_asset",
+          "info": "t:info.image_asset"
+        },
         {
           "type": "range",
           "id": "rating",

@@ -20,7 +20,8 @@
         "button_2_link": "/collections/surfboard-wall-mount",
         "height": "large",
         "text_alignment": "left",
-        "overlay_opacity": 35
+        "overlay_opacity": 35,
+        "proof_text": "Rated 4.5/5 — 121 reviews on Etsy"
       }
     },
     "reassurance": {
@@ -92,17 +93,19 @@
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": { "heading": "What riders say" },
+      "settings": { "heading": "What riders say", "rating_value": "4.5", "rating_count": "121", "rating_source": "Etsy" },
       "blocks": {
-        "t1": { "type": "testimonial", "settings": { "rating": 5, "quote": "Very nice massive oakwood racks, delivered quickly with all necessary screws. Item as described. Merci beaucoup :)", "author": "Bill", "date": "April 2025" } },
-        "t2": { "type": "testimonial", "settings": { "rating": 5, "quote": "Great skateboard wall rack. Exactly what I was looking for... and looks amazing. Best vertical wall rack on the market! Thank you, very much!", "author": "Brian Gross", "date": "October 2022" } },
-        "t3": { "type": "testimonial", "settings": { "rating": 5, "quote": "The product is of excellent quality! It looks amazing once mounted with the skateboards. The Rackandride team was extremely attentive throughout the entire process.", "author": "Meztli", "date": "June 2025" } },
-        "t4": { "type": "testimonial", "settings": { "rating": 5, "quote": "Really nice. My son loves it!", "author": "Yvan", "date": "October 2022" } },
-        "t5": { "type": "testimonial", "settings": { "rating": 5, "quote": "Great quality as advertised. Quickly delivered since it came from France.", "author": "Annabel Docherty", "date": "June 2022" } },
-        "t6": { "type": "testimonial", "settings": { "rating": 5, "quote": "Beautiful item, lovely quality oak and well finished. There was a delay with postage which the seller sorted quickly and without fuss. Very happy and would recommend.", "author": "Victoria", "date": "October 2024" } },
-        "t7": { "type": "testimonial", "settings": { "rating": 5, "quote": "Exactly what we were looking for! Great quality. Would definitely buy from here again!", "author": "Emily Bouchard", "date": "December 2022" } }
+        "r1": { "type": "testimonial", "settings": { "image_asset": "review-4.webp", "rating": 5, "quote": "Qualité exceptionnelle, installation facile, exactement ce que je cherchais et dont j'avais besoin ! Expédié depuis la France, le délai de livraison était largement justifié. L'équipe Rack and Ride a été très réactive tout au long du processus. Merci beaucoup !", "author": "Bill", "date": "23 avr. 2025" } },
+        "r2": { "type": "testimonial", "settings": { "image_asset": "review-7.webp", "rating": 5, "quote": "Deuxième achat chez Rack and Ride. Excellent produit, fabriqué avec soin et en bois de haute qualité. Emballage soigné. Je recommande et je rachèterai sans hésiter.", "author": "Victoria", "date": "02 mars 2026" } },
+        "r3": { "type": "testimonial", "settings": { "image_asset": "review-5.webp", "rating": 5, "quote": "Magnifique produit ! J'apprécie beaucoup le savoir-faire. Je recommande vivement pour exposer vos planches !", "author": "Jessica", "date": "14 oct. 2025" } },
+        "r4": { "type": "testimonial", "settings": { "image_asset": "review-6.webp", "rating": 5, "quote": "Enfin, les skateboards ne traînent plus par terre et sont du plus bel effet sur les supports. L'installation est super facile grâce aux fixations fournies. Excellente qualité et fabrication magnifique. J'en suis vraiment ravie.", "author": "Acheteur Etsy", "date": "08 déc. 2025" } },
+        "r5": { "type": "testimonial", "settings": { "image_asset": "review-2.webp", "rating": 5, "quote": "Super content de la qualité du produit !!! Je recommande vivement ce vendeur.", "author": "David", "date": "20 déc. 2023" } },
+        "r6": { "type": "testimonial", "settings": { "image_asset": "review-3.webp", "rating": 5, "quote": "Combine parfaitement fonctionnalité et design. Je l'aime.", "author": "Maimer", "date": "03 juil. 2024" } },
+        "r7": { "type": "testimonial", "settings": { "image_asset": "review-1.webp", "rating": 5, "quote": "Très belle qualité de produit.", "author": "Garance", "date": "08 déc. 2023" } },
+        "r8": { "type": "testimonial", "settings": { "image_asset": "review-8.webp", "rating": 5, "quote": "Produit de qualité, j'adore le rendu.", "author": "sailor", "date": "31 mai 2026" } },
+        "r9": { "type": "testimonial", "settings": { "image_asset": "review-9.webp", "rating": 5, "quote": "Bien réalisé, produit de qualité.", "author": "sailor", "date": "31 mai 2026" } }
       },
-      "block_order": ["t1", "t2", "t3", "t4", "t5", "t6", "t7"]
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]
     },
     "newsletter": {
       "type": "newsletter",

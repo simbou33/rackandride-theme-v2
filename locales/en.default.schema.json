@@ -111,7 +111,10 @@
     "show_payment_icons": "Show payment icons",
     "surface_background": "Tinted background",
     "text_style": "Text style",
-    "text": "Text"
+    "text": "Text",
+    "rating_value": "Average rating (e.g. 4.5)",
+    "rating_count": "Number of reviews",
+    "rating_source": "Reviews source (e.g. Etsy)"
   },
   "info": {
     "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",

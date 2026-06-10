@@ -36,10 +36,13 @@
       "account": "Cuenta",
       "menu": "Menú",
       "skip_to_content": "Ir al contenido",
-      "language": "Idioma"
+      "language": "Idioma",
+      "previous": "Anterior",
+      "next": "Siguiente"
     },
     "view_all": "Ver todo",
-    "home": "Inicio"
+    "home": "Inicio",
+    "reviews_count": "{{ count }} reseñas en {{ source }}"
   },
   "collection": {
     "read_more": "Leer más",

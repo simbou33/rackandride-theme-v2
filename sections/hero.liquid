@@ -56,9 +56,8 @@
     {% if section.settings.proof_text != blank %}
       <p class="hero__proof">
         <span class="hero__stars" aria-hidden="true">
-          {% for i in (1..5) %}
-            <svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>
-          {% endfor %}
+          <span class="hero__stars-bg">{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}</span>
+          <span class="hero__stars-fg">{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="16" height="16" focusable="false"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}</span>
         </span>
         {{ section.settings.proof_text }}
       </p>
@@ -159,12 +158,28 @@
     font-size: 0.9375rem;
   }
   .hero__stars {
+    position: relative;
+    display: inline-flex;
+    line-height: 0;
+  }
+  .hero__stars-bg {
     display: inline-flex;
     gap: 0.1rem;
-    line-height: 0;
+    opacity: 0.35;
+  }
+  .hero__stars-fg {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: inline-flex;
+    gap: 0.1rem;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .hero__stars svg {
     fill: currentColor;
+    flex: 0 0 auto;
   }
   .hero--align-center .hero__proof {
     justify-content: center;
@@ -271,7 +286,7 @@
       "type": "text",
       "id": "proof_text",
       "label": "t:labels.proof_text",
-      "default": "Rated 5/5 by riders"
+      "default": "Rated 4.5/5 — 121 reviews on Etsy"
     }
   ],
   "presets": [{ "name": "t:general.hero" }],
