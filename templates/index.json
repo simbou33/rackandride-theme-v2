@@ -51,13 +51,7 @@
       "type": "featured-products",
       "settings": {
         "heading": "Bestsellers",
-        "products": [
-          "gid://shopify/Product/10236350497101",
-          "gid://shopify/Product/10236350955853",
-          "gid://shopify/Product/10236350693709",
-          "gid://shopify/Product/10236350759245"
-        ],
-        "collection": "surfboard-wall-mount",
+        "collection": "bestsellers",
         "products_to_show": 4,
         "show_view_all": true
       }
