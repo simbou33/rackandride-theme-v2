@@ -5,7 +5,8 @@
 {% endcomment %}
 
 {% if section.blocks.size > 0 %}
-  <section class="categories">
+  <section class="categories full-width{% if section.settings.surface_background %} categories--surface{% endif %}">
+    <div class="categories__inner">
     {% if section.settings.heading != blank %}
       <div class="categories__header">
         <h2 class="categories__title">{{ section.settings.heading }}</h2>
@@ -45,15 +46,22 @@
         {% endif %}
       {% endfor %}
     </div>
+    </div>
   </section>
 {% endif %}
 
 {% stylesheet %}
   .categories {
     width: 100%;
+  }
+  .categories--surface {
+    background-color: var(--rar-color-surface);
+  }
+  .categories__inner {
+    width: 100%;
     max-width: var(--rar-page-width);
     margin-inline: auto;
-    padding: 4rem var(--rar-page-margin);
+    padding: 4.5rem var(--rar-page-margin);
   }
   .categories__header {
     margin-bottom: 2rem;
@@ -142,6 +150,12 @@
       "id": "heading",
       "label": "t:labels.heading",
       "default": "Shop by sport"
+    },
+    {
+      "type": "checkbox",
+      "id": "surface_background",
+      "label": "t:labels.surface_background",
+      "default": false
     }
   ],
   "blocks": [
