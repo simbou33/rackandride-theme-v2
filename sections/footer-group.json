@@ -17,13 +17,15 @@
         "menu-1": {
           "type": "menu",
           "settings": {
-            "menu": "footer"
+            "heading": "Shop",
+            "menu": "footer-shop"
           }
         },
         "menu-2": {
           "type": "menu",
           "settings": {
-            "menu": "main-menu"
+            "heading": "Company",
+            "menu": "footer"
           }
         },
         "newsletter": {
