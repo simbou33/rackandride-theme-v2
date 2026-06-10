@@ -17,31 +17,38 @@
       {% for block in section.blocks %}
         {% liquid
           assign collection = block.settings.collection
-          assign tile_image = block.settings.image | default: collection.image
-          unless tile_image
-            assign tile_image = collection.products.first.featured_media.preview_image
-          endunless
           assign tile_title = block.settings.custom_title | default: collection.title
+          assign handle = collection.handle
+          assign icon = block.settings.icon_asset
+          if icon == blank
+            if handle contains 'kite' or handle contains 'wake'
+              assign icon = 'cat-kite-surf.svg'
+            elsif handle contains 'surf'
+              assign icon = 'cat-surf.svg'
+            elsif handle contains 'skate'
+              assign icon = 'cat-skate.svg'
+            elsif handle contains 'snowboard'
+              assign icon = 'cat-snowboard.svg'
+            elsif handle contains 'ski'
+              assign icon = 'cat-skis.svg'
+            elsif handle contains 'bike'
+              assign icon = 'cat-bike.svg'
+            elsif handle contains 'deco'
+              assign icon = 'cat-deco.svg'
+            endif
+          endif
+          assign tile_image = block.settings.image | default: collection.image
         %}
         {% if collection != blank %}
           <a class="category-tile" href="{{ collection.url }}" {{ block.shopify_attributes }}>
-            <div class="category-tile__media">
-              {% if tile_image %}
-                {{
-                  tile_image
-                  | image_url: width: 800
-                  | image_tag:
-                    widths: '300, 400, 600, 800',
-                    sizes: '(min-width: 750px) 25vw, 50vw',
-                    loading: 'lazy',
-                    alt: tile_title
-                }}
+            <div class="category-tile__icon">
+              {% if icon != blank %}
+                {{ icon | inline_asset_content }}
+              {% elsif tile_image %}
+                {{ tile_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: tile_title }}
               {% endif %}
             </div>
-            <span class="category-tile__label">
-              {{ tile_title }}
-              <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M5 10h10M11 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
+            <span class="category-tile__label">{{ tile_title }}</span>
           </a>
         {% endif %}
       {% endfor %}
@@ -87,45 +94,44 @@
   }
   .category-tile {
     flex: 0 0 auto;
-    width: clamp(150px, 44vw, 200px);
+    width: clamp(104px, 30vw, 150px);
     scroll-snap-align: start;
     color: inherit;
     text-decoration: none;
   }
-  .category-tile__media {
-    aspect-ratio: 3 / 4;
-    margin-bottom: 0.75rem;
-    border-radius: var(--rar-radius-card);
-    overflow: hidden;
-    background-color: var(--rar-color-surface);
-  }
-  .category-tile__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-  .category-tile:hover .category-tile__media img {
-    transform: scale(1.04);
-  }
-  .category-tile__label {
+  .category-tile__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.3rem;
+    width: clamp(76px, 16vw, 108px);
+    aspect-ratio: 1;
+    margin: 0 auto 0.85rem;
+    border-radius: 50%;
+    background-color: var(--rar-color-background);
+    color: var(--rar-text);
+    transition: color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .category-tile__icon svg {
+    width: 48%;
+    height: auto;
+  }
+  .category-tile__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .category-tile:hover .category-tile__icon {
+    color: var(--rar-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgb(28 40 48 / 10%);
+  }
+  .category-tile__label {
+    display: block;
     font-family: var(--rar-font-heading);
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     text-align: center;
-  }
-  .category-tile__label svg {
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    color: var(--rar-accent);
-  }
-  .category-tile:hover .category-tile__label svg {
-    opacity: 1;
-    transform: translateX(2px);
   }
   /* On wider screens the tiles share one row with no scroll */
   @media (min-width: 990px) {
@@ -167,6 +173,12 @@
           "type": "collection",
           "id": "collection",
           "label": "t:general.collection"
+        },
+        {
+          "type": "text",
+          "id": "icon_asset",
+          "label": "t:labels.icon_asset",
+          "info": "t:info.icon_asset"
         },
         {
           "type": "image_picker",
