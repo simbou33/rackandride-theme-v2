@@ -53,6 +53,10 @@
     {% endif %}
 
     <div class="header__icons">
+      <div class="header__locale">
+        {% render 'language-selector', id_prefix: 'hdr' %}
+      </div>
+
       {% if shop.customer_accounts_enabled %}
         <shopify-account
           class="header__icon"
@@ -142,6 +146,10 @@
             </li>
           {% endfor %}
         </ul>
+
+        <div class="mobile-nav__locale">
+          {% render 'language-selector', id_prefix: 'mob' %}
+        </div>
       </div>
     </dialog>
   </mobile-nav>
@@ -442,12 +450,21 @@
     }
   }
 
+  .mobile-nav__locale {
+    margin-top: auto;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgb(28 40 48 / 8%);
+  }
+
   @media (max-width: 749px) {
     .header__nav {
       display: none;
     }
     .header__burger {
       display: inline-flex;
+    }
+    .header__locale {
+      display: none;
     }
   }
 {% endstylesheet %}

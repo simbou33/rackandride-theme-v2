@@ -82,7 +82,21 @@
   </div>
 
   <div class="footer__bottom">
+    {% if shop.policies.size > 0 %}
+      <ul class="footer__policies" role="list">
+        {% for policy in shop.policies %}
+          {% if policy.url != blank %}
+            <li><a class="footer__policy-link" href="{{ policy.url }}">{{ policy.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
     <div class="footer__bottom-inner">
+      <div class="footer__locale">
+        {% render 'language-selector', id_prefix: 'ftr' %}
+      </div>
+
       <p class="footer__copyright">
         &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}
       </p>
@@ -187,6 +201,24 @@
 
   .footer__bottom {
     border-top: 1px solid rgb(28 40 48 / 10%);
+  }
+  .footer__policies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 1.25rem var(--rar-page-margin) 0;
+    list-style: none;
+  }
+  .footer__policy-link {
+    color: rgb(28 40 48 / 60%);
+    font-size: 0.8125rem;
+    text-decoration: none;
+  }
+  .footer__policy-link:hover {
+    color: var(--rar-accent);
   }
   .footer__bottom-inner {
     display: flex;

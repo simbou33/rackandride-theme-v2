@@ -1,0 +1,86 @@
+{% doc %}
+  Language switcher built on Shopify's native localization form. Renders only
+  when the store has more than one published language. Submits on change, so it
+  needs no custom JavaScript.
+
+  @param {string} [id_prefix] - Unique prefix for the field id (avoids duplicate
+    ids when the selector is rendered more than once on a page)
+
+  @example
+  {% render 'language-selector', id_prefix: 'header' %}
+{% enddoc %}
+
+{% if localization.available_languages.size > 1 %}
+  {% assign uid = id_prefix | default: 'loc' %}
+  {% form 'localization', class: 'locale-form' %}
+    <input type="hidden" name="return_to" value="{{ request.path }}">
+    <div class="locale-form__field">
+      <svg class="locale-form__globe" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false">
+        <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M2.5 10h15M10 2.5c2.5 2.4 2.5 12.6 0 15M10 2.5c-2.5 2.4-2.5 12.6 0 15" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+      <label class="visually-hidden" for="{{ uid }}-language">{{ 'general.accessibility.language' | t }}</label>
+      <select
+        id="{{ uid }}-language"
+        name="locale_code"
+        class="locale-form__select"
+        onchange="this.form.submit()"
+      >
+        {% for language in localization.available_languages %}
+          <option
+            value="{{ language.iso_code }}"
+            {% if language.iso_code == localization.language.iso_code %}selected{% endif %}
+          >
+            {{ language.endonym_name | capitalize }}
+          </option>
+        {% endfor %}
+      </select>
+      <svg class="locale-form__chev" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false">
+        <path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  {% endform %}
+{% endif %}
+
+{% stylesheet %}
+  .locale-form {
+    margin: 0;
+  }
+  .locale-form__field {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    color: var(--rar-text);
+  }
+  .locale-form__field:hover {
+    color: var(--rar-accent);
+  }
+  .locale-form__globe {
+    position: absolute;
+    inset-inline-start: 0;
+    pointer-events: none;
+  }
+  .locale-form__chev {
+    position: absolute;
+    inset-inline-end: 0;
+    pointer-events: none;
+  }
+  .locale-form__select {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0.35rem 1.35rem 0.35rem 1.5rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .locale-form__select:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+{% endstylesheet %}
