@@ -84,6 +84,13 @@
   size-helper:not(:defined) {
     display: none;
   }
+  /* Stop Android/Samsung mobile font-boosting from inflating the small badge
+     and labels (keeps the "Ideal" tag at its real size on mobile). */
+  .size-helper,
+  .product__option--mm {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   /* Frameless, inline — separated from the variant picker by a thin rule. */
   .size-helper {
     display: block;
