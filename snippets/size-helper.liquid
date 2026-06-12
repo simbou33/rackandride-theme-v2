@@ -289,28 +289,40 @@
     background-color: var(--rar-color-surface);
     font-weight: 600;
   }
-  /* Reserve room above the size row for the floating "Ideal" text label. */
+  /* Reserve room above the size row for the floating "Ideal" label + arrow. */
   .product__option--mm .product__swatches {
-    margin-top: 1.2rem;
+    margin-top: 1.6rem;
   }
-  /* Text-only oak label — no filled box, so it stays light and never reads as
-     a chip overlapping the option title above. */
+  /* Text-only oak label + a small oak chevron pointing down at the swatch.
+     No box/frame — just the word and the arrow. */
   .size-helper-badge {
     position: absolute;
-    bottom: calc(100% + 0.1rem);
+    bottom: calc(100% + 0.15rem);
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
     padding: 0;
     background: none;
     color: var(--rar-accent);
     font-size: 0.625rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     white-space: nowrap;
     pointer-events: none;
     z-index: 2;
+  }
+  .size-helper-badge::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid var(--rar-accent);
+    border-bottom: 2px solid var(--rar-accent);
+    transform: rotate(45deg);
   }
 
   /* Mobile: keep all size swatches on a single line (equal widths, no wrap). */
