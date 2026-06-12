@@ -62,10 +62,7 @@
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
-  <script type="application/ld+json">
-    {{ product | structured_data }}
-  </script>
-
+  {%- comment -%} Product JSON-LD is emitted once in sections/product.liquid (richer, with Offer). {%- endcomment -%}
   <meta
     property="og:price:amount"
     content="{{ product.price | money_without_currency | strip_html }}"

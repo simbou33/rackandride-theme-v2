@@ -32,9 +32,35 @@
       break
     endif
   endfor
+
+  # Parent collection for the breadcrumb (silo up-link). Prefer the routed
+  # collection, else the first real category the product belongs to.
+  assign bc_collection = collection
+  unless bc_collection
+    for c in product.collections
+      unless c.handle == 'all' or c.handle == 'frontpage' or c.handle == 'bestsellers'
+        assign bc_collection = c
+        break
+      endunless
+    endfor
+  endunless
 %}
 
 <section class="product" data-section-id="{{ section.id }}">
+  <nav class="breadcrumbs product__breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item">
+        <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
+      </li>
+      {% if bc_collection %}
+        <li class="breadcrumbs__item">
+          <a href="{{ bc_collection.url }}">{{ bc_collection.title }}</a>
+        </li>
+      {% endif %}
+      <li class="breadcrumbs__item" aria-current="page">{{ product.title }}</li>
+    </ol>
+  </nav>
+
   <div class="product__layout">
     {% comment %} ---------- MEDIA GALLERY ---------- {% endcomment %}
     <product-gallery class="product__media">
@@ -353,6 +379,34 @@
       {% comment %} No aggregateRating/review yet — add here once a reviews app is connected. {% endcomment %}
     }
   </script>
+
+  {% comment %} ---------- JSON-LD (BreadcrumbList) ---------- {% endcomment %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ 'general.home' | t | json }},
+          "item": {{ shop.url | append: routes.root_url | json }}
+        }{% if bc_collection %},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ bc_collection.title | json }},
+          "item": {{ shop.url | append: bc_collection.url | json }}
+        }{% endif %},
+        {
+          "@type": "ListItem",
+          "position": {% if bc_collection %}3{% else %}2{% endif %},
+          "name": {{ product.title | json }},
+          "item": {{ shop.url | append: product.url | json }}
+        }
+      ]
+    }
+  </script>
 </section>
 
 {% stylesheet %}
@@ -361,6 +415,9 @@
     max-width: var(--rar-page-width);
     margin-inline: auto;
     padding: 2.5rem var(--rar-page-margin) 4rem;
+  }
+  .product__breadcrumbs {
+    margin-bottom: 1.25rem;
   }
   .product__layout {
     display: grid;
@@ -752,6 +809,19 @@
     .product__media {
       position: sticky;
       top: 6.5rem;
+    }
+    /* Portrait product images barely fit a 13" laptop — cap the image height to
+       the viewport (minus header) and let the frame hug it, centered. */
+    .product__media-main {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+    }
+    .product__media-slide img {
+      width: auto;
+      max-width: 100%;
+      max-height: calc(100vh - 8.5rem);
+      margin-inline: auto;
     }
     .product__sticky-title {
       max-width: 50%;
