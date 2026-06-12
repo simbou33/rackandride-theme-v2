@@ -289,23 +289,24 @@
     background-color: var(--rar-color-surface);
     font-weight: 600;
   }
-  /* Reserve room above the size row for the floating "Ideal" tag. */
+  /* Reserve room above the size row for the floating "Ideal" text label. */
   .product__option--mm .product__swatches {
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
   }
+  /* Text-only oak label — no filled box, so it stays light and never reads as
+     a chip overlapping the option title above. */
   .size-helper-badge {
     position: absolute;
-    bottom: calc(100% + 0.25rem);
+    bottom: calc(100% + 0.1rem);
     left: 50%;
     transform: translateX(-50%);
-    padding: 0.06rem 0.34rem;
-    border-radius: 99px;
-    background: var(--rar-accent);
-    color: #fff;
-    font-size: 0.5625rem;
+    padding: 0;
+    background: none;
+    color: var(--rar-accent);
+    font-size: 0.625rem;
     font-weight: 700;
-    line-height: 1.45;
-    letter-spacing: 0.07em;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     white-space: nowrap;
     pointer-events: none;
