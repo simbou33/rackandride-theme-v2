@@ -272,9 +272,22 @@
   .product__swatch {
     position: relative;
   }
-  .product__swatch.size-helper-reco span {
+  /* Recommended-but-NOT-selected: a dashed oak hint (clearly a suggestion,
+     not a selection). Once selected, the strong solid state below wins. */
+  .product__swatch.size-helper-reco input:not(:checked) + span {
     border-color: var(--rar-accent);
-    box-shadow: 0 0 0 3px rgb(176 124 76 / 16%);
+    border-style: dashed;
+    background: transparent;
+    box-shadow: none;
+  }
+  /* Selected size: unmistakably "chosen" — thicker solid border, cream fill,
+     bold text — so it never reads the same as the dashed recommendation. */
+  .product__option--mm .product__swatch input:checked + span {
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--rar-accent);
+    background-color: var(--rar-color-surface);
+    font-weight: 600;
   }
   /* Reserve room above the size row for the floating "Ideal" tag. */
   .product__option--mm .product__swatches {
