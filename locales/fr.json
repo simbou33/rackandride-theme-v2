@@ -11,7 +11,24 @@
     "comment_form_email": "E-mail",
     "comment_form_name": "Nom",
     "comment_form_submit": "Publier",
-    "comment_form_title": "Ajouter un commentaire"
+    "comment_form_title": "Ajouter un commentaire",
+    "pillar": {
+      "all": "Tout",
+      "practical": "Pratique",
+      "deco": "Déco",
+      "brand": "Marque"
+    },
+    "filter_label": "Filtrer par thème",
+    "read_time_html": "{{ minutes }} min de lecture",
+    "empty": "Aucun article pour le moment.",
+    "discover_title": "Parcourez nos collections",
+    "related_articles_title": "À lire aussi",
+    "related_collections_title": "Shoppez le style",
+    "shop_collection": "Voir la collection",
+    "share": "Partager :",
+    "pin": "Épingler sur Pinterest",
+    "share_link": "Partager",
+    "newsletter_title": "Rejoignez l'atelier"
   },
   "cart": {
     "checkout": "Paiement",
@@ -106,6 +123,18 @@
       "eco": "Finition cire d'abeille & huile de lin",
       "secure": "Maintien sûr, sans chute",
       "packaging": "Emballage 100% recyclable"
+    },
+    "full_description": "Description complète",
+    "size_helper": {
+      "question_ski": "Quelle est la largeur de la spatule de vos skis ?",
+      "question_snow": "Quelle est la largeur de la spatule avant de votre snowboard ?",
+      "tooltip_ski": "La spatule, c'est l'avant relevé du ski, à son point le plus large. Le support tient les skis par les carres : comme la spatule est plus large que le support, elle l'empêche de glisser entre les bras.",
+      "tooltip_snow": "La spatule avant, c'est le nez de la planche, à son point le plus large. Le support tient la planche par les carres : comme la spatule est plus large que le support, elle l'empêche de glisser entre les bras.",
+      "info_label": "Que mesurer",
+      "recommended": "Taille conseillée :",
+      "check": "Vérifiez votre mesure",
+      "ideal": "Idéale",
+      "aria_measure": "Largeur mesurée en millimètres"
     }
   },
   "gift_card": {
@@ -126,5 +155,11 @@
     "submit": "Rechercher",
     "no_results_html": "Aucun résultat pour {{ terms }}",
     "results_for_html": "{{ count }} résultats pour {{ terms }}"
+  },
+  "footer": {
+    "tagline": "Supports muraux en chêne massif — fabriqués en Gironde, France. Finition cire d'abeille & huile de lin, patins en liège, emballage recyclable."
+  },
+  "announcement": {
+    "free_shipping": "Livraison offerte dès 100 € — fait main en Gironde, France"
   }
 }

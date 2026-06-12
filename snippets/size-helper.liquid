@@ -1,0 +1,318 @@
+{% doc %}
+  Renders a minimalist "size helper" above the variant size picker. The customer
+  enters a measured width (mm); the widget recommends the right mount size,
+  highlights it in the real "Largeur" picker and selects it on click. An ⓘ icon
+  reveals what part to measure and why.
+
+  Only meant for products with an option whose values end in "mm" (the calling
+  section is responsible for that detection).
+
+  @param {object} option - The size option (from product.options_with_values) whose values end in "mm"
+  @param {number} [margin] - Safety margin in mm (default 6)
+  @param {boolean} [is_snow] - True for snowboard wording, false (default) for ski wording
+  @param {string} [shopify_attributes] - The block's shopify_attributes (theme editor)
+
+  @example
+  {% render 'size-helper', option: mm_option, margin: 6, is_snow: false %}
+{% enddoc %}
+
+{% liquid
+  if is_snow
+    assign question = 'product.size_helper.question_snow' | t
+    assign tooltip_text = 'product.size_helper.tooltip_snow' | t
+  else
+    assign question = 'product.size_helper.question_ski' | t
+    assign tooltip_text = 'product.size_helper.tooltip_ski' | t
+  endif
+%}
+
+<size-helper
+  class="size-helper"
+  data-margin="{{ margin | default: 6 }}"
+  data-label-check="{{ 'product.size_helper.check' | t | escape }}"
+  data-label-ideal="{{ 'product.size_helper.ideal' | t | escape }}"
+  {{ shopify_attributes }}
+>
+  <script type="application/json" class="size-helper__sizes">{{ option.values | json }}</script>
+
+  <div class="size-helper__head">
+    <span class="size-helper__question">{{ question }}</span>
+    <button
+      type="button"
+      class="size-helper__info"
+      aria-expanded="false"
+      aria-label="{{ 'product.size_helper.info_label' | t | escape }}"
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" />
+        <path d="M12 11.2v4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <circle cx="12" cy="7.7" r="1.15" fill="currentColor" />
+      </svg>
+    </button>
+    <div class="size-helper__tooltip" role="tooltip" hidden>{{ tooltip_text }}</div>
+  </div>
+
+  <div class="size-helper__row">
+    <input
+      class="size-helper__range"
+      type="range"
+      step="1"
+      value="0"
+      aria-label="{{ 'product.size_helper.aria_measure' | t | escape }}"
+    >
+    <span class="size-helper__valbox">
+      <input
+        class="size-helper__num"
+        type="number"
+        step="1"
+        inputmode="numeric"
+        aria-label="{{ 'product.size_helper.aria_measure' | t | escape }}"
+      >
+      <span class="size-helper__unit">mm</span>
+    </span>
+  </div>
+
+  <p class="size-helper__reco">
+    <span class="size-helper__reco-label">{{ 'product.size_helper.recommended' | t }}</span>
+    <button type="button" class="size-helper__reco-value" aria-live="polite">—</button>
+  </p>
+</size-helper>
+
+<script src="{{ 'size-helper.js' | asset_url }}" defer></script>
+
+{% stylesheet %}
+  size-helper:not(:defined) {
+    display: none;
+  }
+  /* Frameless, inline — separated from the variant picker by a thin rule. */
+  .size-helper {
+    display: block;
+    margin: 0 0 1.25rem;
+    padding: 0 0 1.1rem;
+    border: 0;
+    border-bottom: 1px solid rgb(28 40 48 / 12%);
+    background: none;
+    font-size: 0.875rem;
+  }
+  .size-helper__head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+  .size-helper__question {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--rar-text);
+  }
+  .size-helper__info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: rgb(28 40 48 / 42%);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .size-helper__info:hover,
+  .size-helper__info[aria-expanded='true'] {
+    color: var(--rar-accent);
+  }
+  .size-helper__info:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+  }
+  .size-helper__tooltip {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 5;
+    max-width: 23rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: var(--rar-radius-card);
+    background: var(--rar-color-ink);
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    box-shadow: 0 8px 24px rgb(28 40 48 / 18%);
+  }
+  .size-helper__tooltip[hidden] {
+    display: none;
+  }
+
+  .size-helper__row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .size-helper__range {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    margin: 0;
+    border-radius: 99px;
+    background: linear-gradient(
+      to right,
+      var(--rar-accent) var(--sh-fill, 50%),
+      rgb(28 40 48 / 12%) var(--sh-fill, 50%)
+    );
+    outline: none;
+    cursor: pointer;
+  }
+  .size-helper__range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 3px solid var(--rar-color-background);
+    border-radius: 50%;
+    background: var(--rar-accent);
+    box-shadow: 0 1px 3px rgb(28 40 48 / 25%);
+    cursor: grab;
+  }
+  .size-helper__range::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border: 3px solid var(--rar-color-background);
+    border-radius: 50%;
+    background: var(--rar-accent);
+    box-shadow: 0 1px 3px rgb(28 40 48 / 25%);
+    cursor: grab;
+  }
+  .size-helper__range:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 4px;
+  }
+  .size-helper__valbox {
+    display: flex;
+    align-items: baseline;
+    flex: none;
+    gap: 0.2rem;
+  }
+  /* Editable mm value: no box, just a tan underline on focus. */
+  .size-helper__num {
+    width: 2.75rem;
+    padding: 0 0 0.05rem;
+    border: 0;
+    border-bottom: 1.5px solid transparent;
+    background: none;
+    color: var(--rar-text);
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: right;
+    -moz-appearance: textfield;
+  }
+  .size-helper__num::-webkit-outer-spin-button,
+  .size-helper__num::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .size-helper__num:focus {
+    outline: none;
+    border-bottom-color: var(--rar-accent);
+  }
+  .size-helper__unit {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(28 40 48 / 45%);
+  }
+
+  .size-helper__reco {
+    margin: 0.85rem 0 0;
+    font-size: 0.875rem;
+    color: rgb(28 40 48 / 60%);
+  }
+  /* The only tan text: the clickable recommended size (dotted-underline link). */
+  .size-helper__reco-value {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    color: var(--rar-accent);
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .size-helper__reco-value:hover {
+    text-decoration-style: solid;
+  }
+  .size-helper__reco-value:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .size-helper__reco--bad .size-helper__reco-label {
+    display: none;
+  }
+  .size-helper__reco--bad .size-helper__reco-value {
+    color: rgb(28 40 48 / 60%);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: default;
+  }
+
+  /* "Ideal" tag + highlight on the real Largeur picker (unchanged behavior). */
+  .product__swatch {
+    position: relative;
+  }
+  .product__swatch.size-helper-reco span {
+    border-color: var(--rar-accent);
+    box-shadow: 0 0 0 3px rgb(176 124 76 / 16%);
+  }
+  /* Reserve room above the size row for the floating "Ideal" tag. */
+  .product__option--mm .product__swatches {
+    margin-top: 1.5rem;
+  }
+  .size-helper-badge {
+    position: absolute;
+    bottom: calc(100% + 0.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.06rem 0.34rem;
+    border-radius: 99px;
+    background: var(--rar-accent);
+    color: #fff;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Mobile: keep all size swatches on a single line (equal widths, no wrap). */
+  @media (max-width: 749px) {
+    .product__option--mm .product__swatches {
+      flex-wrap: nowrap;
+      gap: 0.4rem;
+    }
+    .product__option--mm .product__swatch {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .product__option--mm .product__swatch span {
+      width: 100%;
+      min-width: 0;
+      padding: 0.5rem 0.25rem;
+      font-size: 0.8125rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .size-helper *,
+    .product__swatch span {
+      transition: none !important;
+    }
+  }
+{% endstylesheet %}

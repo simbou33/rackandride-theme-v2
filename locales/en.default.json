@@ -11,7 +11,24 @@
     "comment_form_email": "Email",
     "comment_form_name": "Name",
     "comment_form_submit": "Post",
-    "comment_form_title": "Add a comment"
+    "comment_form_title": "Add a comment",
+    "pillar": {
+      "all": "All",
+      "practical": "Practical",
+      "deco": "Décor",
+      "brand": "Brand"
+    },
+    "filter_label": "Filter by topic",
+    "read_time_html": "{{ minutes }} min read",
+    "empty": "No articles yet.",
+    "discover_title": "Browse our collections",
+    "related_articles_title": "Keep reading",
+    "related_collections_title": "Shop the look",
+    "shop_collection": "Shop the collection",
+    "share": "Share:",
+    "pin": "Save to Pinterest",
+    "share_link": "Share",
+    "newsletter_title": "Join the workshop"
   },
   "cart": {
     "checkout": "Checkout",
@@ -106,6 +123,18 @@
       "eco": "Beeswax & linseed oil finish",
       "secure": "Secure, no-fall hold",
       "packaging": "100% recyclable packaging"
+    },
+    "full_description": "Full description",
+    "size_helper": {
+      "question_ski": "What's the tip width of your skis?",
+      "question_snow": "What's the nose width of your snowboard?",
+      "tooltip_ski": "The tip is the raised front of the ski, at its widest point. The mount holds the skis by their edges: because the tip is wider than the mount, the ski can't slip between the arms.",
+      "tooltip_snow": "The nose is the wide front tip of the board, at its widest point. The mount holds the board by its edges: because the nose is wider than the mount, the board can't slip between the arms.",
+      "info_label": "What to measure",
+      "recommended": "Recommended size:",
+      "check": "Check your measurement",
+      "ideal": "Ideal",
+      "aria_measure": "Measured width in millimetres"
     }
   },
   "gift_card": {
@@ -126,5 +155,11 @@
     "submit": "Search",
     "no_results_html": "No results found for {{ terms }}",
     "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "footer": {
+    "tagline": "Handmade wall mounts in solid oak — crafted in Gironde, France. Beeswax & linseed finish, cork pads, recyclable packaging."
+  },
+  "announcement": {
+    "free_shipping": "Free shipping over €100 — handmade in Gironde, France"
   }
 }

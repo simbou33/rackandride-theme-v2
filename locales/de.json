@@ -11,7 +11,24 @@
     "comment_form_email": "E-Mail",
     "comment_form_name": "Name",
     "comment_form_submit": "Veröffentlichen",
-    "comment_form_title": "Kommentar hinzufügen"
+    "comment_form_title": "Kommentar hinzufügen",
+    "pillar": {
+      "all": "Alle",
+      "practical": "Praktisch",
+      "deco": "Deko",
+      "brand": "Marke"
+    },
+    "filter_label": "Nach Thema filtern",
+    "read_time_html": "{{ minutes }} Min. Lesezeit",
+    "empty": "Noch keine Artikel.",
+    "discover_title": "Entdecke unsere Kollektionen",
+    "related_articles_title": "Weiterlesen",
+    "related_collections_title": "Shop the Look",
+    "shop_collection": "Zur Kollektion",
+    "share": "Teilen:",
+    "pin": "Auf Pinterest merken",
+    "share_link": "Teilen",
+    "newsletter_title": "Komm in die Werkstatt"
   },
   "cart": {
     "checkout": "Zur Kasse",
@@ -106,6 +123,18 @@
       "eco": "Finish aus Bienenwachs & Leinöl",
       "secure": "Sicherer Halt, kein Herunterfallen",
       "packaging": "100 % recycelbare Verpackung"
+    },
+    "full_description": "Vollständige Beschreibung",
+    "size_helper": {
+      "question_ski": "Wie breit ist die Schaufel deiner Ski?",
+      "question_snow": "Wie breit ist die Nose deines Snowboards?",
+      "tooltip_ski": "Die Schaufel ist das aufgebogene vordere Ende des Skis, an seiner breitesten Stelle. Die Halterung hält die Ski an den Kanten: Weil die Schaufel breiter ist als die Halterung, kann der Ski nicht zwischen den Armen durchrutschen.",
+      "tooltip_snow": "Die Nose ist die breite vordere Spitze des Boards, an seiner breitesten Stelle. Die Halterung hält das Board an den Kanten: Weil die Nose breiter ist als die Halterung, kann das Board nicht zwischen den Armen durchrutschen.",
+      "info_label": "Was messen",
+      "recommended": "Empfohlene Größe:",
+      "check": "Überprüfe deine Messung",
+      "ideal": "Ideal",
+      "aria_measure": "Gemessene Breite in Millimetern"
     }
   },
   "gift_card": {
@@ -126,5 +155,11 @@
     "submit": "Suchen",
     "no_results_html": "Keine Ergebnisse für {{ terms }}",
     "results_for_html": "{{ count }} Ergebnisse für {{ terms }}"
+  },
+  "footer": {
+    "tagline": "Wandhalterungen aus massiver Eiche — handgefertigt in der Gironde, Frankreich. Finish aus Bienenwachs & Leinöl, Korkpolster, recycelbare Verpackung."
+  },
+  "announcement": {
+    "free_shipping": "Gratisversand ab 100 € — handgefertigt in der Gironde, Frankreich"
   }
 }

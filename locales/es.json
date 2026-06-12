@@ -11,7 +11,24 @@
     "comment_form_email": "Correo electrónico",
     "comment_form_name": "Nombre",
     "comment_form_submit": "Publicar",
-    "comment_form_title": "Añadir un comentario"
+    "comment_form_title": "Añadir un comentario",
+    "pillar": {
+      "all": "Todo",
+      "practical": "Práctico",
+      "deco": "Deco",
+      "brand": "Marca"
+    },
+    "filter_label": "Filtrar por tema",
+    "read_time_html": "{{ minutes }} min de lectura",
+    "empty": "Aún no hay artículos.",
+    "discover_title": "Explora nuestras colecciones",
+    "related_articles_title": "Sigue leyendo",
+    "related_collections_title": "Compra el look",
+    "shop_collection": "Ver la colección",
+    "share": "Compartir:",
+    "pin": "Guardar en Pinterest",
+    "share_link": "Compartir",
+    "newsletter_title": "Únete al taller"
   },
   "cart": {
     "checkout": "Finalizar compra",
@@ -106,6 +123,18 @@
       "eco": "Acabado con cera de abejas y aceite de lino",
       "secure": "Sujeción segura, sin caídas",
       "packaging": "Embalaje 100 % reciclable"
+    },
+    "full_description": "Descripción completa",
+    "size_helper": {
+      "question_ski": "¿Qué anchura tiene la espátula de tus esquís?",
+      "question_snow": "¿Qué anchura tiene el nose de tu snowboard?",
+      "tooltip_ski": "La espátula es la parte delantera elevada del esquí, en su punto más ancho. El soporte sujeta los esquís por los cantos: como la espátula es más ancha que el soporte, el esquí no puede colarse entre los brazos.",
+      "tooltip_snow": "El nose es la punta delantera ancha de la tabla, en su punto más ancho. El soporte sujeta la tabla por los cantos: como el nose es más ancho que el soporte, la tabla no puede colarse entre los brazos.",
+      "info_label": "Qué medir",
+      "recommended": "Tamaño recomendado:",
+      "check": "Revisa tu medida",
+      "ideal": "Ideal",
+      "aria_measure": "Anchura medida en milímetros"
     }
   },
   "gift_card": {
@@ -126,5 +155,11 @@
     "submit": "Buscar",
     "no_results_html": "No se encontraron resultados para {{ terms }}",
     "results_for_html": "{{ count }} resultados para {{ terms }}"
+  },
+  "footer": {
+    "tagline": "Soportes de pared en roble macizo — hechos en Gironda, Francia. Acabado de cera de abeja y aceite de lino, almohadillas de corcho, embalaje reciclable."
+  },
+  "announcement": {
+    "free_shipping": "Envío gratis desde 100 € — hecho a mano en Gironda, Francia"
   }
 }

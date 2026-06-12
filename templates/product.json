@@ -12,6 +12,12 @@
     "main": {
       "type": "product",
       "blocks": {
+        "size_helper": {
+          "type": "size_helper",
+          "settings": {
+            "margin": 6
+          }
+        },
         "materials": {
           "type": "collapsible",
           "settings": {
@@ -43,7 +49,7 @@
           }
         }
       },
-      "block_order": ["materials", "shipping", "dimensions", "care"],
+      "block_order": ["size_helper", "materials", "shipping", "dimensions", "care"],
       "settings": {
         "show_reassurance": true
       }

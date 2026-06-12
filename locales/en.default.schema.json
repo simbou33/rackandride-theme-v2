@@ -44,13 +44,19 @@
     "search": "Search",
     "secondary": "Secondary",
     "section": "Section",
+    "size_helper": "Size helper",
     "settings": "Settings",
     "sidebar": "Sidebar",
     "story_rows": "Story rows",
     "story_row": "Story row",
     "text": "Text",
     "theme": "Theme",
-    "typography": "Typography"
+    "typography": "Typography",
+    "pillars": "Editorial pillars",
+    "discover_collections": "Collections to discover",
+    "related_articles": "Related articles",
+    "related_collections": "Related collections",
+    "related_collection": "Related collection"
   },
   "labels": {
     "alignment": "Alignment",
@@ -114,7 +120,21 @@
     "text": "Text",
     "rating_value": "Average rating (e.g. 4.5)",
     "rating_count": "Number of reviews",
-    "rating_source": "Reviews source (e.g. Etsy)"
+    "rating_source": "Reviews source (e.g. Etsy)",
+    "intro": "Intro text",
+    "posts_per_page": "Posts per page",
+    "pillar_practical_tag": "Practical — article tag",
+    "pillar_deco_tag": "Décor — article tag",
+    "pillar_brand_tag": "Brand — article tag",
+    "discover_collections": "Collections to feature",
+    "show_share": "Show share buttons",
+    "show_related_articles": "Show related articles",
+    "related_articles_count": "Number of related articles",
+    "show_newsletter": "Show newsletter sign-up",
+    "collection": "Collection",
+    "anchor": "Link text (anchor)",
+    "cta_label": "CTA label",
+    "size_margin": "Safety margin"
   },
   "info": {
     "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
@@ -125,7 +145,11 @@
     "image_asset": "Optional — filename of an image in /assets (used when no image is picked above).",
     "products": "Pick the exact products to feature. Leave empty to use the collection below.",
     "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above.",
-    "category_nav": "Sport categories shown as an icon switcher at the top of every collection page."
+    "category_nav": "Sport categories shown as an icon switcher at the top of every collection page.",
+    "pillar_tags": "These tag values must match the tags you set on your articles in Shopify. The labels shown to visitors are translated automatically.",
+    "discover_collections": "Optional — shown at the bottom of the blog as internal links to your category pages.",
+    "anchor": "Use descriptive link text for SEO — avoid \"click here\".",
+    "size_helper": "Shows a width-to-size guide above the size picker. Appears only on products whose size option values end in \"mm\"."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Gironde, France"
