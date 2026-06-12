@@ -2,6 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+{%- comment -%} Favicon: brand round pictogram (SVG). {%- endcomment -%}
+<link rel="icon" type="image/svg+xml" href="{{ 'favicon.svg' | asset_url }}">
+<link rel="mask-icon" href="{{ 'favicon.svg' | asset_url }}" color="#1C2830">
+
 {%- liquid
   assign og_title = page_title | default: shop.name
   assign og_url = canonical_url | default: request.origin
