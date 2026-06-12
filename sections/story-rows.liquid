@@ -57,7 +57,7 @@
                     widths: '400, 600, 800, 1000',
                     sizes: '(min-width: 750px) 50vw, 100vw',
                     loading: 'lazy',
-                    alt: entry.heading.value
+                    alt: entry.image_alt.value | default: entry.heading.value
                 }}
               </div>
             {% endif %}
