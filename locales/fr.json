@@ -59,7 +59,10 @@
     },
     "view_all": "Tout voir",
     "home": "Accueil",
-    "reviews_count": "{{ count }} avis sur {{ source }}"
+    "reviews_count": "{{ count }} avis sur {{ source }}",
+    "meta": {
+      "home_title": "Rack and Ride – Supports muraux en chêne massif fait main"
+    }
   },
   "collection": {
     "read_more": "Lire la suite",

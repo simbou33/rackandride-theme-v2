@@ -1,0 +1,55 @@
+{% doc %}
+  Localizes an internal relative URL for the active storefront language.
+
+  Theme-editor link settings are stored as fixed paths using the primary-language
+  handle (e.g. `/collections/surfboard-wall-mount`). Shopify only translates a
+  handle (and adds the locale root) when the URL is resolved through the resource
+  object itself. So for known resource paths we re-resolve via the matching object
+  (`collections[handle].url`, …) which yields the localized handle + locale prefix
+  (e.g. `/fr/collections/supports-planche-de-surf`).
+
+  Anything we can't resolve to a single resource (special handles like `/collections/all`,
+  deeper paths, the home `/`) falls back to simply prefixing `routes.root_url`.
+  External URLs (`https://…`) and anchors (`#…`) are returned unchanged.
+
+  @param {string} url - The URL to localize (e.g. a section/block link setting)
+
+  @example
+  <a href="{%- render 'localized-url', url: section.settings.button_link -%}">…</a>
+{% enddoc %}
+
+{%- liquid
+  assign localized = url
+  if url != blank
+    assign first_char = url | slice: 0
+    if first_char == '/'
+      assign clean = url | split: '?' | first | split: '#' | first
+      assign segments = clean | remove_first: '/' | split: '/'
+      assign seg_size = segments | size
+      assign resolved = blank
+
+      if seg_size == 2
+        assign type = segments[0]
+        assign handle = segments[1]
+        case type
+          when 'collections'
+            assign resolved = collections[handle].url
+          when 'products'
+            assign resolved = all_products[handle].url
+          when 'pages'
+            assign resolved = pages[handle].url
+          when 'blogs'
+            assign resolved = blogs[handle].url
+        endcase
+      endif
+
+      if resolved != blank
+        assign localized = resolved
+      elsif routes.root_url != '/'
+        assign root = routes.root_url | rstrip
+        assign localized = url | prepend: root
+      endif
+    endif
+  endif
+  echo localized
+-%}

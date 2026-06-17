@@ -43,11 +43,11 @@
 
     {% if section.settings.button_label != blank and section.settings.button_link != blank %}
       <div class="hero__buttons">
-        <a class="hero__button hero__button--primary" href="{{ section.settings.button_link }}">
+        <a class="hero__button hero__button--primary" href="{%- render 'localized-url', url: section.settings.button_link -%}">
           {{ section.settings.button_label }}
         </a>
         {% if section.settings.button_2_label != blank and section.settings.button_2_link != blank %}
-          <a class="hero__button hero__button--ghost" href="{{ section.settings.button_2_link }}">
+          <a class="hero__button hero__button--ghost" href="{%- render 'localized-url', url: section.settings.button_2_link -%}">
             {{ section.settings.button_2_label }}
           </a>
         {% endif %}

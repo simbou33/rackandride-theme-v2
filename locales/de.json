@@ -59,7 +59,10 @@
     },
     "view_all": "Alle ansehen",
     "home": "Startseite",
-    "reviews_count": "{{ count }} Bewertungen auf {{ source }}"
+    "reviews_count": "{{ count }} Bewertungen auf {{ source }}",
+    "meta": {
+      "home_title": "Rack and Ride – Handgefertigte Wandhalterungen aus Eiche"
+    }
   },
   "collection": {
     "read_more": "Mehr lesen",

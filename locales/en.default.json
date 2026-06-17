@@ -59,7 +59,10 @@
     },
     "view_all": "View all",
     "home": "Home",
-    "reviews_count": "{{ count }} reviews on {{ source }}"
+    "reviews_count": "{{ count }} reviews on {{ source }}",
+    "meta": {
+      "home_title": "Rack and Ride – Handmade wall mounts in solid oak"
+    }
   },
   "collection": {
     "read_more": "Read more",

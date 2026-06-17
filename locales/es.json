@@ -59,7 +59,10 @@
     },
     "view_all": "Ver todo",
     "home": "Inicio",
-    "reviews_count": "{{ count }} reseñas en {{ source }}"
+    "reviews_count": "{{ count }} reseñas en {{ source }}",
+    "meta": {
+      "home_title": "Rack and Ride – Soportes de pared en roble macizo"
+    }
   },
   "collection": {
     "read_more": "Leer más",

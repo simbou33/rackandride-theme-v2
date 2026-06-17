@@ -116,7 +116,7 @@
                 <div class="story-row__text rte">{{ block.settings.text }}</div>
               {% endif %}
               {% if block.settings.button_label != blank and block.settings.button_link != blank %}
-                <a class="story-row__button" href="{{ block.settings.button_link }}">
+                <a class="story-row__button" href="{%- render 'localized-url', url: block.settings.button_link -%}">
                   {{ block.settings.button_label }}
                 </a>
               {% endif %}
