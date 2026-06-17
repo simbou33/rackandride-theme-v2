@@ -61,8 +61,8 @@
     "home": "Accueil",
     "reviews_count": "{{ count }} avis sur {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride – Support planche de surf, skate, snow & plus",
-      "home_description": "Supports muraux en chêne massif pour planche de surf, skate, snowboard, ski et vélo. Fait main en Gironde, France. Rangez et exposez votre matériel."
+      "home_title": "Rack and Ride — Supports muraux en chêne massif, faits main",
+      "home_description": "Supports muraux en chêne massif pour planches de surf, skateboards et snowboards. Faits main en Gironde, finition naturelle, livraison offerte dès 100 €."
     }
   },
   "collection": {

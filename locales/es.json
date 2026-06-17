@@ -61,8 +61,8 @@
     "home": "Inicio",
     "reviews_count": "{{ count }} reseñas en {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride – Soporte tabla de surf, skate y snow",
-      "home_description": "Soportes de pared en roble macizo para tabla de surf, skate, snowboard, esquís y bici. Hechos a mano en Francia. Guarda y exhibe tu material."
+      "home_title": "Rack and Ride — Soportes de pared en roble macizo",
+      "home_description": "Soportes de pared en roble macizo para tablas de surf, skate y snowboard. Hechos a mano en Francia, acabado natural, envío gratis desde 100 €."
     }
   },
   "collection": {

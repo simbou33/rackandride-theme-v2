@@ -61,8 +61,8 @@
     "home": "Startseite",
     "reviews_count": "{{ count }} Bewertungen auf {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride – Wandhalterung Surfboard, Skate & Snow",
-      "home_description": "Wandhalterungen aus massiver Eiche für Surfboard, Skateboard, Snowboard, Ski und Fahrrad. Handgefertigt in Frankreich. Material stilvoll präsentieren."
+      "home_title": "Rack and Ride — Wandhalterungen aus massiver Eiche",
+      "home_description": "Handgefertigte Wandhalterungen aus massiver Eiche für Surfboards, Skateboards und Snowboards. Aus Frankreich, Naturöl-Finish, Gratisversand ab 100 €."
     }
   },
   "collection": {

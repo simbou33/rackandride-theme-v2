@@ -61,8 +61,8 @@
     "home": "Home",
     "reviews_count": "{{ count }} reviews on {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride – Surfboard, skate & snowboard wall racks",
-      "home_description": "Solid oak wall mounts for surfboards, skateboards, snowboards, skis and bikes. Handmade in Gironde, France. Store and display your gear like art."
+      "home_title": "Rack and Ride — Solid Oak Wall Mounts, Handmade in France",
+      "home_description": "Handmade solid-oak wall mounts for surfboards, skateboards and snowboards. Crafted in Gironde, France. Natural finish, free shipping over €100."
     }
   },
   "collection": {
