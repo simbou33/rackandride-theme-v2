@@ -1,7 +1,7 @@
 {% doc %}
   Renders a product card: image with hover swap and optional New / Sale badges
-  top-left, then the material pill under the image, the title, and the price in
-  ink.
+  top-left, then the title and a price line carrying the price in ink on the
+  left and the material pill on the right.
   Reused by featured products and collection grids.
 
   @param {object} card_product - The product to render
@@ -64,12 +64,6 @@
   </div>
 
   <div class="card__info">
-    {%- capture material_pill -%}
-      {% render 'material-badge', product: card_product %}
-    {%- endcapture -%}
-    {%- if material_pill != blank -%}
-      <div class="card__material">{{ material_pill }}</div>
-    {%- endif -%}
     <h3 class="card__title">{{ card_product.title }}</h3>
     <div class="card__price">
       {% if card_product.price_varies %}
@@ -82,6 +76,7 @@
       {% if on_sale %}
         <s class="card__price-compare">{{ card_product.compare_at_price | money }}</s>
       {% endif %}
+      {% render 'material-badge', product: card_product %}
     </div>
   </div>
 </a>
@@ -139,7 +134,7 @@
     background-color: var(--rar-color-ink);
   }
   .card__title {
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.3rem;
     font-size: 1.0625rem;
     font-weight: 600;
     line-height: 1.3;
@@ -155,7 +150,8 @@
     color: rgb(28 40 48 / 45%);
     font-weight: 400;
   }
-  .card__material {
-    margin-bottom: 0.5rem;
+  .card__price .material-pill {
+    margin-inline-start: auto;
+    align-self: center;
   }
 {% endstylesheet %}
