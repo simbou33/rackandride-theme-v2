@@ -152,17 +152,11 @@
     color: rgb(28 40 48 / 45%);
     font-weight: 400;
   }
-  /* On a 2-column mobile grid the card is ~135px wide: the pill drops to its
-     own line rather than pushing the whole page into a horizontal scroll.
-     It only gets pinned to the right once the card is wide enough to hold
-     the price and the pill side by side. */
+  /* The pill follows the price on the same left rail. On a 2-column mobile
+     grid the card is ~135px wide, so the price line wraps and the pill drops
+     underneath rather than pushing the page into a horizontal scroll. */
   .card__price .material-pill {
     align-self: center;
     max-width: 100%;
-  }
-  @media screen and (min-width: 750px) {
-    .card__price .material-pill {
-      margin-inline-start: auto;
-    }
   }
 {% endstylesheet %}
