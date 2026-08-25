@@ -61,8 +61,8 @@
     "home": "Startseite",
     "reviews_count": "{{ count }} Bewertungen auf {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride — Wandhalterungen aus massiver Eiche",
-      "home_description": "Handgefertigte Wandhalterungen aus massiver Eiche für Surfboards, Skateboards und Snowboards. Aus Frankreich, Naturöl-Finish, Gratisversand ab 100 €."
+      "home_title": "Rack and Ride — Wandhalterungen aus Eiche & Bambus",
+      "home_description": "Wandhalterungen aus Holz für Surfboards, Skateboards, Snowboards und Ski. Eiche handgefertigt in Frankreich, dazu eine Bambus-Linie. Versand ab 100 € frei."
     }
   },
   "collection": {
@@ -120,12 +120,18 @@
     "secure_checkout": "Sichere Zahlung · verschlüsselter Checkout",
     "sale": "Sale",
     "new": "Neu",
-    "card_eco": "Handgefertigt · Eiche massiv",
     "from_price_html": "Ab {{ price }}",
-    "reassurance": {
-      "handmade": "Handgefertigt in Gironde, Frankreich",
-      "eco": "Finish aus Bienenwachs & Leinöl",
-      "secure": "Sicherer Halt, kein Herunterfallen",
+    "material": {
+      "oak": "Eiche massiv · Frankreich",
+      "bamboo": "Bambus",
+      "plywood": "Sperrholz"
+    },
+    "fact": {
+      "origin_gironde": "Handgefertigt in Gironde, Frankreich",
+      "made_partners": "In Frankreich entworfen, von unseren Partnern gefertigt",
+      "finish_natural": "Finish aus Bienenwachs & Leinöl",
+      "fast_growing": "Bambus, schnell nachwachsender Rohstoff",
+      "secure_hold": "Sicherer Halt, kein Herunterfallen",
       "packaging": "100 % recycelbare Verpackung"
     },
     "full_description": "Vollständige Beschreibung",
@@ -161,9 +167,9 @@
     "results_for_html": "{{ count }} Ergebnisse für {{ terms }}"
   },
   "footer": {
-    "tagline": "Wandhalterungen aus massiver Eiche — handgefertigt in der Gironde, Frankreich. Finish aus Bienenwachs & Leinöl, Korkpolster, recycelbare Verpackung."
+    "tagline": "Wandhalterungen aus Holz für Boardsport — Eiche handgefertigt in der Gironde, Frankreich, dazu eine Bambus-Linie. Recycelbare Verpackung."
   },
   "announcement": {
-    "free_shipping": "Gratisversand ab 100 € — handgefertigt in der Gironde, Frankreich"
+    "free_shipping": "Gratisversand ab 100 € — entworfen in der Gironde, Frankreich"
   }
 }

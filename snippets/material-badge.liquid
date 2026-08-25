@@ -1,0 +1,101 @@
+{% doc %}
+  Renders the material signal for a product, read from `custom.material_grade`.
+
+  Two layouts:
+  - "pill" (default): filled picto + wood name on a colour that is specific to
+    the range. Sits over the product image on cards, and under the price on the
+    product page.
+  - "facts": the verifiable facts of that range, as a reassurance grid.
+
+  Facts are declared per grade and never shared: the Gironde origin and the
+  natural finish are true of the oak range only, so they are only ever printed
+  on oak. Nothing here is a rating or a comparison between ranges — only
+  statements the brand can back.
+
+  Outputs nothing when the metafield is empty or holds an unknown value.
+
+  @param {object} product - The product to read the grade from
+  @param {string} [layout] - "pill" (default) or "facts"
+
+  @example
+  {% render 'material-badge', product: card_product %}
+  {% render 'material-badge', product: product, layout: 'facts' %}
+{% enddoc %}
+
+{% liquid
+  assign grade = product.metafields.custom.material_grade.value | downcase | strip
+  assign known_grades = 'oak,bamboo,plywood' | split: ','
+  assign mode = layout | default: 'pill'
+
+  assign facts = ''
+  if grade == 'oak'
+    assign facts = 'origin_gironde,finish_natural,secure_hold,packaging'
+  elsif grade == 'bamboo'
+    assign facts = 'made_partners,fast_growing,secure_hold,packaging'
+  elsif grade == 'plywood'
+    assign facts = 'made_partners,secure_hold,packaging'
+  endif
+  assign fact_list = facts | split: ','
+%}
+
+{%- if known_grades contains grade -%}
+  {%- if mode == 'facts' -%}
+    <ul class="product__reassurance" role="list">
+      {%- for fact in fact_list -%}
+        <li class="product__reassurance-item">
+          {%- case fact -%}
+            {%- when 'origin_gironde' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 2.5l8 4.6v9.8l-8 4.6-8-4.6V7.1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            {%- when 'made_partners' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 20h4L18 10l-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M14 6l4 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            {%- when 'finish_natural' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 21s-7-4-7-10a7 7 0 0114 0c0 6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 4c0 6 0 11 0 11" stroke="currentColor" stroke-width="1.4"/></svg>
+            {%- when 'fast_growing' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 21v-8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M12 13c0-4 3-7 7-7 0 4-3 7-7 7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 16c0-3-2.4-5-5.5-5 0 3 2.4 5 5.5 5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            {%- when 'secure_hold' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {%- when 'packaging' -%}
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M3 7l9-4 9 4-9 4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 7v10l9 4 9-4V7M12 11v10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          {%- endcase -%}
+          {%- assign fact_key = 'product.fact.' | append: fact -%}
+          <span>{{ fact_key | t }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- else -%}
+    {%- assign material_key = 'product.material.' | append: grade -%}
+    <span class="material-pill material-pill--{{ grade }}">
+      {% render 'material-icon', grade: grade %}
+      <span>{{ material_key | t }}</span>
+    </span>
+  {%- endif -%}
+{%- endif -%}
+
+{% stylesheet %}
+  .material-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .material-pill svg {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+  }
+  .material-pill--oak {
+    background-color: var(--rar-mat-oak);
+  }
+  .material-pill--bamboo {
+    background-color: var(--rar-mat-bamboo);
+  }
+  .material-pill--plywood {
+    background-color: var(--rar-mat-plywood);
+  }
+{% endstylesheet %}

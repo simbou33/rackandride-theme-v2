@@ -61,8 +61,8 @@
     "home": "Home",
     "reviews_count": "{{ count }} reviews on {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride — Solid Oak Wall Mounts, Handmade in France",
-      "home_description": "Handmade solid-oak wall mounts for surfboards, skateboards and snowboards. Crafted in Gironde, France. Natural finish, free shipping over €100."
+      "home_title": "Rack and Ride — Wooden Wall Mounts in Oak & Bamboo",
+      "home_description": "Wooden wall mounts for surfboards, skateboards, snowboards and skis. Oak handmade in Gironde, France, plus a bamboo range. Free shipping over €100."
     }
   },
   "collection": {
@@ -120,12 +120,18 @@
     "secure_checkout": "Secure payment · encrypted checkout",
     "sale": "Sale",
     "new": "New",
-    "card_eco": "Handmade · solid oak",
     "from_price_html": "From {{ price }}",
-    "reassurance": {
-      "handmade": "Handmade in Gironde, France",
-      "eco": "Beeswax & linseed oil finish",
-      "secure": "Secure, no-fall hold",
+    "material": {
+      "oak": "Solid oak · France",
+      "bamboo": "Bamboo",
+      "plywood": "Plywood"
+    },
+    "fact": {
+      "origin_gironde": "Handmade in Gironde, France",
+      "made_partners": "Designed in France, made by our partners",
+      "finish_natural": "Beeswax & linseed oil finish",
+      "fast_growing": "Bamboo, a fast-growing resource",
+      "secure_hold": "Secure, no-fall hold",
       "packaging": "100% recyclable packaging"
     },
     "full_description": "Full description",
@@ -161,9 +167,9 @@
     "results_for_html": "{{ count }} results found for {{ terms }}"
   },
   "footer": {
-    "tagline": "Handmade wall mounts in solid oak — crafted in Gironde, France. Beeswax & linseed finish, cork pads, recyclable packaging."
+    "tagline": "Wooden wall mounts for board sports — oak handmade in Gironde, France, and a bamboo range. Recyclable packaging."
   },
   "announcement": {
-    "free_shipping": "Free shipping over €100 — handmade in Gironde, France"
+    "free_shipping": "Free shipping over €100 — designed in Gironde, France"
   }
 }

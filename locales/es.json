@@ -61,8 +61,8 @@
     "home": "Inicio",
     "reviews_count": "{{ count }} reseñas en {{ source }}",
     "meta": {
-      "home_title": "Rack and Ride — Soportes de pared en roble macizo",
-      "home_description": "Soportes de pared en roble macizo para tablas de surf, skate y snowboard. Hechos a mano en Francia, acabado natural, envío gratis desde 100 €."
+      "home_title": "Rack and Ride — Soportes de pared en roble y bambú",
+      "home_description": "Soportes de pared de madera para surf, skate, snowboard y esquí. Roble hecho a mano en Gironda, Francia, y una gama de bambú. Envío gratis desde 100 €."
     }
   },
   "collection": {
@@ -120,12 +120,18 @@
     "secure_checkout": "Pago seguro · transacción cifrada",
     "sale": "Oferta",
     "new": "Nuevo",
-    "card_eco": "Hecho a mano · roble macizo",
     "from_price_html": "Desde {{ price }}",
-    "reassurance": {
-      "handmade": "Hecho a mano en Gironde, Francia",
-      "eco": "Acabado con cera de abejas y aceite de lino",
-      "secure": "Sujeción segura, sin caídas",
+    "material": {
+      "oak": "Roble macizo · Francia",
+      "bamboo": "Bambú",
+      "plywood": "Contrachapado"
+    },
+    "fact": {
+      "origin_gironde": "Hecho a mano en Gironde, Francia",
+      "made_partners": "Diseñado en Francia, fabricado por nuestros socios",
+      "finish_natural": "Acabado con cera de abejas y aceite de lino",
+      "fast_growing": "Bambú, recurso de crecimiento rápido",
+      "secure_hold": "Sujeción segura, sin caídas",
       "packaging": "Embalaje 100 % reciclable"
     },
     "full_description": "Descripción completa",
@@ -161,9 +167,9 @@
     "results_for_html": "{{ count }} resultados para {{ terms }}"
   },
   "footer": {
-    "tagline": "Soportes de pared en roble macizo — hechos en Gironda, Francia. Acabado de cera de abeja y aceite de lino, almohadillas de corcho, embalaje reciclable."
+    "tagline": "Soportes de pared de madera para deportes de tabla — roble hecho a mano en Gironda, Francia, y una gama de bambú. Embalaje reciclable."
   },
   "announcement": {
-    "free_shipping": "Envío gratis desde 100 € — hecho a mano en Gironda, Francia"
+    "free_shipping": "Envío gratis desde 100 € — diseñado en Gironda, Francia"
   }
 }

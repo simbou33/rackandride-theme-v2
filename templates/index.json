@@ -13,10 +13,10 @@
       "type": "hero",
       "settings": {
         "heading": "Display your boards like art",
-        "subheading": "<p>Handmade wall mounts in solid oak — crafted in Gironde, France. Functional objects, designed to be seen.</p>",
+        "subheading": "<p>Wall mounts in oak and bamboo, drawn in Gironde, France. Functional objects, made to be seen.</p>",
         "button_label": "Shop all",
         "button_link": "/collections/all",
-        "button_2_label": "Shop surfboards",
+        "button_2_label": "Shop surfboards wall mounts",
         "button_2_link": "/collections/surfboard-wall-mount",
         "height": "large",
         "text_alignment": "left",
@@ -27,39 +27,129 @@
     "reassurance": {
       "type": "reassurance",
       "blocks": {
-        "r1": { "type": "promise", "settings": { "icon": "handmade", "text": "Handmade in Gironde, France" } },
-        "r2": { "type": "promise", "settings": { "icon": "eco", "text": "Beeswax & linseed oil finish" } },
-        "r3": { "type": "promise", "settings": { "icon": "secure", "text": "Secure, no-fall hold" } },
-        "r4": { "type": "promise", "settings": { "icon": "packaging", "text": "100% recyclable packaging" } }
+        "r1": {
+          "type": "promise",
+          "settings": {
+            "icon": "handmade",
+            "text": "Designed in Gironde, France"
+          }
+        },
+        "r2": {
+          "type": "promise",
+          "settings": {
+            "icon": "eco",
+            "text": "Beeswax & linseed finish on our oak range"
+          }
+        },
+        "r3": {
+          "type": "promise",
+          "settings": {
+            "icon": "secure",
+            "text": "Secure, no-fall hold"
+          }
+        },
+        "r4": {
+          "type": "promise",
+          "settings": {
+            "icon": "packaging",
+            "text": "100% recyclable packaging"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3", "r4"]
-    },
-    "categories": {
-      "type": "category-tiles",
-      "settings": { "heading": "Shop by sport", "surface_background": true },
-      "blocks": {
-        "c1": { "type": "tile", "settings": { "collection": "surfboard-wall-mount" } },
-        "c2": { "type": "tile", "settings": { "collection": "skateboard-wall-mounts" } },
-        "c3": { "type": "tile", "settings": { "collection": "snowboard-wall-mounts" } },
-        "c4": { "type": "tile", "settings": { "collection": "skis-wall-mounts" } },
-        "c5": { "type": "tile", "settings": { "collection": "bike-racks" } },
-        "c6": { "type": "tile", "settings": { "collection": "kitesurf-racks" } },
-        "c7": { "type": "tile", "settings": { "collection": "deco" } }
-      },
-      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"]
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {}
     },
     "featured": {
       "type": "featured-products",
       "settings": {
         "heading": "Bestsellers",
+        "products": [],
         "collection": "bestsellers",
         "products_to_show": 4,
         "show_view_all": true
       }
     },
+    "categories": {
+      "type": "category-tiles",
+      "blocks": {
+        "c1": {
+          "type": "tile",
+          "settings": {
+            "collection": "surfboard-wall-mount",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c2": {
+          "type": "tile",
+          "settings": {
+            "collection": "skateboard-wall-mounts",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c3": {
+          "type": "tile",
+          "settings": {
+            "collection": "snowboard-wall-mounts",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c4": {
+          "type": "tile",
+          "settings": {
+            "collection": "skis-wall-mounts",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c5": {
+          "type": "tile",
+          "settings": {
+            "collection": "bike-racks",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c6": {
+          "type": "tile",
+          "settings": {
+            "collection": "kitesurf-racks",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        },
+        "c7": {
+          "type": "tile",
+          "settings": {
+            "collection": "deco",
+            "icon_asset": "",
+            "custom_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "settings": {
+        "heading": "Shop by sport",
+        "surface_background": true
+      }
+    },
     "story": {
       "type": "story-rows",
-      "settings": { "heading": "Made to last, made to be seen" },
       "blocks": {
         "s1": {
           "type": "row",
@@ -67,7 +157,9 @@
             "image_asset": "story-skate.webp",
             "image_position": "left",
             "heading": "Solid French oak",
-            "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture while staying beautiful.</p>"
+            "text": "<p>Our signature range is crafted by hand from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture while staying beautiful.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         },
         "s2": {
@@ -76,7 +168,9 @@
             "image_asset": "story-oak.webp",
             "image_position": "right",
             "heading": "A secure, invisible hold",
-            "text": "<p>Cork-lined hangers hug your gear — no scratches, no slipping. Stored safely and displayed like a piece of art.</p>"
+            "text": "<p>Every mount holds your gear without a slip, and the oak range adds cork-lined contact points so nothing gets scratched. Stored safely, displayed like a piece of art.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         },
         "s3": {
@@ -84,33 +178,149 @@
           "settings": {
             "image_asset": "story-surf.webp",
             "image_position": "left",
-            "heading": "Handmade & eco-friendly",
-            "text": "<p>Made by hand in Gironde, France, and shipped in 100% recyclable packaging.</p>"
+            "heading": "Two ranges, one standard",
+            "text": "<p>Our oak mounts are still made by hand in Gironde, France. You asked for something more affordable, so we added a bamboo range: fewer machining steps, a faster cut, the same solid hold. Every order ships in 100% recyclable packaging.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         }
       },
-      "block_order": ["s1", "s2", "s3"]
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "heading": "Made to last, made to be seen"
+      }
     },
     "testimonials": {
       "type": "testimonials",
-      "settings": { "heading": "What riders say", "rating_value": "4.5", "rating_count": "121", "rating_source": "Etsy" },
       "blocks": {
-        "r1": { "type": "testimonial", "settings": { "image_asset": "review-4.webp", "rating": 5, "quote": "Qualité exceptionnelle, installation facile, exactement ce que je cherchais et dont j'avais besoin ! Expédié depuis la France, le délai de livraison était largement justifié. L'équipe Rack and Ride a été très réactive tout au long du processus. Merci beaucoup !", "author": "Bill", "date": "23 avr. 2025" } },
-        "r2": { "type": "testimonial", "settings": { "image_asset": "review-7.webp", "rating": 5, "quote": "Deuxième achat chez Rack and Ride. Excellent produit, fabriqué avec soin et en bois de haute qualité. Emballage soigné. Je recommande et je rachèterai sans hésiter.", "author": "Victoria", "date": "02 mars 2026" } },
-        "r3": { "type": "testimonial", "settings": { "image_asset": "review-5.webp", "rating": 5, "quote": "Magnifique produit ! J'apprécie beaucoup le savoir-faire. Je recommande vivement pour exposer vos planches !", "author": "Jessica", "date": "14 oct. 2025" } },
-        "r4": { "type": "testimonial", "settings": { "image_asset": "review-6.webp", "rating": 5, "quote": "Enfin, les skateboards ne traînent plus par terre et sont du plus bel effet sur les supports. L'installation est super facile grâce aux fixations fournies. Excellente qualité et fabrication magnifique. J'en suis vraiment ravie.", "author": "Acheteur Etsy", "date": "08 déc. 2025" } },
-        "r5": { "type": "testimonial", "settings": { "image_asset": "review-2.webp", "rating": 5, "quote": "Super content de la qualité du produit !!! Je recommande vivement ce vendeur.", "author": "David", "date": "20 déc. 2023" } },
-        "r6": { "type": "testimonial", "settings": { "image_asset": "review-3.webp", "rating": 5, "quote": "Combine parfaitement fonctionnalité et design. Je l'aime.", "author": "Maimer", "date": "03 juil. 2024" } },
-        "r7": { "type": "testimonial", "settings": { "image_asset": "review-1.webp", "rating": 5, "quote": "Très belle qualité de produit.", "author": "Garance", "date": "08 déc. 2023" } },
-        "r8": { "type": "testimonial", "settings": { "image_asset": "review-8.webp", "rating": 5, "quote": "Produit de qualité, j'adore le rendu.", "author": "sailor", "date": "31 mai 2026" } },
-        "r9": { "type": "testimonial", "settings": { "image_asset": "review-9.webp", "rating": 5, "quote": "Bien réalisé, produit de qualité.", "author": "sailor", "date": "31 mai 2026" } }
+        "r1": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-4.webp",
+            "rating": 5,
+            "quote": "Exceptional quality, easy to install, exactly what I was looking for and needed! Shipped from France — the delivery time was well worth it. The Rack and Ride team was very responsive throughout. Thank you so much!",
+            "author": "Bill",
+            "date": "23 avr. 2025"
+          }
+        },
+        "r2": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-7.webp",
+            "rating": 5,
+            "quote": "My second purchase from Rack and Ride. Excellent product, carefully made from high-quality wood. Neat packaging. I recommend it and will happily buy again.",
+            "author": "Victoria",
+            "date": "02 mars 2026"
+          }
+        },
+        "r3": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-5.webp",
+            "rating": 5,
+            "quote": "Beautiful product! I really appreciate the craftsmanship. Highly recommend it for displaying your boards!",
+            "author": "Jessica",
+            "date": "14 oct. 2025"
+          }
+        },
+        "r4": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-6.webp",
+            "rating": 5,
+            "quote": "Finally, the skateboards aren't lying on the floor anymore and look fantastic on the racks. Installation is super easy thanks to the included fixings. Excellent quality and beautiful craftsmanship. I'm truly delighted.",
+            "author": "Etsy buyer",
+            "date": "08 déc. 2025"
+          }
+        },
+        "r5": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-2.webp",
+            "rating": 5,
+            "quote": "So happy with the quality of the product!!! I highly recommend this seller.",
+            "author": "David",
+            "date": "20 déc. 2023"
+          }
+        },
+        "r6": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-3.webp",
+            "rating": 5,
+            "quote": "Combines function and design perfectly. I love it.",
+            "author": "Maimer",
+            "date": "03 juil. 2024"
+          }
+        },
+        "r7": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-1.webp",
+            "rating": 5,
+            "quote": "Really lovely product quality.",
+            "author": "Garance",
+            "date": "08 déc. 2023"
+          }
+        },
+        "r8": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-8.webp",
+            "rating": 5,
+            "quote": "Quality product, I love the look.",
+            "author": "sailor",
+            "date": "31 mai 2026"
+          }
+        },
+        "r9": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "review-9.webp",
+            "rating": 5,
+            "quote": "Well made, quality product.",
+            "author": "sailor",
+            "date": "31 mai 2026"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"]
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "r9"
+      ],
+      "settings": {
+        "heading": "What riders say",
+        "rating_value": "4.5",
+        "rating_count": "121",
+        "rating_source": "Etsy"
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "heading": "Join the workshop",
+        "text": "<p>New designs, behind-the-scenes from Gironde, and the occasional offer.</p>"
+      }
     }
   },
-  "order": ["hero", "reassurance", "featured", "categories", "story", "testimonials", "newsletter"]
+  "order": [
+    "hero",
+    "reassurance",
+    "featured",
+    "categories",
+    "story",
+    "testimonials",
+    "newsletter"
+  ]
 }

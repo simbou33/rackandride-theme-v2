@@ -1,0 +1,26 @@
+{% doc %}
+  Renders the material picto (SVG in /assets) for a wood grade.
+
+  Outputs nothing when the grade is unknown, so a product with an empty
+  `custom.material_grade` never shows a wrong picto.
+
+  @param {string} grade - The wood grade: "oak", "bamboo" or "plywood"
+
+  @example
+  {% render 'material-icon', grade: 'oak' %}
+{% enddoc %}
+
+{% liquid
+  assign g = grade | downcase | strip
+  assign icon = ''
+  if g == 'oak'
+    assign icon = 'mat-oak.svg'
+  elsif g == 'bamboo'
+    assign icon = 'mat-bamboo.svg'
+  elsif g == 'plywood'
+    assign icon = 'mat-plywood.svg'
+  endif
+%}
+{%- if icon != blank -%}
+  {{ icon | inline_asset_content }}
+{%- endif -%}
