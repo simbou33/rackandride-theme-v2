@@ -157,7 +157,7 @@
             "image_asset": "story-skate.webp",
             "image_position": "left",
             "heading": "Solid French oak",
-            "text": "<p>Our signature range is crafted by hand from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture while staying beautiful.</p>",
+            "text": "<p>Our signature range starts with oak sourced in France and shaped entirely by hand. A natural beeswax and linseed oil finish protects the wood from moisture while letting its grain age beautifully.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -167,8 +167,8 @@
           "settings": {
             "image_asset": "story-oak.webp",
             "image_position": "right",
-            "heading": "A secure, invisible hold",
-            "text": "<p>Every mount holds your gear without a slip, and the oak range adds cork-lined contact points so nothing gets scratched. Stored safely, displayed like a piece of art.</p>",
+            "heading": "A hold you can trust",
+            "text": "<p>Every mount grips your board securely, with no slipping and no visible hardware. The oak range goes further with cork-lined contact points, so your gear stays scratch-free — stored safely, displayed like art.</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -179,7 +179,7 @@
             "image_asset": "story-surf.webp",
             "image_position": "left",
             "heading": "Two ranges, one standard",
-            "text": "<p>Our oak mounts are still made by hand in Gironde, France. You asked for something more affordable, so we added a bamboo range: fewer machining steps, a faster cut, the same solid hold. Every order ships in 100% recyclable packaging.</p>",
+            "text": "<p>Our oak mounts are handmade in Gironde, France. When you asked for something more affordable, we built a bamboo range to match: a leaner process, a faster cut, the same secure hold. Every order — oak or bamboo — ships in 100% recyclable packaging.</p>",
             "button_label": "",
             "button_link": ""
           }
