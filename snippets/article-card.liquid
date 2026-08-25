@@ -38,6 +38,11 @@
     assign excerpt = card_article.content
   endif
   assign pub_date = card_article.published_at | date: '%-d %B %Y'
+
+  # A `| default:` inside an image_tag argument list ends the list: every named
+  # argument after it is swallowed by the filter. Resolve the values first.
+  assign card_sizes = sizes | default: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw'
+  assign card_alt = card_article.image.alt | default: card_article.title
 %}
 
 <a class="article-card" href="{{ card_article.url }}">
@@ -48,10 +53,10 @@
         | image_url: width: 800
         | image_tag:
           widths: '300, 400, 500, 600, 800',
-          sizes: sizes | default: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw',
+          sizes: card_sizes,
           loading: 'lazy',
           class: 'article-card__image',
-          alt: card_article.image.alt | default: card_article.title
+          alt: card_alt
       }}
     {% else %}
       {{ 'image' | placeholder_svg_tag: 'article-card__image article-card__image--placeholder' }}

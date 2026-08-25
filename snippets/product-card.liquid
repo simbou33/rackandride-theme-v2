@@ -23,6 +23,11 @@
   if card_product.compare_at_price > card_product.price
     assign on_sale = true
   endif
+
+  # A `| default:` inside an image_tag argument list ends the list: every named
+  # argument after it is swallowed by the filter. Resolve the values first.
+  assign card_sizes = sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw'
+  assign card_alt = card_product.featured_media.preview_image.alt | default: card_product.title
 %}
 
 <a class="card" href="{{ card_product.url }}">
@@ -33,10 +38,10 @@
         | image_url: width: 800
         | image_tag:
           widths: '300, 400, 600, 800',
-          sizes: sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+          sizes: card_sizes,
           loading: 'lazy',
           class: 'card__image',
-          alt: card_product.featured_media.preview_image.alt | default: card_product.title
+          alt: card_alt
       }}
       {% if card_product.media[1] %}
         {{
@@ -44,7 +49,7 @@
           | image_url: width: 800
           | image_tag:
             widths: '300, 400, 600, 800',
-            sizes: sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+            sizes: card_sizes,
             loading: 'lazy',
             class: 'card__image card__image--hover',
             alt: ''
