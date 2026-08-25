@@ -122,7 +122,7 @@
     "new": "New",
     "from_price_html": "From {{ price }}",
     "material": {
-      "oak": "Solid oak · France",
+      "oak": "Solid oak",
       "bamboo": "Bamboo",
       "plywood": "Plywood"
     },

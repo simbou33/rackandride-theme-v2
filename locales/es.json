@@ -122,7 +122,7 @@
     "new": "Nuevo",
     "from_price_html": "Desde {{ price }}",
     "material": {
-      "oak": "Roble macizo · Francia",
+      "oak": "Roble macizo",
       "bamboo": "Bambú",
       "plywood": "Contrachapado"
     },

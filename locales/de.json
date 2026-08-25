@@ -122,7 +122,7 @@
     "new": "Neu",
     "from_price_html": "Ab {{ price }}",
     "material": {
-      "oak": "Eiche massiv · Frankreich",
+      "oak": "Eiche massiv",
       "bamboo": "Bambus",
       "plywood": "Sperrholz"
     },

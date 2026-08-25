@@ -122,7 +122,7 @@
     "new": "Nouveau",
     "from_price_html": "À partir de {{ price }}",
     "material": {
-      "oak": "Chêne massif · France",
+      "oak": "Chêne massif",
       "bamboo": "Bambou",
       "plywood": "Contreplaqué"
     },
