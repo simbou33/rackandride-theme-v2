@@ -142,7 +142,7 @@
   .card__price {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     gap: 0.5rem;
     row-gap: 0.45rem;
     color: var(--rar-price);
@@ -156,7 +156,6 @@
      grid the card is ~135px wide, so the price line wraps and the pill drops
      underneath rather than pushing the page into a horizontal scroll. */
   .card__price .material-pill {
-    align-self: center;
     max-width: 100%;
   }
 {% endstylesheet %}
