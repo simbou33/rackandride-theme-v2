@@ -1,7 +1,7 @@
 {% doc %}
   Renders a product card: image with hover swap and optional New / Sale badges
-  top-left, then the title and a price line carrying the price in ink on the
-  left and the material pill on the right.
+  top-left, then the title, the price in ink, and the material pill on its own
+  row underneath — title, then price, then the secondary attribute.
   Reused by featured products and collection grids.
 
   @param {object} card_product - The product to render
@@ -81,8 +81,14 @@
       {% if on_sale %}
         <s class="card__price-compare">{{ card_product.compare_at_price | money }}</s>
       {% endif %}
-      {% render 'material-badge', product: card_product %}
     </div>
+
+    {%- capture material_pill -%}
+      {% render 'material-badge', product: card_product %}
+    {%- endcapture -%}
+    {%- if material_pill != blank -%}
+      <div class="card__material">{{ material_pill }}</div>
+    {%- endif -%}
   </div>
 </a>
 
@@ -139,14 +145,14 @@
     background-color: var(--rar-color-ink);
   }
   .card__title {
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.5rem;
     font-size: 1.0625rem;
     font-weight: 600;
     line-height: 1.3;
   }
   .card__price {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 0.5rem;
     color: var(--rar-price);
     font-weight: 600;
@@ -155,10 +161,9 @@
     color: rgb(28 40 48 / 45%);
     font-weight: 400;
   }
-  /* The pill stays on the price line at every width. It is the only shrinkable
-     item on that line, so on a narrow card it wraps its own label rather than
-     dropping to a second row or widening the grid. */
-  .card__price .material-pill {
-    min-width: 0;
+  /* Its own row under the price, so the pill always has the full card width and
+     never has to wrap its label. */
+  .card__material {
+    margin-top: 0.4rem;
   }
 {% endstylesheet %}

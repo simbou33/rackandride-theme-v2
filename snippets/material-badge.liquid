@@ -72,50 +72,48 @@
 {%- endif -%}
 
 {% stylesheet %}
-  /* Sized to sit beside the price on a ~135px mobile card: the label wraps to
-     two short lines inside the pill instead of taking a row of its own.
-     `min-width: 0` plus `overflow-wrap` let it shrink past its longest word,
-     so it can never push the grid wider than the viewport. */
+  /* Deliberately quieter than the price: the price is the first thing to read
+     on a grid card, the material is a secondary attribute. Light tint per
+     range with dark text, smaller type, and a single guaranteed line — a pill
+     that wraps stops looking like a pill. */
   .material-pill {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    min-width: 0;
     max-width: 100%;
-    padding: 0.2rem 0.5rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 999px;
-    color: #fff;
-    font-size: 0.6875rem;
+    font-size: 0.625rem;
     font-weight: 600;
-    line-height: 1.3;
-    overflow-wrap: anywhere;
-  }
-  @media screen and (min-width: 750px) {
-    .material-pill {
-      gap: 0.35rem;
-      padding: 0.3rem 0.7rem;
-      font-size: 0.75rem;
-      line-height: 1.4;
-    }
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
   }
   .material-pill svg {
     flex: 0 0 auto;
-    width: 12px;
-    height: 12px;
-  }
-  @media screen and (min-width: 750px) {
-    .material-pill svg {
-      width: 14px;
-      height: 14px;
-    }
+    width: 11px;
+    height: 11px;
   }
   .material-pill--oak {
-    background-color: var(--rar-mat-oak);
+    background-color: var(--rar-mat-oak-bg);
+    color: var(--rar-mat-oak);
   }
   .material-pill--bamboo {
-    background-color: var(--rar-mat-bamboo);
+    background-color: var(--rar-mat-bamboo-bg);
+    color: var(--rar-mat-bamboo);
   }
   .material-pill--plywood {
-    background-color: var(--rar-mat-plywood);
+    background-color: var(--rar-mat-plywood-bg);
+    color: var(--rar-mat-plywood);
+  }
+  @media screen and (min-width: 750px) {
+    .material-pill {
+      padding: 0.2rem 0.6rem;
+      font-size: 0.6875rem;
+    }
+    .material-pill svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 {% endstylesheet %}
