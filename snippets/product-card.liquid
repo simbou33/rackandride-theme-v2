@@ -141,10 +141,8 @@
   }
   .card__price {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
-    row-gap: 0.45rem;
     color: var(--rar-price);
     font-weight: 600;
   }
@@ -152,10 +150,10 @@
     color: rgb(28 40 48 / 45%);
     font-weight: 400;
   }
-  /* The pill follows the price on the same left rail. On a 2-column mobile
-     grid the card is ~135px wide, so the price line wraps and the pill drops
-     underneath rather than pushing the page into a horizontal scroll. */
+  /* The pill stays on the price line at every width. It is the only shrinkable
+     item on that line, so on a narrow card it wraps its own label rather than
+     dropping to a second row or widening the grid. */
   .card__price .material-pill {
-    max-width: 100%;
+    min-width: 0;
   }
 {% endstylesheet %}
