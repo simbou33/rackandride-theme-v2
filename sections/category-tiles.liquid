@@ -21,19 +21,21 @@
           assign handle = collection.handle
           assign icon = block.settings.icon_asset
           if icon == blank
+            # Match EN + translated handles (FR/DE/ES) so the picto resolves on
+            # every locale — collection handles are localized (e.g. bike-racks → velo).
             if handle contains 'kite' or handle contains 'wake'
               assign icon = 'cat-kite-surf.svg'
-            elsif handle contains 'surf'
+            elsif handle contains 'surf' or handle contains 'planche' or handle contains 'tabla'
               assign icon = 'cat-surf.svg'
-            elsif handle contains 'skate'
+            elsif handle contains 'skate' or handle contains 'patin'
               assign icon = 'cat-skate.svg'
             elsif handle contains 'snowboard'
               assign icon = 'cat-snowboard.svg'
-            elsif handle contains 'ski'
+            elsif handle contains 'ski' or handle contains 'esqui'
               assign icon = 'cat-skis.svg'
-            elsif handle contains 'bike'
+            elsif handle contains 'bike' or handle contains 'velo' or handle contains 'fahrrad' or handle contains 'rennrad' or handle contains 'bici'
               assign icon = 'cat-bike.svg'
-            elsif handle contains 'deco'
+            elsif handle contains 'deco' or handle contains 'deko' or handle contains 'etagere' or handle contains 'regal' or handle contains 'estante'
               assign icon = 'cat-deco.svg'
             endif
           endif

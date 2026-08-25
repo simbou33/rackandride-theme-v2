@@ -1,0 +1,317 @@
+{% comment %}
+  Blog listing template (SEO-first). Header (H1 + optional editor intro),
+  pillar tag filter (Pratique / Déco / Marque — labels via translation keys,
+  tag values configurable so they match the merchant's article tags), a card
+  grid (paginated), breadcrumbs, an optional "collections to discover" block,
+  and BreadcrumbList JSON-LD. Pure Dawn `blog` section is left untouched.
+{% endcomment %}
+
+{% liquid
+  assign p1 = section.settings.pillar_practical_tag
+  assign p2 = section.settings.pillar_deco_tag
+  assign p3 = section.settings.pillar_brand_tag
+  assign card_sizes = '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw'
+%}
+
+<div class="blog" data-section-id="{{ section.id }}">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item">
+        <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
+      </li>
+      <li class="breadcrumbs__item" aria-current="page">{{ blog.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="blog__header">
+    <h1 class="blog__title">{{ blog.title }}</h1>
+    {% if section.settings.intro != blank %}
+      <div class="blog__intro rte">{{ section.settings.intro }}</div>
+    {% endif %}
+  </header>
+
+  {% if p1 != blank or p2 != blank or p3 != blank %}
+    <nav class="blog__pillars" aria-label="{{ 'blog.filter_label' | t }}">
+      <a
+        class="blog__pillar-chip{% if current_tags == blank %} is-active{% endif %}"
+        href="{{ blog.url }}"
+        {% if current_tags == blank %}aria-current="page"{% endif %}
+      >
+        {{ 'blog.pillar.all' | t }}
+      </a>
+      {% if p1 != blank %}
+        <a class="blog__pillar-chip{% if current_tags contains p1 %} is-active{% endif %}" href="{{ blog.url }}/tagged/{{ p1 | handleize }}"{% if current_tags contains p1 %} aria-current="page"{% endif %}>{{ 'blog.pillar.practical' | t }}</a>
+      {% endif %}
+      {% if p2 != blank %}
+        <a class="blog__pillar-chip{% if current_tags contains p2 %} is-active{% endif %}" href="{{ blog.url }}/tagged/{{ p2 | handleize }}"{% if current_tags contains p2 %} aria-current="page"{% endif %}>{{ 'blog.pillar.deco' | t }}</a>
+      {% endif %}
+      {% if p3 != blank %}
+        <a class="blog__pillar-chip{% if current_tags contains p3 %} is-active{% endif %}" href="{{ blog.url }}/tagged/{{ p3 | handleize }}"{% if current_tags contains p3 %} aria-current="page"{% endif %}>{{ 'blog.pillar.brand' | t }}</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+
+  {% paginate blog.articles by section.settings.posts_per_page %}
+    {% if blog.articles.size > 0 %}
+      <div class="blog__grid">
+        {% for article in blog.articles %}
+          {% render 'article-card', card_article: article, sizes: card_sizes, p1: p1, p2: p2, p3: p3 %}
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        <div class="blog__pagination">{{ paginate | default_pagination }}</div>
+      {% endif %}
+    {% else %}
+      <p class="blog__empty">{{ 'blog.empty' | t }}</p>
+    {% endif %}
+  {% endpaginate %}
+
+  {% if section.settings.discover_collections != blank and section.settings.discover_collections.count > 0 %}
+    <section class="blog__discover">
+      <h2 class="blog__discover-title">
+        {% if section.settings.discover_heading != blank %}
+          {{ section.settings.discover_heading }}
+        {% else %}
+          {{ 'blog.discover_title' | t }}
+        {% endif %}
+      </h2>
+      <div class="blog__discover-grid">
+        {% for col in section.settings.discover_collections %}
+          <a class="blog__discover-card" href="{{ col.url }}">
+            <div class="blog__discover-media">
+              {% if col.featured_image %}
+                {{ col.featured_image | image_url: width: 600 | image_tag: widths: '300, 400, 600', sizes: '(min-width: 750px) 25vw, 50vw', loading: 'lazy', class: 'blog__discover-image', alt: col.title }}
+              {% endif %}
+            </div>
+            <span class="blog__discover-label">{{ col.title }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ 'general.home' | t | json }},
+          "item": {{ shop.url | append: routes.root_url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ blog.title | json }},
+          "item": {{ shop.url | append: blog.url | json }}
+        }
+      ]
+    }
+  </script>
+</div>
+
+{% stylesheet %}
+  .blog {
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 1.5rem var(--rar-page-margin) 4rem;
+  }
+
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8125rem;
+    color: rgb(28 40 48 / 55%);
+  }
+  .breadcrumbs__item + .breadcrumbs__item::before {
+    content: '/';
+    margin-inline-end: 0.4rem;
+    color: rgb(28 40 48 / 35%);
+  }
+  .breadcrumbs__item a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .breadcrumbs__item a:hover {
+    color: var(--rar-accent);
+  }
+
+  .blog__header {
+    max-width: 760px;
+    margin: 1rem auto 2.25rem;
+    text-align: center;
+  }
+  .blog__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.85rem, 1.2rem + 2.4vw, 3rem);
+  }
+  .blog__intro {
+    color: rgb(28 40 48 / 75%);
+    line-height: 1.6;
+  }
+
+  .blog__pillars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .blog__pillar-chip {
+    padding: 0.5rem 1.1rem;
+    border: 1.5px solid rgb(28 40 48 / 15%);
+    border-radius: 999px;
+    color: rgb(28 40 48 / 70%);
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+  }
+  .blog__pillar-chip:hover {
+    border-color: var(--rar-accent);
+    color: var(--rar-accent);
+  }
+  .blog__pillar-chip.is-active {
+    border-color: var(--rar-color-ink);
+    background-color: var(--rar-color-ink);
+    color: #fff;
+  }
+
+  .blog__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem 1.75rem;
+  }
+  .blog__pagination {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .blog__empty {
+    padding: 3rem 0;
+    text-align: center;
+    color: rgb(28 40 48 / 60%);
+  }
+
+  .blog__discover {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgb(28 40 48 / 10%);
+  }
+  .blog__discover-title {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.85rem);
+    text-align: center;
+  }
+  .blog__discover-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .blog__discover-card {
+    color: inherit;
+    text-decoration: none;
+  }
+  .blog__discover-media {
+    aspect-ratio: 4 / 3;
+    margin-bottom: 0.6rem;
+    border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .blog__discover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .blog__discover-label {
+    font-family: var(--rar-font-heading);
+    font-weight: 600;
+  }
+  .blog__discover-card:hover .blog__discover-label {
+    color: var(--rar-accent);
+  }
+
+  @media (min-width: 750px) {
+    .blog__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .blog__discover-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (min-width: 990px) {
+    .blog__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem 2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.blog",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:labels.intro"
+    },
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "label": "t:labels.posts_per_page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "t:general.pillars"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:info.pillar_tags"
+    },
+    {
+      "type": "text",
+      "id": "pillar_practical_tag",
+      "label": "t:labels.pillar_practical_tag",
+      "default": "Pratique"
+    },
+    {
+      "type": "text",
+      "id": "pillar_deco_tag",
+      "label": "t:labels.pillar_deco_tag",
+      "default": "Déco"
+    },
+    {
+      "type": "text",
+      "id": "pillar_brand_tag",
+      "label": "t:labels.pillar_brand_tag",
+      "default": "Marque"
+    },
+    {
+      "type": "header",
+      "content": "t:general.discover_collections"
+    },
+    {
+      "type": "text",
+      "id": "discover_heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "collection_list",
+      "id": "discover_collections",
+      "label": "t:labels.discover_collections",
+      "info": "t:info.discover_collections"
+    }
+  ]
+}
+{% endschema %}

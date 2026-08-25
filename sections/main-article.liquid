@@ -1,0 +1,659 @@
+{% comment %}
+  Article template (SEO-first). One H1, visible meta (date · author · read time
+  · pillar), an above-the-fold responsive featured image (eager, explicit
+  dimensions), the article body, an auto "related articles" block (same tag
+  first), a merchant-controlled "related collections" block (internal-link
+  lever for SEO), optional share + newsletter blocks, and BlogPosting +
+  BreadcrumbList JSON-LD. The pure Dawn `article` section is left untouched.
+{% endcomment %}
+
+{% liquid
+  assign p1 = section.settings.pillar_practical_tag
+  assign p2 = section.settings.pillar_deco_tag
+  assign p3 = section.settings.pillar_brand_tag
+
+  assign words = article.content | strip_html | split: ' ' | size
+  assign minutes = words | divided_by: 200
+  if minutes < 1
+    assign minutes = 1
+  endif
+
+  assign pillar_label = ''
+  for tag in article.tags
+    if p1 != blank and tag == p1
+      assign pillar_label = 'blog.pillar.practical' | t
+    elsif p2 != blank and tag == p2
+      assign pillar_label = 'blog.pillar.deco' | t
+    elsif p3 != blank and tag == p3
+      assign pillar_label = 'blog.pillar.brand' | t
+    endif
+  endfor
+
+  assign pub_date = article.published_at | date: '%-d %B %Y'
+  assign og_image = article.image | default: page_image
+%}
+
+<article class="article" data-section-id="{{ section.id }}">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item"><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+      <li class="breadcrumbs__item"><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+      <li class="breadcrumbs__item" aria-current="page">{{ article.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="article__header">
+    {% if pillar_label != blank %}
+      <span class="article__pillar">{{ pillar_label }}</span>
+    {% endif %}
+    <h1 class="article__title">{{ article.title }}</h1>
+    <p class="article__meta">
+      {{ 'blog.article_metadata_html' | t: date: pub_date, author: article.author }}
+      <span class="article__dot" aria-hidden="true">·</span>
+      {{ 'blog.read_time_html' | t: minutes: minutes }}
+    </p>
+  </header>
+
+  {% if article.image %}
+    <div class="article__hero">
+      {{
+        article.image
+        | image_url: width: 1600
+        | image_tag:
+          widths: '600, 800, 1000, 1200, 1400, 1600',
+          sizes: '(min-width: 1100px) 1040px, 100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'article__hero-image',
+          alt: article.image.alt | default: article.title
+      }}
+    </div>
+  {% endif %}
+
+  <div class="article__content rte">
+    {{ article.content }}
+  </div>
+
+  {% if section.settings.show_share %}
+    <div class="article__share">
+      <span class="article__share-label">{{ 'blog.share' | t }}</span>
+      <a
+        class="article__share-btn"
+        href="https://www.pinterest.com/pin/create/button/?url={{ shop.url | append: article.url | url_encode }}{% if og_image %}&media={{ og_image | image_url: width: 1000 | prepend: 'https:' | url_encode }}{% endif %}&description={{ article.title | url_encode }}"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ 'blog.pin' | t }}
+      </a>
+      <share-button class="article__share-btn" data-url="{{ shop.url | append: article.url }}" data-title="{{ article.title | escape }}">
+        <button type="button">{{ 'blog.share_link' | t }}</button>
+      </share-button>
+    </div>
+  {% endif %}
+
+  {% comment %} ---------- RELATED ARTICLES (same tag first, then recent) ---------- {% endcomment %}
+  {% if section.settings.show_related_articles and blog.articles.size > 1 %}
+    {% liquid
+      assign rel_limit = section.settings.related_articles_count
+      assign shown = ''
+      assign n = 0
+    %}
+    <section class="article__related">
+      <h2 class="article__related-title">
+        {% if section.settings.related_articles_heading != blank %}
+          {{ section.settings.related_articles_heading }}
+        {% else %}
+          {{ 'blog.related_articles_title' | t }}
+        {% endif %}
+      </h2>
+      <div class="article__related-grid">
+        {%- for a in blog.articles -%}
+          {%- if n >= rel_limit -%}{%- break -%}{%- endif -%}
+          {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+          {%- assign shared = false -%}
+          {%- for t in a.tags -%}
+            {%- if article.tags contains t -%}{%- assign shared = true -%}{%- break -%}{%- endif -%}
+          {%- endfor -%}
+          {%- if shared -%}
+            {% render 'article-card', card_article: a, sizes: '(min-width: 750px) 30vw, 90vw', p1: p1, p2: p2, p3: p3 %}
+            {%- assign shown = shown | append: a.id | append: ',' -%}
+            {%- assign n = n | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if n < rel_limit -%}
+          {%- for a in blog.articles -%}
+            {%- if n >= rel_limit -%}{%- break -%}{%- endif -%}
+            {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+            {%- assign idstr = a.id | append: ',' -%}
+            {%- unless shown contains idstr -%}
+              {% render 'article-card', card_article: a, sizes: '(min-width: 750px) 30vw, 90vw', p1: p1, p2: p2, p3: p3 %}
+              {%- assign shown = shown | append: idstr -%}
+              {%- assign n = n | plus: 1 -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </section>
+  {% endif %}
+
+  {% comment %} ---------- RELATED COLLECTIONS (internal-link lever) ---------- {% endcomment %}
+  {% assign coll_blocks = section.blocks | where: 'type', 'related_collection' %}
+  {% if coll_blocks.size > 0 %}
+    <section class="article__collections">
+      <h2 class="article__collections-title">
+        {% if section.settings.related_collections_heading != blank %}
+          {{ section.settings.related_collections_heading }}
+        {% else %}
+          {{ 'blog.related_collections_title' | t }}
+        {% endif %}
+      </h2>
+      <div class="article__collections-grid">
+        {% for block in coll_blocks %}
+          {% assign col = block.settings.collection %}
+          {% if col != blank %}
+            <div class="article__collection-card" {{ block.shopify_attributes }}>
+              <a class="article__collection-media" href="{{ col.url }}" tabindex="-1" aria-hidden="true">
+                {% if col.featured_image %}
+                  {{ col.featured_image | image_url: width: 800 | image_tag: widths: '400, 600, 800', sizes: '(min-width: 750px) 45vw, 90vw', loading: 'lazy', class: 'article__collection-image', alt: '' }}
+                {% endif %}
+              </a>
+              <div class="article__collection-body">
+                <a class="article__collection-anchor" href="{{ col.url }}">
+                  {% if block.settings.anchor != blank %}{{ block.settings.anchor }}{% else %}{{ col.title }}{% endif %}
+                </a>
+                <span class="article__collection-cta">
+                  {% if block.settings.cta_label != blank %}{{ block.settings.cta_label }}{% else %}{{ 'blog.shop_collection' | t }}{% endif %}
+                  <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true" focusable="false"><path d="M5 10h10M11 6l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if section.settings.show_newsletter %}
+    <section class="article__newsletter">
+      <h2 class="article__newsletter-title">
+        {% if section.settings.newsletter_heading != blank %}
+          {{ section.settings.newsletter_heading }}
+        {% else %}
+          {{ 'blog.newsletter_title' | t }}
+        {% endif %}
+      </h2>
+      {% form 'customer', class: 'article__newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {% if form.posted_successfully? %}
+          <p class="article__newsletter-success">{{ 'newsletter.success' | t }}</p>
+        {% else %}
+          <div class="article__newsletter-field">
+            <label class="visually-hidden" for="ArticleNewsletter-{{ section.id }}">{{ 'newsletter.email_label' | t }}</label>
+            <input id="ArticleNewsletter-{{ section.id }}" type="email" name="contact[email]" class="article__newsletter-input" placeholder="{{ 'newsletter.email_label' | t }}" autocomplete="email" required>
+            <button type="submit" class="article__newsletter-button">{{ 'newsletter.button' | t }}</button>
+          </div>
+        {% endif %}
+      {% endform %}
+    </section>
+  {% endif %}
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": {{ article.title | json }},
+      {% if og_image %}"image": [{{ og_image | image_url: width: 1600 | prepend: 'https:' | json }}],{% endif %}
+      "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+      "dateModified": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+      "author": { "@type": "Person", "name": {{ article.author | json }} },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }},
+        "logo": {
+          "@type": "ImageObject",
+          "url": {{ 'logo-rackandride-noir.svg' | asset_url | prepend: 'https:' | json }}
+        }
+      },
+      "description": {{ article.excerpt_or_content | strip_html | truncate: 300 | json }},
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": {{ shop.url | append: article.url | json }}
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ 'general.home' | t | json }}, "item": {{ shop.url | append: routes.root_url | json }} },
+        { "@type": "ListItem", "position": 2, "name": {{ blog.title | json }}, "item": {{ shop.url | append: blog.url | json }} },
+        { "@type": "ListItem", "position": 3, "name": {{ article.title | json }}, "item": {{ shop.url | append: article.url | json }} }
+      ]
+    }
+  </script>
+</article>
+
+{% stylesheet %}
+  .article {
+    width: 100%;
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 1.5rem var(--rar-page-margin) 4rem;
+  }
+
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8125rem;
+    color: rgb(28 40 48 / 55%);
+  }
+  .breadcrumbs__item + .breadcrumbs__item::before {
+    content: '/';
+    margin-inline-end: 0.4rem;
+    color: rgb(28 40 48 / 35%);
+  }
+  .breadcrumbs__item a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .breadcrumbs__item a:hover {
+    color: var(--rar-accent);
+  }
+
+  .article__header {
+    max-width: 760px;
+    margin: 0.5rem auto 2rem;
+    text-align: center;
+  }
+  .article__pillar {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background-color: var(--rar-color-surface);
+    color: var(--rar-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .article__title {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 1.3rem + 2.8vw, 3.25rem);
+    line-height: 1.15;
+  }
+  .article__meta {
+    margin: 0;
+    color: rgb(28 40 48 / 55%);
+    font-size: 0.9375rem;
+  }
+  .article__dot {
+    margin-inline: 0.3rem;
+  }
+
+  .article__hero {
+    max-width: 1040px;
+    margin: 0 auto 2.5rem;
+    border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .article__hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Reading column */
+  .article__content {
+    max-width: 720px;
+    margin: 0 auto;
+    color: rgb(28 40 48 / 88%);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .article__content > * {
+    margin-block: 0 1.35rem;
+  }
+  .article__content h2 {
+    margin-block: 2.5rem 1rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    line-height: 1.25;
+  }
+  .article__content h3 {
+    margin-block: 2rem 0.85rem;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.5rem);
+  }
+  .article__content ul,
+  .article__content ol {
+    padding-inline-start: 1.4rem;
+  }
+  .article__content li {
+    margin-block: 0.4rem;
+  }
+  .article__content a {
+    color: var(--rar-accent);
+    text-underline-offset: 3px;
+  }
+  .article__content img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--rar-radius-card);
+  }
+  .article__content blockquote {
+    margin-inline: 0;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    border-inline-start: 3px solid var(--rar-accent);
+    color: var(--rar-text);
+    font-family: var(--rar-font-heading);
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+
+  .article__share {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    max-width: 720px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(28 40 48 / 10%);
+  }
+  .article__share-label {
+    color: rgb(28 40 48 / 55%);
+    font-size: 0.875rem;
+  }
+  .article__share-btn button,
+  .article__share-btn {
+    padding: 0.45rem 1rem;
+    border: 1.5px solid rgb(28 40 48 / 15%);
+    border-radius: var(--rar-radius-button);
+    background: none;
+    color: var(--rar-text);
+    font: inherit;
+    font-size: 0.875rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .article__share-btn:hover,
+  .article__share-btn button:hover {
+    border-color: var(--rar-accent);
+    color: var(--rar-accent);
+  }
+  share-button.article__share-btn {
+    padding: 0;
+    border: 0;
+  }
+
+  .article__related,
+  .article__collections,
+  .article__newsletter {
+    max-width: var(--rar-page-width);
+    margin: 4rem auto 0;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgb(28 40 48 / 10%);
+  }
+  .article__related-title,
+  .article__collections-title,
+  .article__newsletter-title {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.95rem);
+    text-align: center;
+  }
+  .article__related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 1.75rem;
+  }
+
+  .article__collections-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+  .article__collection-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem;
+    border: 1px solid rgb(28 40 48 / 12%);
+    border-radius: var(--rar-radius-card);
+    background-color: var(--rar-color-background);
+  }
+  .article__collection-media {
+    flex: 0 0 auto;
+    width: 96px;
+    height: 96px;
+    border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .article__collection-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .article__collection-anchor {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--rar-text);
+    font-family: var(--rar-font-heading);
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .article__collection-anchor:hover {
+    color: var(--rar-accent);
+  }
+  .article__collection-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--rar-accent);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .article__newsletter {
+    text-align: center;
+  }
+  .article__newsletter-form {
+    max-width: 460px;
+    margin-inline: auto;
+  }
+  .article__newsletter-field {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .article__newsletter-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid rgb(28 40 48 / 20%);
+    border-radius: var(--rar-radius-button);
+    background-color: var(--rar-color-background);
+    color: var(--rar-text);
+  }
+  .article__newsletter-button {
+    flex: 0 0 auto;
+    padding: 0.65rem 1.25rem;
+    border: 0;
+    border-radius: var(--rar-radius-button);
+    background-color: var(--rar-accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .article__newsletter-success {
+    color: var(--rar-eco);
+    font-weight: 600;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 750px) {
+    .article__related-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .article__collections-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class ShareButton extends HTMLElement {
+    connectedCallback() {
+      const button = this.querySelector('button');
+      if (!button) return;
+      button.addEventListener('click', async () => {
+        const data = { title: this.dataset.title, url: this.dataset.url };
+        if (navigator.share) {
+          try { await navigator.share(data); } catch (e) {}
+        } else if (navigator.clipboard) {
+          try {
+            await navigator.clipboard.writeText(this.dataset.url);
+            button.setAttribute('data-copied', '');
+            setTimeout(() => button.removeAttribute('data-copied'), 1500);
+          } catch (e) {}
+        }
+      });
+    }
+  }
+  if (!customElements.get('share-button')) {
+    customElements.define('share-button', ShareButton);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:general.article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_share",
+      "label": "t:labels.show_share",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.pillars"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:info.pillar_tags"
+    },
+    {
+      "type": "text",
+      "id": "pillar_practical_tag",
+      "label": "t:labels.pillar_practical_tag",
+      "default": "Pratique"
+    },
+    {
+      "type": "text",
+      "id": "pillar_deco_tag",
+      "label": "t:labels.pillar_deco_tag",
+      "default": "Déco"
+    },
+    {
+      "type": "text",
+      "id": "pillar_brand_tag",
+      "label": "t:labels.pillar_brand_tag",
+      "default": "Marque"
+    },
+    {
+      "type": "header",
+      "content": "t:general.related_articles"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_articles",
+      "label": "t:labels.show_related_articles",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_articles_heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "range",
+      "id": "related_articles_count",
+      "label": "t:labels.related_articles_count",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:general.related_collections"
+    },
+    {
+      "type": "text",
+      "id": "related_collections_heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "header",
+      "content": "t:general.newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "t:labels.show_newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "t:labels.heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "related_collection",
+      "name": "t:general.related_collection",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:labels.collection"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "t:labels.anchor",
+          "info": "t:info.anchor"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "t:labels.cta_label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,20 +1,19 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
-      "type": "article",
-      "settings": {}
+      "type": "main-article",
+      "settings": {
+        "show_share": true,
+        "show_related_articles": true,
+        "related_articles_count": 3,
+        "show_newsletter": true,
+        "pillar_practical_tag": "Pratique",
+        "pillar_deco_tag": "Déco",
+        "pillar_brand_tag": "Marque"
+      },
+      "blocks": {},
+      "block_order": []
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

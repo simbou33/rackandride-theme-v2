@@ -11,6 +11,8 @@
       {% render 'logo', variant: 'wordmark', class: 'footer__logo', size: 28 %}
       {% if section.settings.tagline != blank %}
         <p class="footer__tagline">{{ section.settings.tagline }}</p>
+      {% else %}
+        <p class="footer__tagline">{{ 'footer.tagline' | t }}</p>
       {% endif %}
     </div>
 
@@ -286,7 +288,7 @@
       "type": "textarea",
       "id": "tagline",
       "label": "t:labels.tagline",
-      "default": "Handmade wall mounts in solid oak — crafted in Gironde, France. Beeswax & linseed finish, cork pads, recyclable packaging."
+      "info": "Leave empty to use the built-in translated tagline."
     },
     {
       "type": "checkbox",

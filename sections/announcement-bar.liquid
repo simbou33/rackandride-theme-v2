@@ -25,7 +25,7 @@
           {% if block.settings.link != blank %}
             <a class="announcement__link" href="{{ block.settings.link }}">
           {% endif %}
-          <span class="announcement__text">{{ block.settings.text }}</span>
+          <span class="announcement__text">{% if block.settings.text != blank %}{{ block.settings.text }}{% else %}{{ 'announcement.free_shipping' | t }}{% endif %}</span>
           {% if block.settings.link != blank %}
             </a>
           {% endif %}
@@ -146,7 +146,7 @@
           "type": "inline_richtext",
           "id": "text",
           "label": "t:labels.text",
-          "default": "t:announcement.default_message"
+          "info": "Leave empty to use the built-in translated message."
         },
         {
           "type": "url",
