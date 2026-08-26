@@ -136,6 +136,17 @@
       "bamboo": "Aucun entretien à prévoir. Un chiffon sec de temps en temps suffit.",
       "plywood": "Dépoussiérez avec un chiffon sec."
     },
+    "assembly": {
+      "title": "Notice de montage",
+      "subtitle": "Installation — 3 étapes",
+      "step1_title": "Niveau & traçage",
+      "step1_text": "Positionnez le rack, vérifiez qu'il est de niveau, puis marquez l'emplacement des deux trous de vis avec un crayon ou un outil pointu.",
+      "step2_title": "Perçage",
+      "step2_text": "Percez les trous bien droits, perpendiculairement au mur, avec un foret du diamètre recommandé pour les fixations choisies.",
+      "step3_title": "Fixation du rack",
+      "step3_text": "Insérez les chevilles puis vissez fermement le rack au mur.",
+      "download": "Télécharger la notice complète (PDF)"
+    },
     "fact": {
       "origin_gironde": "Fait main en Gironde, France",
       "made_partners": "Conçu en France, fabriqué par nos partenaires",

@@ -136,6 +136,17 @@
       "bamboo": "Keine Pflege nötig. Ab und zu ein trockenes Tuch genügt.",
       "plywood": "Mit einem trockenen Tuch abstauben."
     },
+    "assembly": {
+      "title": "Montageanleitung",
+      "subtitle": "Montage — 3 Schritte",
+      "step1_title": "Ausrichten & anzeichnen",
+      "step1_text": "Halte die Halterung an die Wand, prüfe mit der Wasserwaage, dass sie gerade sitzt, und markiere die beiden Schraublöcher mit einem Bleistift oder einem spitzen Werkzeug.",
+      "step2_title": "Bohren",
+      "step2_text": "Bohre die Löcher gerade und im rechten Winkel zur Wand, mit dem für die gewählten Befestigungen empfohlenen Bohrerdurchmesser.",
+      "step3_title": "Befestigen & aufhängen",
+      "step3_text": "Setze die Dübel ein und schraube die Halterung fest an die Wand.",
+      "download": "Vollständige Anleitung herunterladen (PDF)"
+    },
     "fact": {
       "origin_gironde": "Handgefertigt in Gironde, Frankreich",
       "made_partners": "In Frankreich entworfen, von unseren Partnern gefertigt",

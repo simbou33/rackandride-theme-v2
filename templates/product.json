@@ -42,6 +42,14 @@
             "metafield_key": "dimensions"
           }
         },
+        "assembly": {
+          "type": "assembly",
+          "settings": {
+            "image_asset_1": "diagram-etape-1.png",
+            "image_asset_2": "diagram-etape-2.png",
+            "image_asset_3": "diagram-etape-3.png"
+          }
+        },
         "care": {
           "type": "collapsible",
           "settings": {
@@ -51,7 +59,7 @@
           }
         }
       },
-      "block_order": ["size_helper", "materials", "shipping", "dimensions", "care"],
+      "block_order": ["size_helper", "materials", "shipping", "dimensions", "assembly", "care"],
       "settings": {
         "show_reassurance": true
       }

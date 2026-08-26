@@ -136,6 +136,17 @@
       "bamboo": "No necesita mantenimiento. Basta con un paño seco de vez en cuando.",
       "plywood": "Quita el polvo con un paño seco."
     },
+    "assembly": {
+      "title": "Instrucciones de montaje",
+      "subtitle": "Instalación — 3 pasos",
+      "step1_title": "Nivelar y marcar",
+      "step1_text": "Coloca el soporte, comprueba con el nivel que está recto y marca la posición de los dos agujeros con un lápiz o una herramienta punzante.",
+      "step2_title": "Taladrar",
+      "step2_text": "Taladra los agujeros rectos y perpendiculares a la pared, con el diámetro de broca recomendado para las fijaciones elegidas.",
+      "step3_title": "Fijar y colgar",
+      "step3_text": "Introduce los tacos y atornilla el soporte firmemente a la pared.",
+      "download": "Descargar las instrucciones completas (PDF)"
+    },
     "fact": {
       "origin_gironde": "Hecho a mano en Gironde, Francia",
       "made_partners": "Diseñado en Francia, fabricado por nuestros socios",

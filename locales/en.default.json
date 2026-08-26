@@ -136,6 +136,17 @@
       "bamboo": "No upkeep needed. A dry cloth now and then is all it takes.",
       "plywood": "Dust with a dry cloth."
     },
+    "assembly": {
+      "title": "Assembly instructions",
+      "subtitle": "Installation — 3 steps",
+      "step1_title": "Level & mark",
+      "step1_text": "Position the rack, check that it is level, then mark the two screw-hole positions with a pencil or pointed tool.",
+      "step2_title": "Drill",
+      "step2_text": "Drill the holes straight and perpendicular to the wall, using the recommended drill-bit diameter for the selected fixings.",
+      "step3_title": "Fix & hang",
+      "step3_text": "Insert the wall plugs and screw the rack securely to the wall.",
+      "download": "Download the full instructions (PDF)"
+    },
     "fact": {
       "origin_gironde": "Handmade in Gironde, France",
       "made_partners": "Designed in France, made by our partners",

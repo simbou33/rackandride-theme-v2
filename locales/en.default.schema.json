@@ -4,6 +4,7 @@
     "about": "About / Our story",
     "announcement_bar": "Announcement bar",
     "article": "Article",
+    "assembly_guide": "Assembly guide",
     "block": "Block",
     "blog": "Blog",
     "cart": "Cart",
@@ -154,6 +155,7 @@
   "info": {
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
     "anchor": "Use descriptive link text for SEO — avoid \"click here\".",
+    "assembly_guide": "Shows only on products that have a PDF in the custom.assembly_pdf metafield. All wording comes from the theme translations.",
     "category_nav": "Sport categories shown as an icon switcher at the top of every collection page.",
     "discover_collections": "Optional — shown at the bottom of the blog as internal links to your category pages.",
     "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above.",
