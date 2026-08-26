@@ -33,37 +33,25 @@
     endif
   endfor
 
-  # Parent collection for the breadcrumb (silo up-link): always a sport
-  # category. The material ranges (oak / bamboo / plywood) are a cross-cutting
-  # way to browse, not a level in the silo — a skate mount belongs under
-  # Skateboard Wall Mounts whether it is oak or bamboo. They are skipped even
-  # when the visitor arrived through one of them.
   # Material family for the selector. Shopify has no reverse lookup on
-  # reference metafields, so we union the product's own list with each
-  # sibling's list: one fully-filled member is then enough for every page of
-  # the family to show the complete set. Duplicates and dead references are
-  # handled at render time by snippets/material-selector.liquid.
-  assign material_family = '' | split: ','
+  # reference metafields, so the family is this product's list unioned with each
+  # sibling's own list — one fully-filled member is then enough for every page
+  # of the family to show the complete set. Nothing is merged here: `concat`
+  # returns nil on arrays of product drops, so the snippet walks both hops.
   assign mat_sibs = product.metafields.custom.material_siblings.value
-  if mat_sibs != blank
-    assign material_family = material_family | concat: mat_sibs
-    for mat_sib in mat_sibs
-      assign mat_hop = mat_sib.metafields.custom.material_siblings.value
-      if mat_hop != blank
-        assign material_family = material_family | concat: mat_hop
-      endif
-    endfor
-    assign material_family = material_family | slice: 0, 40
-  endif
-
   assign has_material_family = false
-  for mat_member in material_family
-    if mat_member.handle != blank and mat_member.id != product.id
+  for mat_sib in mat_sibs
+    if mat_sib.handle != blank and mat_sib.id != product.id
       assign has_material_family = true
       break
     endif
   endfor
 
+  # Parent collection for the breadcrumb (silo up-link): always a sport
+  # category. The material ranges (oak / bamboo / plywood) are a cross-cutting
+  # way to browse, not a level in the silo — a skate mount belongs under
+  # Skateboard Wall Mounts whether it is oak or bamboo. They are skipped even
+  # when the visitor arrived through one of them.
   assign bc_deny = 'all,frontpage,bestsellers,oak,bamboo,plywood' | split: ','
   assign bc_collection = collection
   assign bc_ok = false
@@ -179,7 +167,7 @@
         <div class="product__material">{{ material_pill }}</div>
       {%- endif -%}
       {%- if has_material_family -%}
-        {% render 'material-selector', current: product, family: material_family %}
+        {% render 'material-selector', current: product, siblings: mat_sibs %}
       {%- endif -%}
 
       {% form 'product', product, id: form_id, class: 'product__form' %}

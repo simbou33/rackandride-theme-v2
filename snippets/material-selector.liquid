@@ -3,27 +3,97 @@
   design in a different material.
 
   Families are declared per product in `custom.material_siblings`. Shopify has
-  no reverse lookup, so the caller passes a family built by unioning the current
-  product's list with each sibling's own list (see sections/product.liquid).
-  That two-hop union means one fully-filled "hub" product is enough for every
-  page of the family to show the complete set.
+  no reverse lookup on reference metafields, so the panel unions the current
+  product's list with each sibling's own list. One fully-filled "hub" member is
+  therefore enough for every page of the family to show the complete set, and a
+  forgotten entry shortens the list instead of breaking the page.
 
-  Materials are ordered by range, never by price: plywood, bamboo, oak, black
-  oak, then anything else in the order it was added to the metafield. A member
-  that no longer resolves — deleted, unpublished, off the Online Store — comes
-  back blank from Liquid and is skipped silently.
+  The union is built as an ordered list of handles rather than an array of
+  products: Liquid's `concat` returns nil on arrays of product drops, so the
+  two hops are walked in place and deduplicated through a comma-fenced string.
+
+  Materials are ordered by range and never by price — plywood, bamboo, oak,
+  black oak — then anything else in the order it was added to the metafield, so
+  a future material needs no code change. A member that no longer resolves
+  (deleted, unpublished, off the Online Store) comes back blank and is skipped.
 
   @param {object} current - The product being viewed
-  @param {object} family - Sibling products, possibly with duplicates and gaps
+  @param {object} siblings - The current product's `custom.material_siblings` list
 
   @example
-  {% render 'material-selector', current: product, family: material_family %}
+  {% render 'material-selector', current: product, siblings: mat_sibs %}
 {% enddoc %}
 
 {% liquid
-  assign grade_order = 'plywood,bamboo,oak,black_oak' | split: ','
-  assign current_grade = current.metafields.custom.material_grade.value | downcase | strip
+  assign order = 'plywood,bamboo,oak,black_oak' | split: ','
   assign seen = ','
+  assign handles = ''
+
+  # One pass per known range, current product included so it lands in its own
+  # bucket rather than always first.
+  for g in order
+    assign key = ',' | append: current.handle | append: ','
+    unless seen contains key
+      assign grade = current.metafields.custom.material_grade.value | downcase | strip
+      if grade == g
+        assign handles = handles | append: current.handle | append: ','
+        assign seen = seen | append: current.handle | append: ','
+      endif
+    endunless
+
+    for sib in siblings
+      if sib.handle != blank
+        assign key = ',' | append: sib.handle | append: ','
+        unless seen contains key
+          assign grade = sib.metafields.custom.material_grade.value | downcase | strip
+          if grade == g
+            assign handles = handles | append: sib.handle | append: ','
+            assign seen = seen | append: sib.handle | append: ','
+          endif
+        endunless
+      endif
+
+      for hop in sib.metafields.custom.material_siblings.value
+        if hop.handle != blank
+          assign key = ',' | append: hop.handle | append: ','
+          unless seen contains key
+            assign grade = hop.metafields.custom.material_grade.value | downcase | strip
+            if grade == g
+              assign handles = handles | append: hop.handle | append: ','
+              assign seen = seen | append: hop.handle | append: ','
+            endif
+          endunless
+        endif
+      endfor
+    endfor
+  endfor
+
+  # Anything outside the fixed order keeps the order it was added in.
+  assign key = ',' | append: current.handle | append: ','
+  unless seen contains key
+    assign handles = handles | append: current.handle | append: ','
+    assign seen = seen | append: current.handle | append: ','
+  endunless
+  for sib in siblings
+    if sib.handle != blank
+      assign key = ',' | append: sib.handle | append: ','
+      unless seen contains key
+        assign handles = handles | append: sib.handle | append: ','
+        assign seen = seen | append: sib.handle | append: ','
+      endunless
+    endif
+    for hop in sib.metafields.custom.material_siblings.value
+      if hop.handle != blank
+        assign key = ',' | append: hop.handle | append: ','
+        unless seen contains key
+          assign handles = handles | append: hop.handle | append: ','
+          assign seen = seen | append: hop.handle | append: ','
+        endunless
+      endif
+    endfor
+  endfor
+
+  assign family = handles | split: ','
 %}
 
 <material-selector class="matsel">
@@ -44,81 +114,80 @@
       </header>
 
       <ul class="matsel__list" role="list">
-        {%- comment -%}
-          One pass per known range, then a catch-all pass. `seen` is a comma
-          fenced list of ids so a product referenced from several siblings is
-          only ever printed once.
-        {%- endcomment -%}
-        {%- for pass in (1..5) -%}
-          {%- if pass <= 4 -%}
-            {%- assign wanted = grade_order[forloop.index0] -%}
-            {%- assign catch_all = false -%}
-          {%- else -%}
-            {%- assign catch_all = true -%}
-          {%- endif -%}
+        {%- for handle in family -%}
+          {%- liquid
+            # Resolve the handle back to the drop it came from. Families hold a
+            # handful of products, so a scan is cheaper than a storefront lookup.
+            assign item = current
+            assign found = false
+            if handle == current.handle
+              assign found = true
+            endif
+            unless found
+              for sib in siblings
+                if sib.handle == handle
+                  assign item = sib
+                  assign found = true
+                  break
+                endif
+                for hop in sib.metafields.custom.material_siblings.value
+                  if hop.handle == handle
+                    assign item = hop
+                    assign found = true
+                    break
+                  endif
+                endfor
+                if found
+                  break
+                endif
+              endfor
+            endunless
 
-          {%- comment -%} The viewed product sits in its own range's bucket. {%- endcomment -%}
-          {%- assign current_key = ',' | append: current.id | append: ',' -%}
-          {%- unless seen contains current_key -%}
-            {%- if catch_all or current_grade == wanted -%}
-              {%- assign seen = seen | append: current.id | append: ',' -%}
-              {%- assign label_key = 'product.material.' | append: current_grade -%}
-              <li class="matsel__item matsel__item--current" aria-current="true">
-                <div class="matsel__media">
-                  {%- if current.featured_media -%}
-                    {{
-                      current.featured_media.preview_image
-                      | image_url: width: 240
-                      | image_tag: widths: '120, 180, 240', sizes: '72px', loading: 'lazy', class: 'matsel__img', alt: ''
-                    }}
-                  {%- endif -%}
-                </div>
-                <span class="matsel__body">
-                  <span class="matsel__name">{{ label_key | t }}</span>
-                  <span class="matsel__price">{{ current.price | money }}</span>
-                </span>
-                <span class="matsel__state">{{ 'product.selector.selected' | t }}</span>
-              </li>
-            {%- endif -%}
-          {%- endunless -%}
+            assign is_current = false
+            if handle == current.handle
+              assign is_current = true
+            endif
 
-          {%- for sibling in family -%}
-            {%- liquid
-              assign sib_key = ',' | append: sibling.id | append: ','
-              assign sib_grade = sibling.metafields.custom.material_grade.value | downcase | strip
-            -%}
-            {%- if sibling.handle == blank -%}{%- continue -%}{%- endif -%}
-            {%- if seen contains sib_key -%}{%- continue -%}{%- endif -%}
-            {%- unless catch_all -%}
-              {%- if sib_grade != wanted -%}{%- continue -%}{%- endif -%}
-            {%- endunless -%}
+            assign grade = item.metafields.custom.material_grade.value | downcase | strip
+            assign label = item.title
+            if grade != blank
+              assign label_key = 'product.material.' | append: grade
+              assign label = label_key | t
+            endif
+          -%}
 
-            {%- assign seen = seen | append: sibling.id | append: ',' -%}
-            {%- if sib_grade == blank -%}
-              {%- assign sib_label = sibling.title -%}
-            {%- else -%}
-              {%- assign sib_key_t = 'product.material.' | append: sib_grade -%}
-              {%- assign sib_label = sib_key_t | t -%}
-            {%- endif -%}
+          {%- if found -%}
             <li class="matsel__item">
-              <a class="matsel__link" href="{{ sibling.url }}">
-                <span class="matsel__media">
-                  {%- if sibling.featured_media -%}
-                    {{
-                      sibling.featured_media.preview_image
-                      | image_url: width: 240
-                      | image_tag: widths: '120, 180, 240', sizes: '72px', loading: 'lazy', class: 'matsel__img', alt: ''
-                    }}
-                  {%- endif -%}
-                </span>
-                <span class="matsel__body">
-                  <span class="matsel__name">{{ sib_label }}</span>
-                  <span class="matsel__price">{{ sibling.price | money }}</span>
-                </span>
+              {%- if is_current -%}
+                <div class="matsel__row matsel__row--current" aria-current="true">
+              {%- else -%}
+                <a class="matsel__row matsel__row--link" href="{{ item.url }}">
+              {%- endif -%}
+
+              <span class="matsel__media">
+                {%- if item.featured_media -%}
+                  {{
+                    item.featured_media.preview_image
+                    | image_url: width: 240
+                    | image_tag: widths: '120, 180, 240', sizes: '72px', loading: 'lazy', class: 'matsel__img', alt: ''
+                  }}
+                {%- endif -%}
+              </span>
+
+              <span class="matsel__body">
+                <span class="matsel__name">{{ label }}</span>
+                <span class="matsel__price">{{ item.price | money }}</span>
+              </span>
+
+              {%- if is_current -%}
+                <span class="matsel__state">{{ 'product.selector.selected' | t }}</span>
+                </div>
+              {%- else -%}
                 <svg class="matsel__go" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
+                </a>
+              {%- endif -%}
             </li>
-          {%- endfor -%}
+          {%- endif -%}
         {%- endfor -%}
       </ul>
     </div>
@@ -126,23 +195,23 @@
 </material-selector>
 
 {% stylesheet %}
-  /* Side drawer on desktop, bottom sheet on touch: a 400px-wide side panel is
+  /* Side drawer on desktop, bottom sheet on touch: a 460px side panel is
      awkward to reach on a phone. Scroll locking is handled theme-wide by the
      `scroll-lock` attribute (assets/critical.css). */
   .matsel__dialog {
     position: fixed;
     z-index: 100;
+    inset: auto 0 0 0;
+    width: 100%;
+    max-width: 100vw;
+    max-height: 85dvh;
     margin: 0;
     padding: 0;
     border: 0;
-    max-width: 100vw;
-    background-color: var(--rar-color-background);
-    color: var(--rar-text);
-    inset: auto 0 0 0;
-    width: 100%;
-    max-height: 85dvh;
     border-start-start-radius: var(--rar-radius-card);
     border-start-end-radius: var(--rar-radius-card);
+    background-color: var(--rar-color-background);
+    color: var(--rar-text);
     box-shadow: 0 -8px 40px rgb(28 40 48 / 14%);
     transform: translateY(0);
     transition:
@@ -150,13 +219,13 @@
       overlay 0.32s allow-discrete,
       display 0.32s allow-discrete;
   }
+  .matsel__dialog:not([open]) {
+    transform: translateY(100%);
+  }
   @starting-style {
     .matsel__dialog[open] {
       transform: translateY(100%);
     }
-  }
-  .matsel__dialog:not([open]) {
-    transform: translateY(100%);
   }
   .matsel__dialog::backdrop {
     background-color: rgb(28 40 48 / 0%);
@@ -216,19 +285,18 @@
   }
 
   .matsel__list {
-    margin: 0;
-    padding: 0 1.25rem 1.5rem;
-    list-style: none;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin: 0;
+    padding: 0 1.25rem 1.5rem;
+    overflow-y: auto;
+    list-style: none;
   }
   .matsel__item {
     margin: 0;
   }
-  .matsel__item--current,
-  .matsel__link {
+  .matsel__row {
     display: grid;
     grid-template-columns: 72px 1fr auto;
     align-items: center;
@@ -239,22 +307,22 @@
     color: inherit;
     text-decoration: none;
   }
-  .matsel__item--current {
+  .matsel__row--current {
     border-color: var(--rar-mat-oak);
     background-color: var(--rar-color-surface);
   }
-  .matsel__link:hover {
+  .matsel__row--link:hover {
     border-color: rgb(28 40 48 / 28%);
   }
-  .matsel__link:focus-visible {
+  .matsel__row--link:focus-visible {
     outline: 2px solid var(--rar-accent);
     outline-offset: 2px;
   }
   .matsel__media {
     display: block;
     aspect-ratio: 1;
-    border-radius: 8px;
     overflow: hidden;
+    border-radius: 8px;
     background-color: var(--rar-color-surface);
   }
   .matsel__img {
@@ -269,8 +337,8 @@
     min-width: 0;
   }
   .matsel__name {
-    font-weight: 600;
     font-size: 0.9375rem;
+    font-weight: 600;
   }
   .matsel__price {
     color: var(--rar-price);
@@ -278,11 +346,11 @@
     font-variant-numeric: tabular-nums;
   }
   .matsel__state {
+    color: var(--rar-mat-oak);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--rar-mat-oak);
   }
   .matsel__go {
     color: rgb(28 40 48 / 40%);
@@ -298,13 +366,13 @@
       box-shadow: -8px 0 40px rgb(28 40 48 / 12%);
       transform: translateX(0);
     }
+    .matsel__dialog:not([open]) {
+      transform: translateX(100%);
+    }
     @starting-style {
       .matsel__dialog[open] {
         transform: translateX(100%);
       }
-    }
-    .matsel__dialog:not([open]) {
-      transform: translateX(100%);
     }
     .matsel__grab {
       display: none;
@@ -332,7 +400,7 @@
         if (event.target.closest('[data-material-close]')) this.close();
       });
 
-      // Clicking the backdrop resolves to the dialog element itself.
+      // A click on the backdrop resolves to the dialog element itself.
       this.dialog.addEventListener('click', (event) => {
         if (event.target === this.dialog) this.close();
       });
