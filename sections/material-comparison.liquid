@@ -457,6 +457,22 @@
     white-space: nowrap;
   }
 
+  /* Stacked on narrow screens: two side-by-side halves would each be about
+     195px wide, and these mounts are long — cover would cut both ends off. */
+  @media screen and (max-width: 749px) {
+    .matcmp__hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .matcmp__seam {
+      inset-block: 50% auto;
+      inset-inline: 0;
+      width: auto;
+      height: 2px;
+      transform: translateY(-1px);
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .matcmp__blocks {
       grid-template-columns: 1fr 1fr;
