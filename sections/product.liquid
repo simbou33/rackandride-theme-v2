@@ -357,7 +357,19 @@
                           assign title_key = 'product.assembly.step' | append: i | append: '_title'
                           assign text_key = 'product.assembly.step' | append: i | append: '_text'
                           assign asset_key = 'image_asset_' | append: i
+
+                          # Diagrams differ from one mount to the next. A product
+                          # can name its own three theme assets in
+                          # `custom.assembly_diagrams`; otherwise the block's
+                          # defaults apply.
                           assign step_asset = block.settings[asset_key]
+                          assign custom_set = product.metafields.custom.assembly_diagrams.value
+                          if custom_set != blank
+                            assign from_set = custom_set[forloop.index0]
+                            if from_set != blank
+                              assign step_asset = from_set
+                            endif
+                          endif
                         %}
                         <li class="assembly__step">
                           <span class="assembly__num" aria-hidden="true">{{ i }}</span>
