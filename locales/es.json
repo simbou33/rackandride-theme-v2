@@ -126,6 +126,16 @@
       "bamboo": "Bambú",
       "plywood": "Contrachapado"
     },
+    "materials": {
+      "oak": "Roble macizo francés, con acabado natural de cera de abeja y aceite de lino. Las almohadillas de corcho protegen tu material de cualquier arañazo.",
+      "bamboo": "Bambú, con acabado de barniz. Diseñado en Francia, fabricado por nuestros socios.",
+      "plywood": "Contrachapado. Diseñado en Francia, fabricado por nuestros socios."
+    },
+    "care": {
+      "oak": "Quita el polvo con un paño seco. Una vez al año, aplica un poco de aceite de lino para nutrir y proteger la madera.",
+      "bamboo": "No necesita mantenimiento. Basta con un paño seco de vez en cuando.",
+      "plywood": "Quita el polvo con un paño seco."
+    },
     "fact": {
       "origin_gironde": "Hecho a mano en Gironde, Francia",
       "made_partners": "Diseñado en Francia, fabricado por nuestros socios",

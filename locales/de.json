@@ -126,6 +126,16 @@
       "bamboo": "Bambus",
       "plywood": "Sperrholz"
     },
+    "materials": {
+      "oak": "Massive französische Eiche, natürlich mit Bienenwachs und Leinöl behandelt. Korkpolster schützen dein Material vor Kratzern.",
+      "bamboo": "Bambus, klar lackiert. In Frankreich entworfen, von unseren Partnern gefertigt.",
+      "plywood": "Sperrholz. In Frankreich entworfen, von unseren Partnern gefertigt."
+    },
+    "care": {
+      "oak": "Mit einem trockenen Tuch abstauben. Einmal im Jahr etwas Leinöl auftragen, damit das Holz genährt und geschützt bleibt.",
+      "bamboo": "Keine Pflege nötig. Ab und zu ein trockenes Tuch genügt.",
+      "plywood": "Mit einem trockenen Tuch abstauben."
+    },
     "fact": {
       "origin_gironde": "Handgefertigt in Gironde, Frankreich",
       "made_partners": "In Frankreich entworfen, von unseren Partnern gefertigt",

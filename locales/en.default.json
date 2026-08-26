@@ -126,6 +126,16 @@
       "bamboo": "Bamboo",
       "plywood": "Plywood"
     },
+    "materials": {
+      "oak": "Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.",
+      "bamboo": "Bamboo, finished with a clear varnish. Designed in France, made by our partners.",
+      "plywood": "Plywood. Designed in France, made by our partners."
+    },
+    "care": {
+      "oak": "Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.",
+      "bamboo": "No upkeep needed. A dry cloth now and then is all it takes.",
+      "plywood": "Dust with a dry cloth."
+    },
     "fact": {
       "origin_gironde": "Handmade in Gironde, France",
       "made_partners": "Designed in France, made by our partners",

@@ -38,7 +38,7 @@
             "tone": "bamboo",
             "tag": "The everyday option",
             "heading": "Bamboo",
-            "text": "<p>Shaped bamboo, put through the same design and the same fixing process as the oak. A leaner process and a faster cut make it lighter on the wallet, and it does exactly the job you need — off the floor, held safely, no ceremony required.</p><p>What it does not try to be is a showpiece. If function comes first, bamboo gets it done, honestly.</p>"
+            "text": "<p>Bamboo, built to exactly the same design as the oak. It costs less for two reasons: the material is laminated from smaller pieces rather than cut from one solid block, and the wood is softer, which makes both the cut and the whole build simpler. It does exactly the job you need it to do — floor space back, board held safely, nothing superfluous.</p><p>What it does not try to be is a showpiece. If function comes first, bamboo gets it done, simply and well.</p>"
           }
         },
         "row-construction": {
@@ -46,7 +46,7 @@
           "settings": {
             "label": "Construction",
             "oak_value": "One solid piece, hand-shaped",
-            "bamboo_value": "Shaped bamboo, same design"
+            "bamboo_value": "Same design, laminated from softer wood, simpler build"
           }
         },
         "row-look": {

@@ -103,6 +103,7 @@
     "intro": "Intro text",
     "layout_direction": "Layout direction",
     "link": "Link",
+    "material_text": "Text by range",
     "menu": "Menu",
     "metafield_key": "Metafield key",
     "metafield_namespace": "Metafield namespace",
@@ -151,19 +152,20 @@
     "tone": "Range"
   },
   "info": {
-    "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
+    "anchor": "Use descriptive link text for SEO — avoid \"click here\".",
+    "category_nav": "Sport categories shown as an icon switcher at the top of every collection page.",
+    "discover_collections": "Optional — shown at the bottom of the blog as internal links to your category pages.",
+    "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above.",
     "free_shipping_threshold": "Amount (in your store currency) the customer must reach for free shipping. Set to 0 to hide the bar.",
-    "tile_image": "Optional — falls back to the collection image, then its first product image.",
     "icon_asset": "Optional — overrides the auto-detected sport icon (e.g. cat-surf.svg).",
     "image_asset": "Optional — filename of an image in /assets (used when no image is picked above).",
-    "products": "Pick the exact products to feature. Leave empty to use the collection below.",
-    "featured_collection": "Used for the \"View all\" link, and as a fallback when no products are picked above.",
-    "category_nav": "Sport categories shown as an icon switcher at the top of every collection page.",
+    "material_text": "Replaces the text above with copy specific to the product's material grade, so an oak claim never lands on a bamboo or plywood mount.",
+    "page_width_fixed": "Maximum content width is fixed at 1400px for a premium, spacious layout.",
     "pillar_tags": "These tag values must match the tags you set on your articles in Shopify. The labels shown to visitors are translated automatically.",
-    "discover_collections": "Optional — shown at the bottom of the blog as internal links to your category pages.",
-    "anchor": "Use descriptive link text for SEO — avoid \"click here\".",
-    "size_helper": "Shows a width-to-size guide above the size picker. Appears only on products whose size option values end in \"mm\"."
+    "products": "Pick the exact products to feature. Leave empty to use the collection below.",
+    "size_helper": "Shows a width-to-size guide above the size picker. Appears only on products whose size option values end in \"mm\".",
+    "tile_image": "Optional — falls back to the collection image, then its first product image."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Gironde, France"
@@ -203,6 +205,11 @@
       "oak": "Oak",
       "bamboo": "Bamboo",
       "plywood": "Plywood"
+    },
+    "material_text": {
+      "none": "Use the text above",
+      "materials": "Materials",
+      "care": "Care"
     }
   }
 }

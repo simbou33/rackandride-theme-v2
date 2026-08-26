@@ -298,6 +298,21 @@
             {% if block.type == 'collapsible' %}
               {% liquid
                 assign content = block.settings.content
+
+                # Copy that differs by range (materials, care): the oak default
+                # would otherwise claim beeswax, cork and Gironde on a bamboo
+                # or plywood mount. Falls back to the block's own text when the
+                # product has no grade.
+                assign mt = block.settings.material_text
+                if mt != blank and mt != 'none'
+                  assign grade = product.metafields.custom.material_grade.value | downcase | strip
+                  assign known_grades = 'oak,bamboo,plywood' | split: ','
+                  if known_grades contains grade
+                    assign mkey = 'product.' | append: mt | append: '.' | append: grade
+                    assign content = mkey | t
+                  endif
+                endif
+
                 assign ns = block.settings.metafield_namespace
                 assign key = block.settings.metafield_key
                 if ns != blank and key != blank
@@ -1002,6 +1017,18 @@
           "type": "richtext",
           "id": "content",
           "label": "t:labels.text"
+        },
+        {
+          "type": "select",
+          "id": "material_text",
+          "label": "t:labels.material_text",
+          "info": "t:info.material_text",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "t:options.material_text.none" },
+            { "value": "materials", "label": "t:options.material_text.materials" },
+            { "value": "care", "label": "t:options.material_text.care" }
+          ]
         },
         {
           "type": "header",

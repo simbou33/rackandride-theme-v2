@@ -21,6 +21,7 @@
         "materials": {
           "type": "collapsible",
           "settings": {
+            "material_text": "materials",
             "heading": "Materials",
             "content": "<p>Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.</p>"
           }
@@ -44,6 +45,7 @@
         "care": {
           "type": "collapsible",
           "settings": {
+            "material_text": "care",
             "heading": "Care",
             "content": "<p>Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.</p>"
           }
