@@ -28,6 +28,10 @@
   # argument after it is swallowed by the filter. Resolve the values first.
   assign card_sizes = sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw'
   assign card_alt = card_product.featured_media.preview_image.alt | default: card_product.title
+
+  # Same trap for the "from" price: `| money` inside the `t` arguments applies
+  # to the translated string, not to the price. Format it first.
+  assign price_min_money = card_product.price_min | money
 %}
 
 <a class="card" href="{{ card_product.url }}">
@@ -73,7 +77,7 @@
     <div class="card__price">
       {% if card_product.price_varies %}
         <span class="card__price-current">
-          {{ 'product.from_price_html' | t: price: card_product.price_min | money }}
+          {{ 'product.from_price_html' | t: price: price_min_money }}
         </span>
       {% else %}
         <span class="card__price-current">{{ card_product.price | money }}</span>
