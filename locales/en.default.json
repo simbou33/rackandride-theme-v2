@@ -123,16 +123,24 @@
     "from_price_html": "From {{ price }}",
     "material": {
       "oak": "Solid oak",
+      "black_oak": "Black oak",
       "bamboo": "Bamboo",
       "plywood": "Plywood"
     },
+    "selector": {
+      "title": "Choose a material",
+      "selected": "Selected",
+      "close": "Close"
+    },
     "materials": {
       "oak": "Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.",
+      "black_oak": "Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.",
       "bamboo": "Bamboo, finished with a clear varnish. Designed in France, made by our partners.",
       "plywood": "Plywood. Designed in France, made by our partners."
     },
     "care": {
       "oak": "Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.",
+      "black_oak": "Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.",
       "bamboo": "No upkeep needed. A dry cloth now and then is all it takes.",
       "plywood": "Dust with a dry cloth."
     },

@@ -123,16 +123,24 @@
     "from_price_html": "À partir de {{ price }}",
     "material": {
       "oak": "Chêne massif",
+      "black_oak": "Chêne noir",
       "bamboo": "Bambou",
       "plywood": "Contreplaqué"
     },
+    "selector": {
+      "title": "Choisir la matière",
+      "selected": "Sélectionné",
+      "close": "Fermer"
+    },
     "materials": {
       "oak": "Chêne massif français, finition naturelle à la cire d'abeille et à l'huile de lin. Des patins en liège protègent votre matériel de toute rayure.",
+      "black_oak": "Chêne massif français, finition naturelle à la cire d'abeille et à l'huile de lin. Des patins en liège protègent votre matériel de toute rayure.",
       "bamboo": "Bambou, finition vernis. Conçu en France, fabriqué par nos partenaires.",
       "plywood": "Contreplaqué. Conçu en France, fabriqué par nos partenaires."
     },
     "care": {
       "oak": "Dépoussiérez avec un chiffon sec. Une fois par an, repassez un peu d'huile de lin pour nourrir et protéger le bois.",
+      "black_oak": "Dépoussiérez avec un chiffon sec. Une fois par an, repassez un peu d'huile de lin pour nourrir et protéger le bois.",
       "bamboo": "Aucun entretien à prévoir. Un chiffon sec de temps en temps suffit.",
       "plywood": "Dépoussiérez avec un chiffon sec."
     },

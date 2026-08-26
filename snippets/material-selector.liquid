@@ -1,0 +1,362 @@
+{% doc %}
+  Renders the material selector panel: the other product pages that share this
+  design in a different material.
+
+  Families are declared per product in `custom.material_siblings`. Shopify has
+  no reverse lookup, so the caller passes a family built by unioning the current
+  product's list with each sibling's own list (see sections/product.liquid).
+  That two-hop union means one fully-filled "hub" product is enough for every
+  page of the family to show the complete set.
+
+  Materials are ordered by range, never by price: plywood, bamboo, oak, black
+  oak, then anything else in the order it was added to the metafield. A member
+  that no longer resolves — deleted, unpublished, off the Online Store — comes
+  back blank from Liquid and is skipped silently.
+
+  @param {object} current - The product being viewed
+  @param {object} family - Sibling products, possibly with duplicates and gaps
+
+  @example
+  {% render 'material-selector', current: product, family: material_family %}
+{% enddoc %}
+
+{% liquid
+  assign grade_order = 'plywood,bamboo,oak,black_oak' | split: ','
+  assign current_grade = current.metafields.custom.material_grade.value | downcase | strip
+  assign seen = ','
+%}
+
+<material-selector class="matsel">
+  <dialog class="matsel__dialog" scroll-lock aria-label="{{ 'product.selector.title' | t }}">
+    <div class="matsel__panel">
+      <span class="matsel__grab" aria-hidden="true"></span>
+
+      <header class="matsel__header">
+        <h2 class="matsel__title">{{ 'product.selector.title' | t }}</h2>
+        <button
+          type="button"
+          class="matsel__close"
+          data-material-close
+          aria-label="{{ 'product.selector.close' | t }}"
+        >
+          <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+
+      <ul class="matsel__list" role="list">
+        {%- comment -%}
+          One pass per known range, then a catch-all pass. `seen` is a comma
+          fenced list of ids so a product referenced from several siblings is
+          only ever printed once.
+        {%- endcomment -%}
+        {%- for pass in (1..5) -%}
+          {%- if pass <= 4 -%}
+            {%- assign wanted = grade_order[forloop.index0] -%}
+            {%- assign catch_all = false -%}
+          {%- else -%}
+            {%- assign catch_all = true -%}
+          {%- endif -%}
+
+          {%- comment -%} The viewed product sits in its own range's bucket. {%- endcomment -%}
+          {%- assign current_key = ',' | append: current.id | append: ',' -%}
+          {%- unless seen contains current_key -%}
+            {%- if catch_all or current_grade == wanted -%}
+              {%- assign seen = seen | append: current.id | append: ',' -%}
+              {%- assign label_key = 'product.material.' | append: current_grade -%}
+              <li class="matsel__item matsel__item--current" aria-current="true">
+                <div class="matsel__media">
+                  {%- if current.featured_media -%}
+                    {{
+                      current.featured_media.preview_image
+                      | image_url: width: 240
+                      | image_tag: widths: '120, 180, 240', sizes: '72px', loading: 'lazy', class: 'matsel__img', alt: ''
+                    }}
+                  {%- endif -%}
+                </div>
+                <span class="matsel__body">
+                  <span class="matsel__name">{{ label_key | t }}</span>
+                  <span class="matsel__price">{{ current.price | money }}</span>
+                </span>
+                <span class="matsel__state">{{ 'product.selector.selected' | t }}</span>
+              </li>
+            {%- endif -%}
+          {%- endunless -%}
+
+          {%- for sibling in family -%}
+            {%- liquid
+              assign sib_key = ',' | append: sibling.id | append: ','
+              assign sib_grade = sibling.metafields.custom.material_grade.value | downcase | strip
+            -%}
+            {%- if sibling.handle == blank -%}{%- continue -%}{%- endif -%}
+            {%- if seen contains sib_key -%}{%- continue -%}{%- endif -%}
+            {%- unless catch_all -%}
+              {%- if sib_grade != wanted -%}{%- continue -%}{%- endif -%}
+            {%- endunless -%}
+
+            {%- assign seen = seen | append: sibling.id | append: ',' -%}
+            {%- if sib_grade == blank -%}
+              {%- assign sib_label = sibling.title -%}
+            {%- else -%}
+              {%- assign sib_key_t = 'product.material.' | append: sib_grade -%}
+              {%- assign sib_label = sib_key_t | t -%}
+            {%- endif -%}
+            <li class="matsel__item">
+              <a class="matsel__link" href="{{ sibling.url }}">
+                <span class="matsel__media">
+                  {%- if sibling.featured_media -%}
+                    {{
+                      sibling.featured_media.preview_image
+                      | image_url: width: 240
+                      | image_tag: widths: '120, 180, 240', sizes: '72px', loading: 'lazy', class: 'matsel__img', alt: ''
+                    }}
+                  {%- endif -%}
+                </span>
+                <span class="matsel__body">
+                  <span class="matsel__name">{{ sib_label }}</span>
+                  <span class="matsel__price">{{ sibling.price | money }}</span>
+                </span>
+                <svg class="matsel__go" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </dialog>
+</material-selector>
+
+{% stylesheet %}
+  /* Side drawer on desktop, bottom sheet on touch: a 400px-wide side panel is
+     awkward to reach on a phone. Scroll locking is handled theme-wide by the
+     `scroll-lock` attribute (assets/critical.css). */
+  .matsel__dialog {
+    position: fixed;
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-width: 100vw;
+    background-color: var(--rar-color-background);
+    color: var(--rar-text);
+    inset: auto 0 0 0;
+    width: 100%;
+    max-height: 85dvh;
+    border-start-start-radius: var(--rar-radius-card);
+    border-start-end-radius: var(--rar-radius-card);
+    box-shadow: 0 -8px 40px rgb(28 40 48 / 14%);
+    transform: translateY(0);
+    transition:
+      transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+      overlay 0.32s allow-discrete,
+      display 0.32s allow-discrete;
+  }
+  @starting-style {
+    .matsel__dialog[open] {
+      transform: translateY(100%);
+    }
+  }
+  .matsel__dialog:not([open]) {
+    transform: translateY(100%);
+  }
+  .matsel__dialog::backdrop {
+    background-color: rgb(28 40 48 / 0%);
+    transition:
+      background-color 0.32s ease,
+      overlay 0.32s allow-discrete,
+      display 0.32s allow-discrete;
+  }
+  .matsel__dialog[open]::backdrop {
+    background-color: rgb(28 40 48 / 45%);
+  }
+  @starting-style {
+    .matsel__dialog[open]::backdrop {
+      background-color: rgb(28 40 48 / 0%);
+    }
+  }
+
+  .matsel__panel {
+    display: flex;
+    flex-direction: column;
+    max-height: inherit;
+  }
+  .matsel__grab {
+    display: block;
+    width: 2.25rem;
+    height: 4px;
+    margin: 0.6rem auto 0;
+    border-radius: 999px;
+    background-color: rgb(28 40 48 / 18%);
+  }
+  .matsel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem 0.75rem;
+  }
+  .matsel__title {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+  .matsel__close {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-inline-end: -0.6rem;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .matsel__close:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: -2px;
+  }
+
+  .matsel__list {
+    margin: 0;
+    padding: 0 1.25rem 1.5rem;
+    list-style: none;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .matsel__item {
+    margin: 0;
+  }
+  .matsel__item--current,
+  .matsel__link {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.6rem;
+    border: 1px solid rgb(28 40 48 / 10%);
+    border-radius: var(--rar-radius-card);
+    color: inherit;
+    text-decoration: none;
+  }
+  .matsel__item--current {
+    border-color: var(--rar-mat-oak);
+    background-color: var(--rar-color-surface);
+  }
+  .matsel__link:hover {
+    border-color: rgb(28 40 48 / 28%);
+  }
+  .matsel__link:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+  }
+  .matsel__media {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .matsel__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .matsel__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .matsel__name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .matsel__price {
+    color: var(--rar-price);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .matsel__state {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--rar-mat-oak);
+  }
+  .matsel__go {
+    color: rgb(28 40 48 / 40%);
+  }
+
+  @media screen and (min-width: 750px) {
+    .matsel__dialog {
+      inset: 0 0 0 auto;
+      width: min(460px, 100vw);
+      height: 100dvh;
+      max-height: 100dvh;
+      border-radius: 0;
+      box-shadow: -8px 0 40px rgb(28 40 48 / 12%);
+      transform: translateX(0);
+    }
+    @starting-style {
+      .matsel__dialog[open] {
+        transform: translateX(100%);
+      }
+    }
+    .matsel__dialog:not([open]) {
+      transform: translateX(100%);
+    }
+    .matsel__grab {
+      display: none;
+    }
+    .matsel__header {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .matsel__dialog,
+    .matsel__dialog::backdrop {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class MaterialSelector extends HTMLElement {
+    connectedCallback() {
+      this.dialog = this.querySelector('dialog');
+      if (!this.dialog) return;
+
+      this.addEventListener('click', (event) => {
+        if (event.target.closest('[data-material-close]')) this.close();
+      });
+
+      // Clicking the backdrop resolves to the dialog element itself.
+      this.dialog.addEventListener('click', (event) => {
+        if (event.target === this.dialog) this.close();
+      });
+
+      if (!MaterialSelector.bound) {
+        MaterialSelector.bound = true;
+        document.addEventListener('click', (event) => {
+          if (!event.target.closest('[data-material-open]')) return;
+          const selector = document.querySelector('material-selector');
+          if (selector) selector.open();
+        });
+      }
+    }
+
+    open() {
+      if (this.dialog && !this.dialog.open) this.dialog.showModal();
+    }
+
+    close() {
+      if (this.dialog && this.dialog.open) this.dialog.close();
+    }
+  }
+
+  if (!customElements.get('material-selector')) {
+    customElements.define('material-selector', MaterialSelector);
+  }
+{% endjavascript %}

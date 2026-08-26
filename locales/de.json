@@ -123,16 +123,24 @@
     "from_price_html": "Ab {{ price }}",
     "material": {
       "oak": "Eiche massiv",
+      "black_oak": "Schwarze Eiche",
       "bamboo": "Bambus",
       "plywood": "Sperrholz"
     },
+    "selector": {
+      "title": "Material wählen",
+      "selected": "Ausgewählt",
+      "close": "Schließen"
+    },
     "materials": {
       "oak": "Massive französische Eiche, natürlich mit Bienenwachs und Leinöl behandelt. Korkpolster schützen dein Material vor Kratzern.",
+      "black_oak": "Massive französische Eiche, natürlich mit Bienenwachs und Leinöl behandelt. Korkpolster schützen dein Material vor Kratzern.",
       "bamboo": "Bambus, klar lackiert. In Frankreich entworfen, von unseren Partnern gefertigt.",
       "plywood": "Sperrholz. In Frankreich entworfen, von unseren Partnern gefertigt."
     },
     "care": {
       "oak": "Mit einem trockenen Tuch abstauben. Einmal im Jahr etwas Leinöl auftragen, damit das Holz genährt und geschützt bleibt.",
+      "black_oak": "Mit einem trockenen Tuch abstauben. Einmal im Jahr etwas Leinöl auftragen, damit das Holz genährt und geschützt bleibt.",
       "bamboo": "Keine Pflege nötig. Ab und zu ein trockenes Tuch genügt.",
       "plywood": "Mit einem trockenen Tuch abstauben."
     },
