@@ -96,6 +96,55 @@
   assign family = handles | split: ','
 %}
 
+<div class="product__material">
+  <button type="button" class="matsel__trigger" data-material-open aria-haspopup="dialog">
+    {% render 'material-badge', product: current %}
+
+    {%- comment -%}
+      Thumbnails of the other materials, as on the reference: they say "this
+      exists in other woods" before the label has to. Capped at three so the
+      row stays a control rather than a gallery.
+    {%- endcomment -%}
+    <span class="matsel__thumbs" aria-hidden="true">
+      {%- assign thumb_count = 0 -%}
+      {%- for handle in family -%}
+        {%- if handle == current.handle -%}{%- continue -%}{%- endif -%}
+        {%- if thumb_count >= 3 -%}{%- break -%}{%- endif -%}
+        {%- liquid
+          assign thumb = nil
+          for sib in siblings
+            if sib.handle == handle
+              assign thumb = sib
+              break
+            endif
+            for hop in sib.metafields.custom.material_siblings.value
+              if hop.handle == handle
+                assign thumb = hop
+                break
+              endif
+            endfor
+            if thumb
+              break
+            endif
+          endfor
+        -%}
+        {%- if thumb.featured_media -%}
+          {%- assign thumb_count = thumb_count | plus: 1 -%}
+          <span class="matsel__thumb">
+            {{
+              thumb.featured_media.preview_image
+              | image_url: width: 120
+              | image_tag: widths: '60, 90, 120', sizes: '34px', loading: 'lazy', class: 'matsel__thumb-img', alt: ''
+            }}
+          </span>
+        {%- endif -%}
+      {%- endfor -%}
+    </span>
+
+    <svg class="matsel__chevron" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
 <material-selector class="matsel">
   <dialog class="matsel__dialog" scroll-lock aria-label="{{ 'product.selector.title' | t }}">
     <div class="matsel__panel">
@@ -241,6 +290,54 @@
     .matsel__dialog[open]::backdrop {
       background-color: rgb(28 40 48 / 0%);
     }
+  }
+
+  /* Trigger: the pill keeps stating the current material, the thumbnails say
+     the design exists in others, and the whole row is one tap target. */
+  .matsel__trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    min-height: 52px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgb(28 40 48 / 12%);
+    border-radius: var(--rar-radius-card);
+    background-color: var(--rar-color-surface);
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: start;
+  }
+  .matsel__trigger:hover {
+    border-color: rgb(28 40 48 / 26%);
+  }
+  .matsel__trigger:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+  }
+  .matsel__thumbs {
+    display: flex;
+    gap: 0.25rem;
+    margin-inline-start: auto;
+  }
+  .matsel__thumb {
+    display: block;
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    border: 1px solid rgb(28 40 48 / 12%);
+    border-radius: 6px;
+    background-color: var(--rar-color-background);
+  }
+  .matsel__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .matsel__chevron {
+    flex: 0 0 auto;
+    color: rgb(28 40 48 / 45%);
   }
 
   .matsel__panel {

@@ -16,7 +16,6 @@
 
   @param {object} product - The product to read the grade from
   @param {string} [layout] - "pill" (default) or "facts"
-  @param {boolean} [interactive] - render the pill as a button opening the material selector
 
   @example
   {% render 'material-badge', product: card_product %}
@@ -65,23 +64,10 @@
     </ul>
   {%- else -%}
     {%- assign material_key = 'product.material.' | append: grade -%}
-    {%- if interactive -%}
-      <button
-        type="button"
-        class="material-pill material-pill--{{ grade }} material-pill--trigger"
-        data-material-open
-        aria-haspopup="dialog"
-      >
-        {% render 'material-icon', grade: grade %}
-        <span>{{ material_key | t }}</span>
-        <svg class="material-pill__chevron" viewBox="0 0 20 20" width="12" height="12" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    {%- else -%}
-      <span class="material-pill material-pill--{{ grade }}">
-        {% render 'material-icon', grade: grade %}
-        <span>{{ material_key | t }}</span>
-      </span>
-    {%- endif -%}
+    <span class="material-pill material-pill--{{ grade }}">
+      {% render 'material-icon', grade: grade %}
+      <span>{{ material_key | t }}</span>
+    </span>
   {%- endif -%}
 {%- endif -%}
 
@@ -123,27 +109,6 @@
   .material-pill--plywood {
     background-color: var(--rar-mat-plywood-bg);
     color: var(--rar-mat-plywood);
-  }
-  /* Trigger form: a real button, with a tap target that clears 44px on touch. */
-  .material-pill--trigger {
-    border: 0;
-    cursor: pointer;
-    font-family: inherit;
-    min-height: 44px;
-    padding-block: 0;
-  }
-  .material-pill__chevron {
-    flex: 0 0 auto;
-    opacity: 0.65;
-  }
-  .material-pill--trigger:focus-visible {
-    outline: 2px solid var(--rar-accent);
-    outline-offset: 2px;
-  }
-  @media screen and (min-width: 750px) {
-    .material-pill--trigger {
-      min-height: 34px;
-    }
   }
   @media screen and (min-width: 750px) {
     .material-pill {

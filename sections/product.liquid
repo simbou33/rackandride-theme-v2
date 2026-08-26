@@ -160,14 +160,19 @@
         {{ current_variant.price | money }}
       </div>
 
-      {%- capture material_pill -%}
-        {% render 'material-badge', product: product, interactive: has_material_family %}
-      {%- endcapture -%}
-      {%- if material_pill != blank -%}
-        <div class="product__material">{{ material_pill }}</div>
-      {%- endif -%}
+      {%- comment -%}
+        With siblings, the selector renders its own trigger row (pill +
+        thumbnails); without, the pill stands alone exactly as before.
+      {%- endcomment -%}
       {%- if has_material_family -%}
         {% render 'material-selector', current: product, siblings: mat_sibs %}
+      {%- else -%}
+        {%- capture material_pill -%}
+          {% render 'material-badge', product: product %}
+        {%- endcapture -%}
+        {%- if material_pill != blank -%}
+          <div class="product__material">{{ material_pill }}</div>
+        {%- endif -%}
       {%- endif -%}
 
       {% form 'product', product, id: form_id, class: 'product__form' %}
