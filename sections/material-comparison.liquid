@@ -1,0 +1,674 @@
+{% comment %}
+  "Oak or bamboo" comparison page. Explains why the catalogue carries two
+  ranges and helps a visitor pick between them.
+
+  Structure: a two-half hero split by a seam (one photo per range), a centred
+  intro, one editable card per material, a comparison table built from
+  `spec_row` blocks, and a double CTA to each range.
+
+  All copy lives in section settings so it stays editable in the theme editor
+  and translatable through Translate & Adapt. Range colours reuse the
+  `--rar-mat-*` tokens already defined in snippets/css-variables.liquid for the
+  product-card material pills, so the page and the grid speak the same visual
+  language.
+{% endcomment %}
+
+{% liquid
+  assign hero_h = section.settings.hero_height | default: 520
+  assign overlay = section.settings.overlay_opacity | default: 28
+%}
+
+<section
+  class="matcmp"
+  style="--matcmp-hero-height: {{ hero_h }}px; --matcmp-overlay: {{ overlay }}%;"
+>
+  <div class="matcmp__hero">
+    <div class="matcmp__hero-half matcmp__hero-half--oak">
+      {% if section.settings.image_oak %}
+        {{
+          section.settings.image_oak
+          | image_url: width: 1200
+          | image_tag:
+            widths: '600, 900, 1200',
+            sizes: '50vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'matcmp__hero-img',
+            alt: ''
+        }}
+      {% elsif section.settings.image_asset_oak != blank %}
+        <img
+          class="matcmp__hero-img"
+          src="{{ section.settings.image_asset_oak | asset_url }}"
+          alt=""
+          width="1200"
+          height="1500"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {% endif %}
+    </div>
+    <div class="matcmp__hero-half matcmp__hero-half--bamboo">
+      {% if section.settings.image_bamboo %}
+        {{
+          section.settings.image_bamboo
+          | image_url: width: 1200
+          | image_tag:
+            widths: '600, 900, 1200',
+            sizes: '50vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            class: 'matcmp__hero-img',
+            alt: ''
+        }}
+      {% elsif section.settings.image_asset_bamboo != blank %}
+        <img
+          class="matcmp__hero-img"
+          src="{{ section.settings.image_asset_bamboo | asset_url }}"
+          alt=""
+          width="1200"
+          height="1500"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {% endif %}
+    </div>
+
+    <span class="matcmp__seam" aria-hidden="true"></span>
+
+    <div class="matcmp__hero-copy">
+      {% if section.settings.heading != blank %}
+        <h1 class="matcmp__hero-title">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="matcmp__hero-sub">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="matcmp__wrap">
+    {% if section.settings.intro_heading != blank or section.settings.intro_text != blank %}
+      <header class="matcmp__intro">
+        {% if section.settings.eyebrow != blank %}
+          <p class="matcmp__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.intro_heading != blank %}
+          <h2 class="matcmp__intro-title">{{ section.settings.intro_heading }}</h2>
+        {% endif %}
+        {% if section.settings.intro_text != blank %}
+          <div class="matcmp__intro-text rte">{{ section.settings.intro_text }}</div>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    {% assign material_blocks = section.blocks | where: 'type', 'material' %}
+    {% if material_blocks.size > 0 %}
+      <div class="matcmp__blocks">
+        {% for block in material_blocks %}
+          <article
+            class="matcmp__card matcmp__card--{{ block.settings.tone }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.image %}
+              <div class="matcmp__card-media">
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag:
+                    widths: '400, 600, 900',
+                    sizes: '(min-width: 750px) 45vw, 100vw',
+                    loading: 'lazy',
+                    class: 'matcmp__card-img',
+                    alt: ''
+                }}
+              </div>
+            {% endif %}
+            {% if block.settings.tag != blank %}
+              <span class="matcmp__tag">{{ block.settings.tag }}</span>
+            {% endif %}
+            {% if block.settings.heading != blank %}
+              <h2 class="matcmp__card-title">{{ block.settings.heading }}</h2>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="matcmp__card-text rte">{{ block.settings.text }}</div>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% assign spec_rows = section.blocks | where: 'type', 'spec_row' %}
+    {% if spec_rows.size > 0 %}
+      <div class="matcmp__spec">
+        {% if section.settings.spec_heading != blank %}
+          <h2 class="matcmp__spec-title">{{ section.settings.spec_heading }}</h2>
+        {% endif %}
+        <div class="matcmp__table-scroll">
+          <table class="matcmp__table">
+            <thead>
+              <tr>
+                <th scope="col"><span class="visually-hidden">{{ section.settings.spec_heading }}</span></th>
+                <th scope="col">{{ section.settings.spec_col_oak }}</th>
+                <th scope="col">{{ section.settings.spec_col_bamboo }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for block in spec_rows %}
+                <tr {{ block.shopify_attributes }}>
+                  <th scope="row">{{ block.settings.label }}</th>
+                  <td>{{ block.settings.oak_value }}</td>
+                  <td>{{ block.settings.bamboo_value }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.cta_heading != blank or section.settings.button_label != blank %}
+    <div class="matcmp__cta">
+      {% if section.settings.cta_heading != blank %}
+        <h2 class="matcmp__cta-title">{{ section.settings.cta_heading }}</h2>
+      {% endif %}
+      {% if section.settings.cta_text != blank %}
+        <p class="matcmp__cta-text">{{ section.settings.cta_text }}</p>
+      {% endif %}
+      <div class="matcmp__cta-buttons">
+        {% if section.settings.button_label != blank %}
+          <a class="matcmp__btn matcmp__btn--oak" href="{{ section.settings.button_link | default: '#' }}">
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+        {% if section.settings.button_2_label != blank %}
+          <a class="matcmp__btn matcmp__btn--bamboo" href="{{ section.settings.button_2_link | default: '#' }}">
+            {{ section.settings.button_2_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+  .matcmp {
+    --matcmp-measure: 1080px;
+    width: 100%;
+  }
+  .matcmp__wrap {
+    width: 100%;
+    max-width: var(--matcmp-measure);
+    margin-inline: auto;
+    padding-inline: var(--rar-page-margin);
+  }
+
+  /* ---------- Hero: the two ranges meet at a seam ---------- */
+  .matcmp__hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: var(--matcmp-hero-height);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .matcmp__hero-half {
+    position: relative;
+    overflow: hidden;
+  }
+  .matcmp__hero-half--oak {
+    background-color: var(--rar-mat-oak-bg);
+  }
+  .matcmp__hero-half--bamboo {
+    background-color: var(--rar-mat-bamboo-bg);
+  }
+  .matcmp__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Scrim: the hero title is white over two photos we do not control. */
+  .matcmp__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgb(28 40 48 / var(--matcmp-overlay));
+    pointer-events: none;
+  }
+  .matcmp__seam {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 50%;
+    z-index: 2;
+    width: 2px;
+    transform: translateX(-1px);
+    background-color: rgb(255 255 255 / 60%);
+  }
+  .matcmp__hero-copy {
+    position: absolute;
+    z-index: 2;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    width: 100%;
+    max-width: 640px;
+    padding-inline: 1.5rem;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .matcmp__hero-title {
+    margin: 0 0 0.7rem;
+    color: #fff;
+    font-size: clamp(2rem, 1.3rem + 3vw, 3.25rem);
+    line-height: 1.1;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 35%);
+  }
+  .matcmp__hero-sub {
+    max-width: 30rem;
+    margin: 0 auto;
+    color: #fff;
+    font-family: var(--rar-font-heading);
+    font-size: 1.0625rem;
+    font-style: italic;
+    text-shadow: 0 1px 14px rgb(0 0 0 / 40%);
+  }
+
+  /* ---------- Intro ---------- */
+  .matcmp__intro {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-block: 4.5rem 2.5rem;
+    text-align: center;
+  }
+  .matcmp__eyebrow {
+    margin: 0 0 0.9rem;
+    color: var(--rar-accent);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .matcmp__intro-title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.4rem, 1.1rem + 1.4vw, 1.9rem);
+    line-height: 1.25;
+  }
+  .matcmp__intro-text {
+    color: rgb(28 40 48 / 70%);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  /* ---------- One card per range ---------- */
+  .matcmp__blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-block: 1rem 4rem;
+  }
+  .matcmp__card {
+    padding: 1.75rem;
+    border: 1px solid rgb(28 40 48 / 10%);
+    border-radius: var(--rar-radius-card);
+    background-color: var(--rar-color-background);
+  }
+  .matcmp__card-media {
+    aspect-ratio: 16 / 9;
+    margin-bottom: 1.25rem;
+    border-radius: var(--rar-radius-card);
+    overflow: hidden;
+    background-color: var(--rar-color-surface);
+  }
+  .matcmp__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .matcmp__tag {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .matcmp__card--oak .matcmp__tag {
+    background-color: var(--rar-mat-oak-bg);
+    color: var(--rar-mat-oak);
+  }
+  .matcmp__card--bamboo .matcmp__tag {
+    background-color: var(--rar-mat-bamboo-bg);
+    color: var(--rar-mat-bamboo);
+  }
+  .matcmp__card--plywood .matcmp__tag {
+    background-color: var(--rar-mat-plywood-bg);
+    color: var(--rar-mat-plywood);
+  }
+  .matcmp__card-title {
+    margin: 0 0 0.6rem;
+    font-size: 1.375rem;
+    line-height: 1.25;
+  }
+  .matcmp__card-text {
+    color: rgb(28 40 48 / 72%);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  /* ---------- Comparison table ---------- */
+  .matcmp__spec {
+    padding-bottom: 4rem;
+  }
+  .matcmp__spec-title {
+    margin: 0 0 2rem;
+    font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.6rem);
+    text-align: center;
+  }
+  /* The table scrolls inside its own box; the page never scrolls sideways. */
+  .matcmp__table-scroll {
+    overflow-x: auto;
+  }
+  .matcmp__table {
+    width: 100%;
+    min-width: 32rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .matcmp__table th,
+  .matcmp__table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid rgb(28 40 48 / 10%);
+    text-align: start;
+    vertical-align: top;
+  }
+  .matcmp__table thead th {
+    font-family: var(--rar-font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(28 40 48 / 55%);
+  }
+  .matcmp__table tbody th {
+    width: 28%;
+    color: rgb(28 40 48 / 55%);
+    font-weight: 500;
+  }
+  .matcmp__table tbody tr:last-child th,
+  .matcmp__table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* ---------- Closing CTA ---------- */
+  .matcmp__cta {
+    max-width: var(--matcmp-measure);
+    margin-inline: auto;
+    padding: 3.5rem var(--rar-page-margin) 5rem;
+    border-top: 1px solid rgb(28 40 48 / 10%);
+    text-align: center;
+  }
+  .matcmp__cta-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.5rem);
+  }
+  .matcmp__cta-text {
+    margin: 0 auto 1.75rem;
+    max-width: 34rem;
+    color: rgb(28 40 48 / 70%);
+    font-size: 0.9375rem;
+  }
+  .matcmp__cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+  }
+  .matcmp__btn {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    border: 1.5px solid transparent;
+    border-radius: var(--rar-radius-button);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .matcmp__btn--oak {
+    background-color: var(--rar-mat-oak);
+    color: #fff;
+  }
+  .matcmp__btn--bamboo {
+    border-color: var(--rar-mat-bamboo);
+    color: var(--rar-mat-bamboo);
+  }
+  .matcmp__btn:focus-visible {
+    outline: 2px solid var(--rar-accent);
+    outline-offset: 2px;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media screen and (min-width: 750px) {
+    .matcmp__blocks {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding-block: 1.5rem 4.5rem;
+    }
+    .matcmp__card {
+      padding: 2rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.material_comparison",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.hero"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Oak or bamboo"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:labels.subheading",
+      "default": "Same secure hold. Two materials, two priorities."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_oak",
+      "label": "t:labels.image_oak"
+    },
+    {
+      "type": "text",
+      "id": "image_asset_oak",
+      "label": "t:labels.image_asset",
+      "info": "t:info.image_asset"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bamboo",
+      "label": "t:labels.image_bamboo"
+    },
+    {
+      "type": "text",
+      "id": "image_asset_bamboo",
+      "label": "t:labels.image_asset",
+      "info": "t:info.image_asset"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "t:labels.height",
+      "min": 320,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "t:labels.overlay_opacity",
+      "min": 0,
+      "max": 70,
+      "step": 2,
+      "unit": "%",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "t:general.intro"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:labels.eyebrow",
+      "default": "Why two ranges"
+    },
+    {
+      "type": "text",
+      "id": "intro_heading",
+      "label": "t:labels.heading"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "t:labels.text"
+    },
+    {
+      "type": "header",
+      "content": "t:general.comparison_table"
+    },
+    {
+      "type": "text",
+      "id": "spec_heading",
+      "label": "t:labels.spec_heading",
+      "default": "The short version"
+    },
+    {
+      "type": "text",
+      "id": "spec_col_oak",
+      "label": "t:labels.spec_col_oak",
+      "default": "Solid oak"
+    },
+    {
+      "type": "text",
+      "id": "spec_col_bamboo",
+      "label": "t:labels.spec_col_bamboo",
+      "default": "Bamboo"
+    },
+    {
+      "type": "header",
+      "content": "t:general.cta"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "t:labels.heading",
+      "default": "Still not sure?"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "t:labels.text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:labels.button_label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:labels.button_link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "t:labels.button_2_label"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "t:labels.button_2_link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "material",
+      "name": "t:general.material_block",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tone",
+          "label": "t:labels.tone",
+          "default": "oak",
+          "options": [
+            { "value": "oak", "label": "t:options.tone.oak" },
+            { "value": "bamboo", "label": "t:options.tone.bamboo" },
+            { "value": "plywood", "label": "t:options.tone.plywood" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:labels.image"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "t:labels.tag"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:labels.heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:labels.text"
+        }
+      ]
+    },
+    {
+      "type": "spec_row",
+      "name": "t:general.spec_row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:labels.name"
+        },
+        {
+          "type": "text",
+          "id": "oak_value",
+          "label": "t:labels.spec_col_oak"
+        },
+        {
+          "type": "text",
+          "id": "bamboo_value",
+          "label": "t:labels.spec_col_bamboo"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "t:general.material_comparison" }]
+}
+{% endschema %}

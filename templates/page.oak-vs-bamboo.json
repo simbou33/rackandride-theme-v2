@@ -1,0 +1,97 @@
+{
+  "sections": {
+    "main": {
+      "type": "material-comparison",
+      "settings": {
+        "heading": "Oak or bamboo",
+        "subheading": "Same secure hold. Two different materials, for two different priorities.",
+        "image_asset_oak": "material-oak.webp",
+        "image_asset_bamboo": "material-bamboo.webp",
+        "hero_height": 520,
+        "overlay_opacity": 28,
+        "eyebrow": "Why two ranges",
+        "intro_heading": "We started with solid oak. You asked for something more accessible — so we built bamboo alongside it.",
+        "intro_text": "<p>Both ranges share the exact same engineering: the same secure grip, the same fixing kit, the same no-fall hold. What's different is the material, and what that means for how it looks on your wall.</p>",
+        "spec_heading": "The short version",
+        "spec_col_oak": "Solid oak",
+        "spec_col_bamboo": "Bamboo",
+        "cta_heading": "Still not sure?",
+        "cta_text": "Ask yourself one question: is this mount going to be part of your decor, or just doing a job out of sight? If it's decor, go oak. If it's a job, bamboo will do it just as safely, for less.",
+        "button_label": "Browse solid oak",
+        "button_link": "/collections/oak",
+        "button_2_label": "Browse bamboo",
+        "button_2_link": "/collections/bamboo"
+      },
+      "blocks": {
+        "oak": {
+          "type": "material",
+          "settings": {
+            "tone": "oak",
+            "tag": "The showpiece",
+            "heading": "Solid oak",
+            "text": "<p>Every oak mount starts as a single piece of solid oak, hand-shaped from raw timber in our Gironde workshop. Because it is cut from whole wood rather than assembled from smaller pieces, no two mounts are quite the same — the grain is unique to that one piece of tree, and it only deepens with age.</p><p>For the board you actually love: the one that deserves to be looked at, not just stored.</p>"
+          }
+        },
+        "bamboo": {
+          "type": "material",
+          "settings": {
+            "tone": "bamboo",
+            "tag": "The everyday option",
+            "heading": "Bamboo",
+            "text": "<p>Shaped bamboo, put through the same design and the same fixing process as the oak. A leaner process and a faster cut make it lighter on the wallet, and it does exactly the job you need — off the floor, held safely, no ceremony required.</p><p>What it does not try to be is a showpiece. If function comes first, bamboo gets it done, honestly.</p>"
+          }
+        },
+        "row-construction": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Construction",
+            "oak_value": "One solid piece, hand-shaped",
+            "bamboo_value": "Shaped bamboo, same design"
+          }
+        },
+        "row-look": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Look",
+            "oak_value": "Unique grain, ages beautifully",
+            "bamboo_value": "Clean and consistent"
+          }
+        },
+        "row-hold": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Hold & security",
+            "oak_value": "Identical, engineered no-fall hold",
+            "bamboo_value": "Identical, engineered no-fall hold"
+          }
+        },
+        "row-made": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Where it is made",
+            "oak_value": "Handmade in Gironde, France",
+            "bamboo_value": "Designed in France, made by our partners"
+          }
+        },
+        "row-best": {
+          "type": "spec_row",
+          "settings": {
+            "label": "Best for",
+            "oak_value": "The board and the wall you want to show off",
+            "bamboo_value": "Getting boards off the floor, simply"
+          }
+        }
+      },
+      "block_order": [
+        "oak",
+        "bamboo",
+        "row-construction",
+        "row-look",
+        "row-hold",
+        "row-made",
+        "row-best"
+      ]
+    }
+  },
+  "order": ["main"]
+}
