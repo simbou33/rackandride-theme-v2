@@ -33,13 +33,24 @@
     endif
   endfor
 
-  # Parent collection for the breadcrumb (silo up-link). Prefer the routed
-  # collection, else the first real category the product belongs to.
+  # Parent collection for the breadcrumb (silo up-link): always a sport
+  # category. The material ranges (oak / bamboo / plywood) are a cross-cutting
+  # way to browse, not a level in the silo — a skate mount belongs under
+  # Skateboard Wall Mounts whether it is oak or bamboo. They are skipped even
+  # when the visitor arrived through one of them.
+  assign bc_deny = 'all,frontpage,bestsellers,oak,bamboo,plywood' | split: ','
   assign bc_collection = collection
-  unless bc_collection
+  assign bc_ok = false
+  if collection.handle != blank
+    unless bc_deny contains collection.handle
+      assign bc_ok = true
+    endunless
+  endif
+  unless bc_ok
     for c in product.collections
-      unless c.handle == 'all' or c.handle == 'frontpage' or c.handle == 'bestsellers'
+      unless bc_deny contains c.handle
         assign bc_collection = c
+        assign bc_ok = true
         break
       endunless
     endfor
@@ -52,7 +63,7 @@
       <li class="breadcrumbs__item">
         <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
       </li>
-      {% if bc_collection %}
+      {% if bc_ok %}
         <li class="breadcrumbs__item">
           <a href="{{ bc_collection.url }}">{{ bc_collection.title }}</a>
         </li>
@@ -469,7 +480,7 @@
           "position": 1,
           "name": {{ 'general.home' | t | json }},
           "item": {{ shop.url | append: routes.root_url | json }}
-        }{% if bc_collection %},
+        }{% if bc_ok %},
         {
           "@type": "ListItem",
           "position": 2,
@@ -478,7 +489,7 @@
         }{% endif %},
         {
           "@type": "ListItem",
-          "position": {% if bc_collection %}3{% else %}2{% endif %},
+          "position": {% if bc_ok %}3{% else %}2{% endif %},
           "name": {{ product.title | json }},
           "item": {{ shop.url | append: product.url | json }}
         }
