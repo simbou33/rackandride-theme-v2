@@ -4,7 +4,7 @@
   Outputs nothing when the grade is unknown, so a product with an empty
   `custom.material_grade` never shows a wrong picto.
 
-  @param {string} grade - The wood grade: "oak", "bamboo" or "plywood"
+  @param {string} grade - The wood grade: "oak", "black_oak", "bamboo" or "plywood"
 
   @example
   {% render 'material-icon', grade: 'oak' %}
@@ -13,7 +13,9 @@
 {% liquid
   assign g = grade | downcase | strip
   assign icon = ''
-  if g == 'oak'
+  # Black oak is the same wood, tinted: same tree, and the picto is filled with
+  # currentColor so the pill's darker ink colours it on its own.
+  if g == 'oak' or g == 'black_oak'
     assign icon = 'mat-oak.svg'
   elsif g == 'bamboo'
     assign icon = 'mat-bamboo.svg'
