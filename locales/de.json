@@ -125,7 +125,7 @@
       "oak": "Eiche massiv",
       "black_oak": "Schwarze Eiche",
       "bamboo": "Bambus",
-      "plywood": "3-Schicht-Holz"
+      "plywood": "Fichte 3-lagig"
     },
     "card_family": "In {{ count }} Materialien erhältlich",
     "availability": {
@@ -143,7 +143,7 @@
       "oak": "Massive französische Eiche, natürlich mit Bienenwachs und Leinöl behandelt. Korkpolster schützen dein Material vor Kratzern.",
       "black_oak": "Massive französische Eiche, natürlich mit Bienenwachs und Leinöl behandelt. Korkpolster schützen dein Material vor Kratzern.",
       "bamboo": "Bambus, klar lackiert. In Frankreich entworfen, von unseren Partnern gefertigt.",
-      "plywood": "3-Schicht-Holz von Tilly. In Frankreich entworfen, von unseren Partnern gefertigt."
+      "plywood": "3-lagige Fichte. In Frankreich entworfen, von unseren Partnern gefertigt."
     },
     "care": {
       "oak": "Mit einem trockenen Tuch abstauben. Einmal im Jahr etwas Leinöl auftragen, damit das Holz genährt und geschützt bleibt.",
