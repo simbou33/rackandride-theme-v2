@@ -363,8 +363,20 @@
       {% endif %}
 
       {% liquid
+        # Once a product's story blocks carry the merged rich text, the
+        # description already reads in full further down the page, and keeping
+        # the accordion would print the same copy twice. The merge is its own
+        # signal — no per-product switch to remember to flip.
+        assign story_merged = false
+        for entry in product.metafields.custom.story.value
+          if entry.text_rich.value != blank
+            assign story_merged = true
+            break
+          endif
+        endfor
+
         assign show_desc_acc = false
-        if section.settings.show_long_description and product.description != blank
+        if section.settings.show_long_description and product.description != blank and story_merged == false
           assign show_desc_acc = true
         endif
       %}

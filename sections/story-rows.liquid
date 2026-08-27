@@ -65,7 +65,15 @@
               {% if entry.heading.value != blank %}
                 <h3 class="story-row__heading">{{ entry.heading.value }}</h3>
               {% endif %}
-              {% if entry.text.value != blank %}
+              {%- comment -%}
+                Prefer the rich field when a story has been merged with the
+                product description: plain text cannot carry the internal links
+                that copy depends on. Blocks not yet merged keep their original
+                text, so the two states coexist without a flag.
+              {%- endcomment -%}
+              {% if entry.text_rich.value != blank %}
+                <div class="story-row__text rte">{{ entry.text_rich | metafield_tag }}</div>
+              {% elsif entry.text.value != blank %}
                 <div class="story-row__text rte">{{ entry.text.value | newline_to_br }}</div>
               {% endif %}
             </div>
