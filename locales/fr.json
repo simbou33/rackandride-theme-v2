@@ -125,7 +125,7 @@
       "oak": "Chêne massif",
       "black_oak": "Chêne noir",
       "bamboo": "Bambou",
-      "plywood": "Contreplaqué"
+      "plywood": "3 plis Tilly"
     },
     "card_family": "Existe en {{ count }} matières",
     "selector": {
@@ -137,7 +137,7 @@
       "oak": "Chêne massif français, finition naturelle à la cire d'abeille et à l'huile de lin. Des patins en liège protègent votre matériel de toute rayure.",
       "black_oak": "Chêne massif français, finition naturelle à la cire d'abeille et à l'huile de lin. Des patins en liège protègent votre matériel de toute rayure.",
       "bamboo": "Bambou, finition vernis. Conçu en France, fabriqué par nos partenaires.",
-      "plywood": "Contreplaqué. Conçu en France, fabriqué par nos partenaires."
+      "plywood": "Panneau 3 plis Tilly. Conçu en France, fabriqué par nos partenaires."
     },
     "care": {
       "oak": "Dépoussiérez avec un chiffon sec. Une fois par an, repassez un peu d'huile de lin pour nourrir et protéger le bois.",

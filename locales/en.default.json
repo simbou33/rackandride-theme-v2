@@ -125,7 +125,7 @@
       "oak": "Solid oak",
       "black_oak": "Black oak",
       "bamboo": "Bamboo",
-      "plywood": "Plywood"
+      "plywood": "Tilly 3-ply"
     },
     "card_family": "Available in {{ count }} materials",
     "selector": {
@@ -137,7 +137,7 @@
       "oak": "Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.",
       "black_oak": "Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.",
       "bamboo": "Bamboo, finished with a clear varnish. Designed in France, made by our partners.",
-      "plywood": "Plywood. Designed in France, made by our partners."
+      "plywood": "Tilly 3-ply panel. Designed in France, made by our partners."
     },
     "care": {
       "oak": "Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.",
