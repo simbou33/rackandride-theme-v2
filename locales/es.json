@@ -151,6 +151,16 @@
       "bamboo": "No necesita mantenimiento. Basta con un paño seco de vez en cuando.",
       "plywood": "Quita el polvo con un paño seco."
     },
+    "details": {
+      "material_dimensions": {
+        "title": "Material y dimensiones"
+      },
+      "care_shipping": {
+        "title": "Cuidado, envío y devoluciones"
+      },
+      "dimensions_label": "Dimensiones",
+      "shipping_returns": "Envío gratis desde 100 €. Fabricado bajo pedido y enviado en 2-4 días laborables. Devoluciones en 30 días, embalaje 100 % reciclable."
+    },
     "assembly": {
       "title": "Instrucciones de montaje",
       "subtitle": "Instalación — 3 pasos",

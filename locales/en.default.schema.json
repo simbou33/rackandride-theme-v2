@@ -63,7 +63,8 @@
     "testimonials": "Testimonials",
     "text": "Text",
     "theme": "Theme",
-    "typography": "Typography"
+    "typography": "Typography",
+    "details_row": "Details row"
   },
   "labels": {
     "accent": "Oak accent",
@@ -150,7 +151,8 @@
     "text": "Text",
     "text_color": "Text & headings",
     "text_style": "Text style",
-    "tone": "Range"
+    "tone": "Range",
+    "content": "Content"
   },
   "info": {
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
@@ -212,6 +214,10 @@
       "none": "Use the text above",
       "materials": "Materials",
       "care": "Care"
+    },
+    "details": {
+      "material_dimensions": "Material & dimensions",
+      "care_shipping": "Care, shipping & returns"
     }
   }
 }

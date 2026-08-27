@@ -151,6 +151,16 @@
       "bamboo": "No upkeep needed. A dry cloth now and then is all it takes.",
       "plywood": "Dust with a dry cloth."
     },
+    "details": {
+      "material_dimensions": {
+        "title": "Material & dimensions"
+      },
+      "care_shipping": {
+        "title": "Care, shipping & returns"
+      },
+      "dimensions_label": "Dimensions",
+      "shipping_returns": "Free shipping over €100. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging."
+    },
     "assembly": {
       "title": "Assembly instructions",
       "subtitle": "Installation — 3 steps",

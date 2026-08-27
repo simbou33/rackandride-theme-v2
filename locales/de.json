@@ -151,6 +151,16 @@
       "bamboo": "Keine Pflege nötig. Ab und zu ein trockenes Tuch genügt.",
       "plywood": "Mit einem trockenen Tuch abstauben."
     },
+    "details": {
+      "material_dimensions": {
+        "title": "Material & Maße"
+      },
+      "care_shipping": {
+        "title": "Pflege, Versand & Rückgabe"
+      },
+      "dimensions_label": "Maße",
+      "shipping_returns": "Gratisversand ab 100 €. Auf Bestellung gefertigt und in 2–4 Werktagen versandt. 30 Tage Rückgabe, 100 % recycelbare Verpackung."
+    },
     "assembly": {
       "title": "Montageanleitung",
       "subtitle": "Montage — 3 Schritte",

@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -18,28 +9,10 @@
             "margin": 6
           }
         },
-        "materials": {
-          "type": "collapsible",
+        "material_dimensions": {
+          "type": "details",
           "settings": {
-            "material_text": "materials",
-            "heading": "Materials",
-            "content": "<p>Solid French oak, naturally finished with beeswax and linseed oil. Cork pads protect your gear from any scratches.</p>"
-          }
-        },
-        "shipping": {
-          "type": "collapsible",
-          "settings": {
-            "heading": "Shipping & returns",
-            "content": "<p>Free shipping over €100. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging.</p>"
-          }
-        },
-        "dimensions": {
-          "type": "collapsible",
-          "settings": {
-            "heading": "Dimensions",
-            "content": "<p>See the product highlights above for exact dimensions.</p>",
-            "metafield_namespace": "custom",
-            "metafield_key": "dimensions"
+            "content": "material_dimensions"
           }
         },
         "assembly": {
@@ -50,16 +23,19 @@
             "image_asset_3": "diagram-etape-3.png"
           }
         },
-        "care": {
-          "type": "collapsible",
+        "care_shipping": {
+          "type": "details",
           "settings": {
-            "material_text": "care",
-            "heading": "Care",
-            "content": "<p>Dust with a dry cloth. Re-oil once a year with a little linseed oil to keep the wood nourished and protected.</p>"
+            "content": "care_shipping"
           }
         }
       },
-      "block_order": ["size_helper", "materials", "shipping", "dimensions", "assembly", "care"],
+      "block_order": [
+        "size_helper",
+        "material_dimensions",
+        "assembly",
+        "care_shipping"
+      ],
       "settings": {
         "show_reassurance": true
       }
@@ -89,9 +65,16 @@
           }
         }
       },
-      "block_order": ["row-1", "row-2", "row-3"],
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3"
+      ],
       "settings": {}
     }
   },
-  "order": ["main", "story"]
+  "order": [
+    "main",
+    "story"
+  ]
 }
