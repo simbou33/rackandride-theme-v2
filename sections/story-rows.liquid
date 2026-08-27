@@ -8,10 +8,19 @@
 {% endcomment %}
 
 {% liquid
-  # On a product page, prefer per-product story blocks from the `custom.story`
-  # metaobject list; otherwise fall back to this section's own blocks (homepage).
-  assign meta_story = blank
+  # On a product page the story comes from that product's own `custom.story`
+  # list, and from nowhere else. The section's own blocks are the homepage's
+  # brand story: they name oak, beeswax and the Gironde workshop, which is
+  # false on a bamboo or spruce mount. A product with no story of its own
+  # therefore shows no story at all — an empty section is a gap, the wrong
+  # story is a claim we cannot back.
+  assign on_product = false
   if product != blank
+    assign on_product = true
+  endif
+
+  assign meta_story = blank
+  if on_product
     assign meta_story = product.metafields.custom.story.value
   endif
   assign use_meta = false
@@ -20,15 +29,17 @@
   endif
 
   assign has_rows = false
-  for block in section.blocks
-    if block.type == 'row'
-      assign has_rows = true
-      break
-    endif
-  endfor
+  unless on_product
+    for block in section.blocks
+      if block.type == 'row'
+        assign has_rows = true
+        break
+      endif
+    endfor
+  endunless
 %}
 
-{% if use_meta or has_rows or section.settings.heading != blank %}
+{% if use_meta or has_rows %}
   <section class="story-rows">
     {% if section.settings.heading != blank %}
       <div class="story-rows__header">
