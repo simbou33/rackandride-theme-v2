@@ -161,6 +161,9 @@
       "dimensions_label": "Dimensiones",
       "shipping_returns": "Envío gratis desde 100 €. Fabricado bajo pedido y enviado en 2-4 días laborables. Devoluciones en 30 días, embalaje 100 % reciclable."
     },
+    "crosssell": {
+      "title": "Completa tu instalación"
+    },
     "assembly": {
       "title": "Instrucciones de montaje",
       "subtitle": "Instalación — 3 pasos",

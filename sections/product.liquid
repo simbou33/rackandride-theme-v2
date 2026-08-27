@@ -16,6 +16,7 @@
   Product JSON-LD block is emitted (no AggregateRating — no reviews app yet).
 {% endcomment %}
 
+{% capture parent_handle %}{% render 'parent-collection', product: product %}{% endcapture %}
 {% liquid
   assign current_variant = product.selected_or_first_available_variant
   assign form_id = 'ProductForm-' | append: section.id
@@ -49,27 +50,18 @@
   endfor
 
   # Parent collection for the breadcrumb (silo up-link): always a sport
-  # category. The material ranges (oak / bamboo / plywood) are a cross-cutting
-  # way to browse, not a level in the silo — a skate mount belongs under
-  # Skateboard Wall Mounts whether it is oak or bamboo. They are skipped even
-  # when the visitor arrived through one of them.
-  assign bc_deny = 'all,frontpage,bestsellers,oak,bamboo,plywood' | split: ','
-  assign bc_collection = collection
+  # category. The material ranges are a cross-cutting way to browse, not a
+  # level in the silo — a skate mount belongs under Skateboard Wall Mounts
+  # whether it is oak or bamboo. Resolved by the shared snippet, which reads a
+  # marker rather than matching handles: handles are translated per market, so
+  # matching them by name skipped nothing outside English and the French
+  # breadcrumb read "Accueil / Chêne massif".
+  assign parent_handle = parent_handle | strip
+  assign bc_collection = collections[parent_handle]
   assign bc_ok = false
-  if collection.handle != blank
-    unless bc_deny contains collection.handle
-      assign bc_ok = true
-    endunless
+  if bc_collection.handle != blank
+    assign bc_ok = true
   endif
-  unless bc_ok
-    for c in product.collections
-      unless bc_deny contains c.handle
-        assign bc_collection = c
-        assign bc_ok = true
-        break
-      endunless
-    endfor
-  endunless
 %}
 
 <section class="product" data-section-id="{{ section.id }}">

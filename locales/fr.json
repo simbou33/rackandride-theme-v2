@@ -161,6 +161,9 @@
       "dimensions_label": "Dimensions",
       "shipping_returns": "Livraison offerte dès 100 €. Fabriqué à la commande et expédié sous 2 à 4 jours ouvrés. Retours sous 30 jours, emballage 100 % recyclable."
     },
+    "crosssell": {
+      "title": "Complétez votre installation"
+    },
     "assembly": {
       "title": "Notice de montage",
       "subtitle": "Installation — 3 étapes",

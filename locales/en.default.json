@@ -161,6 +161,9 @@
       "dimensions_label": "Dimensions",
       "shipping_returns": "Free shipping over €100. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging."
     },
+    "crosssell": {
+      "title": "Complete your setup"
+    },
     "assembly": {
       "title": "Assembly instructions",
       "subtitle": "Installation — 3 steps",

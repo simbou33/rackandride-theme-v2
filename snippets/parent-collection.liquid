@@ -1,0 +1,42 @@
+{% doc %}
+  Prints the handle of the category a product belongs to — nothing when it has
+  none. Used by the breadcrumb and by the cross-sell strip, which must agree.
+
+  Collection handles are translated per market: `oak` is served as
+  `chene-massif` in French, `bamboo` as `bambou`. A deny-list of English
+  handles therefore matches nothing outside English, and the material or
+  catch-all collections quietly pose as the category — which is how French
+  breadcrumbs came to read "Accueil / Chêne massif". The seven categories are
+  instead marked once in the admin with `custom.is_category`, a value that is
+  the same in every language.
+
+  Prefers the collection the visitor arrived through, when that one is a
+  category, so the breadcrumb reflects the path actually taken.
+
+  Prints a handle, because a snippet cannot hand a variable back to its caller.
+  Capture it, then look the collection up:
+
+  @param {object} product - The product to resolve a category for
+
+  @example
+  {% capture parent_handle %}{% render 'parent-collection', product: product %}{% endcapture %}
+  {% assign parent = collections[parent_handle] %}
+{% enddoc %}
+{%- liquid
+  assign found = ''
+
+  if collection.metafields.custom.is_category
+    assign found = collection.handle
+  endif
+
+  if found == blank
+    for c in product.collections
+      if c.metafields.custom.is_category
+        assign found = c.handle
+        break
+      endif
+    endfor
+  endif
+
+  echo found | strip
+-%}

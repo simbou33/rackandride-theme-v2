@@ -161,6 +161,9 @@
       "dimensions_label": "Maße",
       "shipping_returns": "Gratisversand ab 100 €. Auf Bestellung gefertigt und in 2–4 Werktagen versandt. 30 Tage Rückgabe, 100 % recycelbare Verpackung."
     },
+    "crosssell": {
+      "title": "Vervollständige deine Wand"
+    },
     "assembly": {
       "title": "Montageanleitung",
       "subtitle": "Montage — 3 Schritte",

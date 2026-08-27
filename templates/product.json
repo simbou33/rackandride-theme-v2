@@ -71,10 +71,17 @@
         "row-3"
       ],
       "settings": {}
+    },
+    "crosssell": {
+      "type": "product-crosssell",
+      "settings": {
+        "products_to_show": 4
+      }
     }
   },
   "order": [
     "main",
-    "story"
+    "story",
+    "crosssell"
   ]
 }

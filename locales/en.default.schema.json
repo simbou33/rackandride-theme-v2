@@ -64,7 +64,8 @@
     "text": "Text",
     "theme": "Theme",
     "typography": "Typography",
-    "details_row": "Details row"
+    "details_row": "Details row",
+    "crosssell": "Complete your setup"
   },
   "labels": {
     "accent": "Oak accent",
