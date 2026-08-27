@@ -154,6 +154,30 @@
       <h1 class="product__title">{{ product.title }}</h1>
 
       {%- comment -%}
+        On a phone the real buy button sits far below the gallery, the facts,
+        the material selector and the quantity stepper. Someone who arrives
+        already decided should not have to scroll through the argument to act,
+        so the price and an add-to-cart come once, right here. It submits the
+        same form as the main button — one form, three entry points, counting
+        the sticky bar that appears further down.
+      {%- endcomment -%}
+      <div class="product__quick" data-quick-buy>
+        <span class="product__quick-price" data-product-price>{{ current_variant.price | money }}</span>
+        <button
+          type="submit"
+          form="{{ form_id }}"
+          class="product__atc product__atc--compact"
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          {% if current_variant.available %}
+            {{ 'product.add_to_cart' | t }}
+          {% else %}
+            {{ 'product.sold_out' | t }}
+          {% endif %}
+        </button>
+      </div>
+
+      {%- comment -%}
         The verified facts for this range sit between the title and the price,
         where they answer "why this much?" before the number is read. They are
         the only short claims the shop can actually back, so they serve as the
@@ -773,6 +797,31 @@
   .product__usp li {
     margin-bottom: 0.4rem;
   }
+  /* Desktop keeps the classic single buy zone: the button is already in view
+     next to the gallery, so a second one would only add noise. */
+  .product__quick {
+    display: none;
+  }
+  @media (max-width: 749px) {
+    .product__quick {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0.85rem 0 1.25rem;
+    }
+    .product__quick-price {
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--rar-price);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .product__quick .product__atc--compact {
+      flex: 1 1 auto;
+      min-height: 46px;
+    }
+  }
+
   .accordion__dims strong {
     margin-inline-end: 0.35rem;
     font-weight: 600;
@@ -913,9 +962,22 @@
     color: var(--rar-eco);
   }
   @media (max-width: 749px) {
+    /* Two columns, not one: four facts stacked vertically push the price and
+       the selector off the first screen, and the point of putting them here
+       was that they are read on the way to the price, not instead of it. */
     .product__reassurance {
-      grid-template-columns: 1fr;
-      gap: 0.85rem;
+      gap: 0.7rem 0.6rem;
+      padding: 1rem;
+    }
+    .product__reassurance-item {
+      align-items: flex-start;
+      gap: 0.45rem;
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+    .product__reassurance-item svg {
+      width: 18px;
+      height: 18px;
     }
   }
 
