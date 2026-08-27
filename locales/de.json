@@ -127,6 +127,7 @@
       "bamboo": "Bambus",
       "plywood": "Sperrholz"
     },
+    "card_family": "In {{ count }} Materialien erhältlich",
     "selector": {
       "title": "Material wählen",
       "selected": "Ausgewählt",

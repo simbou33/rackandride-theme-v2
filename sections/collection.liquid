@@ -114,11 +114,93 @@
       </span>
     </div>
 
+    {%- liquid
+      # Products of one design in different materials must sit side by side,
+      # cheapest first. No card is merged away: every material keeps its own
+      # tile, its own link and its own place in the result count.
+      #
+      # The collection's own order still decides *where* a family sits — the
+      # family is anchored at the position of whichever member came first.
+      #
+      # Built on strings rather than arrays of product drops, because `concat`
+      # returns nil on those. Prices are zero-padded so a plain lexical `sort`
+      # orders them numerically. `products_per_page` maxes out at 48, under
+      # Liquid's 50-iteration ceiling, so no product can fall out of the pass.
+      assign anchors = ''
+      assign anchor_seen = ','
+      assign rows = ''
+
+      for p in collection.products
+        # Family key: the smallest handle of the union, walked over two hops
+        # like the product-page selector, so every member resolves to the same
+        # key even when it only points at the hub.
+        assign fam = p.handle
+        for s in p.metafields.custom.material_siblings.value
+          if s.handle != blank
+            assign fam = fam | append: ',' | append: s.handle
+          endif
+          for hop in s.metafields.custom.material_siblings.value
+            if hop.handle != blank
+              assign fam = fam | append: ',' | append: hop.handle
+            endif
+          endfor
+        endfor
+        assign fam_key = fam | split: ',' | sort | first
+
+        assign k = ',' | append: fam_key | append: ','
+        unless anchor_seen contains k
+          assign anchors = anchors | append: fam_key | append: ','
+          assign anchor_seen = anchor_seen | append: fam_key | append: ','
+        endunless
+
+        assign padded = '0000000000' | append: p.price | slice: -10, 10
+        assign rows = rows | append: fam_key | append: '^' | append: padded | append: '^' | append: p.handle | append: ','
+      endfor
+
+      assign row_list = rows | split: ','
+      assign anchor_list = anchors | split: ','
+
+      # Second pass groups by key. It only reads the strings built above, so a
+      # metafield is never resolved twice.
+      assign ordered = ''
+      assign sizes_of = ''
+      for fam_key in anchor_list
+        assign members = ''
+        for row in row_list
+          assign parts = row | split: '^'
+          if parts[0] == fam_key
+            assign members = members | append: parts[1] | append: '^' | append: parts[2] | append: ','
+          endif
+        endfor
+        assign member_list = members | split: ',' | sort
+        for m in member_list
+          # Resolve the handle on its own line: chaining `split` straight onto
+          # the accumulator would split the accumulator instead of the member.
+          assign member_handle = m | split: '^' | last
+          assign ordered = ordered | append: member_handle | append: ','
+          assign sizes_of = sizes_of | append: member_list.size | append: ','
+        endfor
+      endfor
+
+      assign ordered_list = ordered | split: ','
+      assign size_list = sizes_of | split: ','
+    -%}
+
     {% if collection.products.size > 0 %}
       <div class="collection__grid">
-        {% for product in collection.products %}
-          {% render 'product-card', card_product: product, sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw' %}
-        {% endfor %}
+        {%- for handle in ordered_list -%}
+          {%- assign family_size = size_list[forloop.index0] | plus: 0 -%}
+          {%- for product in collection.products -%}
+            {%- if product.handle == handle -%}
+              {% render 'product-card',
+                card_product: product,
+                sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+                family_size: family_size
+              %}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
       </div>
       <div class="collection__pagination">{{ paginate | default_pagination }}</div>
     {% else %}

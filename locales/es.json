@@ -127,6 +127,7 @@
       "bamboo": "Bambú",
       "plywood": "Contrachapado"
     },
+    "card_family": "Disponible en {{ count }} materiales",
     "selector": {
       "title": "Elegir el material",
       "selected": "Seleccionado",

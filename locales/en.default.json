@@ -127,6 +127,7 @@
       "bamboo": "Bamboo",
       "plywood": "Plywood"
     },
+    "card_family": "Available in {{ count }} materials",
     "selector": {
       "title": "Choose a material",
       "selected": "Selected",

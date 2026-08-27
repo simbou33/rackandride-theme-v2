@@ -6,6 +6,8 @@
 
   @param {object} card_product - The product to render
   @param {string} [sizes] - The responsive `sizes` attribute (default 25vw desktop)
+  @param {number} [family_size] - How many materials share this design; the
+    "also in N materials" line is printed from 2 up, and omitted otherwise
 
   @example
   {% render 'product-card', card_product: product %}
@@ -93,6 +95,16 @@
     {%- if material_pill != blank -%}
       <div class="card__material">{{ material_pill }}</div>
     {%- endif -%}
+
+    {%- comment -%}
+      Neighbouring cards of one family look near-identical, so the count says
+      out loud what the adjacency only implies. Passed in by the collection
+      section, which already knows the family — the card never reads the
+      metafield itself, so grids that don't group pay nothing.
+    {%- endcomment -%}
+    {%- if family_size > 1 -%}
+      <p class="card__family">{{ 'product.card_family' | t: count: family_size }}</p>
+    {%- endif -%}
   </div>
 </a>
 
@@ -167,6 +179,12 @@
   }
   /* Its own row under the price, so the pill always has the full card width and
      never has to wrap its label. */
+  .card__family {
+    margin: 0.4rem 0 0;
+    color: rgb(28 40 48 / 65%); /* 4,8:1 sur blanc */
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
   .card__material {
     margin-top: 0.4rem;
   }

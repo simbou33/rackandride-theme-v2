@@ -127,6 +127,7 @@
       "bamboo": "Bambou",
       "plywood": "Contreplaqué"
     },
+    "card_family": "Existe en {{ count }} matières",
     "selector": {
       "title": "Choisir la matière",
       "selected": "Sélectionné",
