@@ -128,6 +128,12 @@
       "plywood": "Tilly 3-ply"
     },
     "card_family": "Available in {{ count }} materials",
+    "availability": {
+      "made_to_order": "Made to order",
+      "dispatch": "Shipped in 2–4 business days",
+      "free_shipping": "Free shipping over €100",
+      "sold_out": "Currently unavailable"
+    },
     "selector": {
       "title": "Choose a material",
       "selected": "Selected",

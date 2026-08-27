@@ -128,6 +128,12 @@
       "plywood": "Madera de 3 capas"
     },
     "card_family": "Disponible en {{ count }} materiales",
+    "availability": {
+      "made_to_order": "Fabricado bajo pedido",
+      "dispatch": "Enviado en 2–4 días laborables",
+      "free_shipping": "Envío gratis desde 100 €",
+      "sold_out": "No disponible por ahora"
+    },
     "selector": {
       "title": "Elegir el material",
       "selected": "Seleccionado",

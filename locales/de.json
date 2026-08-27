@@ -128,6 +128,12 @@
       "plywood": "3-Schicht-Holz"
     },
     "card_family": "In {{ count }} Materialien erhältlich",
+    "availability": {
+      "made_to_order": "Auf Bestellung gefertigt",
+      "dispatch": "Versand in 2–4 Werktagen",
+      "free_shipping": "Versandkostenfrei ab 100 €",
+      "sold_out": "Derzeit nicht verfügbar"
+    },
     "selector": {
       "title": "Material wählen",
       "selected": "Ausgewählt",

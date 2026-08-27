@@ -128,6 +128,12 @@
       "plywood": "3 plis Tilly"
     },
     "card_family": "Existe en {{ count }} matières",
+    "availability": {
+      "made_to_order": "Fabriqué à la commande",
+      "dispatch": "Expédié sous 2 à 4 jours ouvrés",
+      "free_shipping": "Livraison offerte dès 100 €",
+      "sold_out": "Indisponible pour le moment"
+    },
     "selector": {
       "title": "Choisir la matière",
       "selected": "Sélectionné",

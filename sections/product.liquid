@@ -1,8 +1,9 @@
 {% comment %}
   Product page. Two-column layout: a sticky media gallery and the product
   information column in the brand-mandated order:
-  title / price / variants / quantity → highlights (USP) → short description →
-  add-to-cart / buy now → reassurance → collapsible details → hr → long description.
+  title → range facts → material selector → price → variants → short description →
+  quantity → add-to-cart / buy now → availability → highlights (USP) →
+  collapsible details → hr → long description.
 
   Content is read from existing product metafields when present:
   - custom.key_features (rich text) → highlights / USP
@@ -151,6 +152,17 @@
     {% comment %} ---------- INFO COLUMN ---------- {% endcomment %}
     <div class="product__info">
       <h1 class="product__title">{{ product.title }}</h1>
+
+      {%- comment -%}
+        The verified facts for this range sit between the title and the price,
+        where they answer "why this much?" before the number is read. They are
+        the only short claims the shop can actually back, so they serve as the
+        benefits and as the trust badges — printing them twice on one page
+        would just be the same sentence looking for a second job.
+      {%- endcomment -%}
+      {% if section.settings.show_reassurance %}
+        {% render 'material-badge', product: product, layout: 'facts' %}
+      {% endif %}
 
       <div class="product__rating" style="margin: 0.35rem 0 0.85rem">
         {% render 'shop-rating' %}
@@ -305,12 +317,27 @@
             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             {{ 'product.secure_checkout' | t }}
           </p>
+
+          {%- comment -%}
+            Wording follows the Shipping & returns copy exactly: the pieces are
+            made to order, not held in stock, so this says dispatch time rather
+            than a delivery date the workshop has never promised.
+          {%- endcomment -%}
+          <p class="product__availability">
+            {%- if current_variant.available -%}
+              <span class="product__availability-dot" aria-hidden="true"></span>
+              {{ 'product.availability.made_to_order' | t }}
+              <span class="product__availability-sep" aria-hidden="true">·</span>
+              {{ 'product.availability.dispatch' | t }}
+              <span class="product__availability-sep" aria-hidden="true">·</span>
+              {{ 'product.availability.free_shipping' | t }}
+            {%- else -%}
+              <span class="product__availability-dot product__availability-dot--out" aria-hidden="true"></span>
+              {{ 'product.availability.sold_out' | t }}
+            {%- endif -%}
+          </p>
         </div>
       {% endform %}
-
-      {% if section.settings.show_reassurance %}
-        {% render 'material-badge', product: product, layout: 'facts' %}
-      {% endif %}
 
       {% if key_features != blank %}
         <div class="product__highlights">
@@ -693,6 +720,30 @@
   .product__usp li {
     margin-bottom: 0.4rem;
   }
+  .product__availability {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0.9rem 0 0;
+    color: rgb(28 40 48 / 70%);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+  .product__availability-dot {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--rar-eco);
+  }
+  .product__availability-dot--out {
+    background-color: var(--rar-promo);
+  }
+  .product__availability-sep {
+    color: rgb(28 40 48 / 35%);
+  }
+
   .product__short-description {
     margin: 0 0 1.5rem;
     color: rgb(28 40 48 / 80%);
