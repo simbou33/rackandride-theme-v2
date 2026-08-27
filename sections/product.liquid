@@ -803,6 +803,13 @@
     display: none;
   }
   @media (max-width: 749px) {
+    /* The quick-buy row already states the price. Repeating it a few
+       centimetres lower reads as a mistake, so the standalone price steps
+       aside on phones — it keeps its data attribute, so the variant selector
+       still updates both. */
+    .product__price {
+      display: none;
+    }
     .product__quick {
       display: flex;
       align-items: center;
