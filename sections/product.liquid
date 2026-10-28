@@ -121,6 +121,7 @@
       {% if product.media.size > 1 %}
         <div class="product__thumbs" role="list">
           {% for media in product.media %}
+            {% assign thumb_alt = media.preview_image.alt | default: product.title %}
             <button
               type="button"
               class="product__thumb"
@@ -133,7 +134,7 @@
               {{
                 media.preview_image
                 | image_url: width: 200
-                | image_tag: widths: '100, 200', sizes: '80px', loading: 'lazy', alt: ''
+                | image_tag: widths: '100, 200', sizes: '80px', loading: 'lazy', alt: thumb_alt
               }}
             </button>
           {% endfor %}

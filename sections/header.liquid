@@ -19,7 +19,7 @@
             >
               <a
                 class="header__link"
-                href="{{ link.url }}"
+                href="{%- render 'localized-url', url: link.url -%}"
                 {% if link.current or link.child_active %}
                   aria-current="page"
                 {% endif %}
@@ -34,7 +34,7 @@
                       <li>
                         <a
                           class="header__sublink"
-                          href="{{ child.url }}"
+                          href="{%- render 'localized-url', url: child.url -%}"
                           {% if child.current %}
                             aria-current="page"
                           {% endif %}
@@ -131,17 +131,17 @@
                   </summary>
                   <ul class="mobile-nav__sublist" role="list">
                     <li>
-                      <a class="mobile-nav__sublink" href="{{ link.url }}">{{ link.title }}</a>
+                      <a class="mobile-nav__sublink" href="{%- render 'localized-url', url: link.url -%}">{{ link.title }}</a>
                     </li>
                     {% for child in link.links %}
                       <li>
-                        <a class="mobile-nav__sublink" href="{{ child.url }}">{{ child.title }}</a>
+                        <a class="mobile-nav__sublink" href="{%- render 'localized-url', url: child.url -%}">{{ child.title }}</a>
                       </li>
                     {% endfor %}
                   </ul>
                 </details>
               {% else %}
-                <a class="mobile-nav__link" href="{{ link.url }}">{{ link.title }}</a>
+                <a class="mobile-nav__link" href="{%- render 'localized-url', url: link.url -%}">{{ link.title }}</a>
               {% endif %}
             </li>
           {% endfor %}

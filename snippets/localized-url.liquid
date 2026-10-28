@@ -12,15 +12,33 @@
   deeper paths, the home `/`) falls back to simply prefixing `routes.root_url`.
   External URLs (`https://…`) and anchors (`#…`) are returned unchanged.
 
-  @param {string} url - The URL to localize (e.g. a section/block link setting)
+  A URL that already carries the locale root (a translated setting such as
+  `/fr/collections/…`, or a menu link typed by hand, which Shopify prefixes
+  without translating the handle) is stripped of it first, so the prefix is
+  never doubled and the handle still gets translated.
+
+  @param {string} url - The URL to localize (e.g. a section/block link setting, a menu link)
 
   @example
   <a href="{%- render 'localized-url', url: section.settings.button_link -%}">…</a>
-{% enddoc %}
+{%- enddoc -%}
 
 {%- liquid
+  assign is_locale_home = false
+  if url != blank and routes.root_url != '/'
+    if url == routes.root_url
+      assign is_locale_home = true
+    else
+      assign root_prefix = routes.root_url | append: '/'
+      assign url_head = url | slice: 0, root_prefix.size
+      if url_head == root_prefix
+        assign url = url | remove_first: routes.root_url
+      endif
+    endif
+  endif
+
   assign localized = url
-  if url != blank
+  if url != blank and is_locale_home == false
     assign first_char = url | slice: 0
     if first_char == '/'
       assign clean = url | split: '?' | first | split: '#' | first
@@ -43,7 +61,10 @@
         endcase
       endif
 
-      if resolved != blank
+      # A handle that matches no resource (e.g. one already translated) gives
+      # nil; `| size` reads nil as 0 on every Liquid engine, `!= blank` doesn't.
+      assign resolved_size = resolved | size
+      if resolved_size > 0
         assign localized = resolved
       elsif routes.root_url != '/'
         assign root = routes.root_url | rstrip

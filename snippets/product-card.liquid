@@ -30,6 +30,7 @@
   # argument after it is swallowed by the filter. Resolve the values first.
   assign card_sizes = sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw'
   assign card_alt = card_product.featured_media.preview_image.alt | default: card_product.title
+  assign card_hover_alt = card_product.media[1].preview_image.alt | default: card_product.title
 
   # Same trap for the "from" price: `| money` inside the `t` arguments applies
   # to the translated string, not to the price. Format it first.
@@ -58,7 +59,7 @@
             sizes: card_sizes,
             loading: 'lazy',
             class: 'card__image card__image--hover',
-            alt: ''
+            alt: card_hover_alt
         }}
       {% endif %}
     {% endif %}
