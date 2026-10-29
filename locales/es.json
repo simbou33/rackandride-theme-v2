@@ -60,6 +60,7 @@
     "view_all": "Ver todo",
     "home": "Inicio",
     "reviews_count": "{{ count }} reseñas en {{ source }}",
+    "decimal_separator": ",",
     "meta": {
       "home_title": "Rack and Ride — Soportes de pared en roble y bambú",
       "home_description": "Soportes de pared de madera para surf, skate, snowboard y esquí. Roble hecho a mano en Gironda, Francia, y una gama de bambú. Envío gratis desde 100 €."
@@ -194,6 +195,13 @@
       "check": "Revisa tu medida",
       "ideal": "Ideal",
       "aria_measure": "Anchura medida en milímetros"
+    },
+    "reviews": {
+      "count": {
+        "one": "{{ count }} reseña",
+        "other": "{{ count }} reseñas"
+      },
+      "policy_link": "Cómo recopilamos y verificamos las reseñas"
     }
   },
   "gift_card": {

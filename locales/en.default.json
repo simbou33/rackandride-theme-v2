@@ -60,6 +60,7 @@
     "view_all": "View all",
     "home": "Home",
     "reviews_count": "{{ count }} reviews on {{ source }}",
+    "decimal_separator": ".",
     "meta": {
       "home_title": "Rack and Ride — Wooden Wall Mounts in Oak & Bamboo",
       "home_description": "Wooden wall mounts for surfboards, skateboards, snowboards and skis. Oak handmade in Gironde, France, plus a bamboo range. Free shipping over €100."
@@ -194,6 +195,13 @@
       "check": "Check your measurement",
       "ideal": "Ideal",
       "aria_measure": "Measured width in millimetres"
+    },
+    "reviews": {
+      "count": {
+        "one": "{{ count }} review",
+        "other": "{{ count }} reviews"
+      },
+      "policy_link": "How we collect and check reviews"
     }
   },
   "gift_card": {

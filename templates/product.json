@@ -77,11 +77,16 @@
       "settings": {
         "products_to_show": 4
       }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "story",
+    "reviews",
     "crosssell"
   ]
 }

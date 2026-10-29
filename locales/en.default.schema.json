@@ -65,7 +65,9 @@
     "theme": "Theme",
     "typography": "Typography",
     "details_row": "Details row",
-    "crosssell": "Complete your setup"
+    "crosssell": "Complete your setup",
+    "reviews": "Reviews",
+    "product_reviews": "Product reviews"
   },
   "labels": {
     "accent": "Oak accent",
@@ -153,7 +155,11 @@
     "text_color": "Text & headings",
     "text_style": "Text style",
     "tone": "Range",
-    "content": "Content"
+    "content": "Content",
+    "etsy_rating_value": "Etsy average rating",
+    "etsy_rating_count": "Number of Etsy reviews",
+    "etsy_rating_url": "Link to the Etsy reviews",
+    "reviews_policy_page": "Review policy page"
   },
   "info": {
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
@@ -170,7 +176,11 @@
     "pillar_tags": "These tag values must match the tags you set on your articles in Shopify. The labels shown to visitors are translated automatically.",
     "products": "Pick the exact products to feature. Leave empty to use the collection below.",
     "size_helper": "Shows a width-to-size guide above the size picker. Appears only on products whose size option values end in \"mm\".",
-    "tile_image": "Optional — falls back to the collection image, then its first product image."
+    "tile_image": "Optional — falls back to the collection image, then its first product image.",
+    "etsy_rating": "The shop rating on Etsy. Shown as text on collection pages, and on a product page until that product has its own reviews. Never added to structured data: Google forbids marking up reviews collected on another site. Copy the figures from your Etsy shop.",
+    "etsy_rating_url": "Optional. Leave empty to show the rating without a link.",
+    "product_reviews": "Add the reviews app's Review Widget block here. The section shows nothing until a block is added.",
+    "reviews_policy_page": "The page that explains how reviews are collected, moderated and checked. French consumer law asks for it next to the reviews."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Gironde, France"

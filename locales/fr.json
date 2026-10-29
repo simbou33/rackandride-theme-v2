@@ -60,6 +60,7 @@
     "view_all": "Tout voir",
     "home": "Accueil",
     "reviews_count": "{{ count }} avis sur {{ source }}",
+    "decimal_separator": ",",
     "meta": {
       "home_title": "Rack and Ride — Supports muraux en bois, chêne & bambou",
       "home_description": "Supports muraux en bois pour le surf, le skate, le snowboard et le ski. Chêne fait main en Gironde, gamme bambou plus accessible. Livraison dès 100 €."
@@ -194,6 +195,13 @@
       "check": "Vérifiez votre mesure",
       "ideal": "Idéale",
       "aria_measure": "Largeur mesurée en millimètres"
+    },
+    "reviews": {
+      "count": {
+        "one": "{{ count }} avis",
+        "other": "{{ count }} avis"
+      },
+      "policy_link": "Comment nous recueillons et vérifions les avis"
     }
   },
   "gift_card": {

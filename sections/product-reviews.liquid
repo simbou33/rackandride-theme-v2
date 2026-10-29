@@ -1,0 +1,78 @@
+{% comment %}
+  Product reviews. A plain frame for the reviews app's widget (Judge.me
+  "Review Widget" app block): the theme has no Apps section, and this one keeps
+  the widget inside the page width and gives the stars under the product title
+  an anchor to jump to (#product-reviews).
+
+  Under the widget, a link to the page that explains how reviews are collected
+  and checked. French consumer law (L111-7-2, D111-17 of the Code de la
+  consommation) asks for that information to sit next to the reviews.
+
+  Renders nothing until an app block is added, so it can live in the product
+  template before the app is installed.
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+  <section id="product-reviews" class="product-reviews">
+    <div class="product-reviews__inner">
+      {%- for block in section.blocks -%}
+        {% render block %}
+      {%- endfor -%}
+
+      {%- if section.settings.policy_page != blank -%}
+        <p class="product-reviews__policy">
+          <a href="{{ section.settings.policy_page.url }}">{{ 'product.reviews.policy_link' | t }}</a>
+        </p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-reviews {
+    width: 100%;
+    scroll-margin-top: 6rem;
+  }
+  .product-reviews__inner {
+    max-width: var(--rar-page-width);
+    margin-inline: auto;
+    padding: 3rem var(--rar-page-margin);
+  }
+  .product-reviews__policy {
+    margin: 1.5rem 0 0;
+    font-size: 0.875rem;
+  }
+  .product-reviews__policy a {
+    color: var(--rar-text);
+    text-decoration: underline;
+    text-decoration-color: var(--rar-accent);
+    text-underline-offset: 3px;
+  }
+  .product-reviews__policy a:hover {
+    color: var(--rar-accent);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.product_reviews",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:info.product_reviews"
+    },
+    {
+      "type": "page",
+      "id": "policy_page",
+      "label": "t:labels.reviews_policy_page",
+      "info": "t:info.reviews_policy_page"
+    }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "t:general.product_reviews" }],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}

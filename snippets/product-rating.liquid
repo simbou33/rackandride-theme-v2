@@ -1,0 +1,32 @@
+{% doc %}
+  Product page rating, next to the price.
+
+  Reads the product's own rating from the standard review metafields that a
+  reviews app (Judge.me) keeps up to date: `reviews.rating` and
+  `reviews.rating_count`. The same two values feed the aggregateRating of the
+  Product JSON-LD in sections/product.liquid, so the score Google reads is the
+  score the shopper sees. Until the product has a review, the shop's Etsy
+  rating stands in, as text only.
+
+  The stars link to the reviews section (sections/product-reviews.liquid).
+
+  @param {product} product - The product being viewed
+
+  @example
+  {% render 'product-rating', product: product %}
+{% enddoc %}
+
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+-%}
+
+{%- if rating_count > 0 and rating != blank -%}
+  {%- liquid
+    assign score = rating.rating | round: 1
+    assign label = 'product.reviews.count' | t: count: rating_count
+  -%}
+  {% render 'shop-rating', value: score, label: label, url: '#product-reviews' %}
+{%- else -%}
+  {% render 'shop-rating' %}
+{%- endif -%}

@@ -107,5 +107,32 @@
         "default": 100
       }
     ]
+  },
+  {
+    "name": "t:general.reviews",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "t:info.etsy_rating"
+      },
+      {
+        "type": "text",
+        "id": "etsy_rating_value",
+        "label": "t:labels.etsy_rating_value",
+        "default": "4.6"
+      },
+      {
+        "type": "number",
+        "id": "etsy_rating_count",
+        "label": "t:labels.etsy_rating_count",
+        "default": 126
+      },
+      {
+        "type": "text",
+        "id": "etsy_rating_url",
+        "label": "t:labels.etsy_rating_url",
+        "info": "t:info.etsy_rating_url"
+      }
+    ]
   }
 ]

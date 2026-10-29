@@ -13,7 +13,10 @@
     metafields later).
 
   A sticky add-to-cart bar appears once the main buy buttons scroll away, and a
-  Product JSON-LD block is emitted (no AggregateRating — no reviews app yet).
+  Product JSON-LD block is emitted. It carries an AggregateRating once the
+  product has reviews in the standard review metafields (written by the
+  reviews app): the theme owns the only Product node on the page, so the app's
+  own rich snippets must stay switched off.
 {% endcomment %}
 
 {% capture parent_handle %}{% render 'parent-collection', product: product %}{% endcapture %}
@@ -182,7 +185,7 @@
       {% endif %}
 
       <div class="product__rating" style="margin: 0.35rem 0 0.85rem">
-        {% render 'shop-rating' %}
+        {% render 'product-rating', product: product %}
       </div>
 
       <div class="product__price" data-product-price>
@@ -576,13 +579,24 @@
   </sticky-atc>
 
   {% comment %} ---------- JSON-LD (Product + Offer) ---------- {% endcomment %}
+  {%- comment -%}
+    The rating comes from the standard review metafields, the same values the
+    stars under the title show (snippets/product-rating.liquid). Only reviews
+    collected on this shop may be counted there: reviews synced from Etsy or
+    any other site must never reach these metafields, since Google forbids
+    marking up ratings aggregated from other websites. The @id lets Google
+    merge this node with any other Product markup about the same page.
+  {%- endcomment -%}
   {% liquid
     assign og_image = product.featured_media.preview_image | default: product.featured_image
+    assign review_rating = product.metafields.reviews.rating.value
+    assign review_count = product.metafields.reviews.rating_count.value | default: 0
   %}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org/",
       "@type": "Product",
+      "@id": {{ canonical_url | append: '#product' | json }},
       "name": {{ product.title | json }},
       "url": {{ shop.url | append: product.url | json }},
       {% if og_image %}"image": [{{ og_image | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
@@ -596,7 +610,15 @@
         "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}",
         "url": {{ shop.url | append: product.url | json }}
       }
-      {% comment %} No aggregateRating/review yet — add here once a reviews app is connected. {% endcomment %}
+      {%- if review_count > 0 and review_rating != blank -%},
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": {{ review_rating.rating | round: 2 }},
+        "bestRating": {{ review_rating.scale_max | default: 5 }},
+        "worstRating": {{ review_rating.scale_min | default: 1 }},
+        "ratingCount": {{ review_count }}
+      }
+      {%- endif %}
     }
   </script>
 

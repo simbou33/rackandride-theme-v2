@@ -60,6 +60,7 @@
     "view_all": "Alle ansehen",
     "home": "Startseite",
     "reviews_count": "{{ count }} Bewertungen auf {{ source }}",
+    "decimal_separator": ",",
     "meta": {
       "home_title": "Rack and Ride — Wandhalterungen aus Eiche & Bambus",
       "home_description": "Wandhalterungen aus Holz für Surfboards, Skateboards, Snowboards und Ski. Eiche handgefertigt in Frankreich, dazu eine Bambus-Linie. Versand ab 100 € frei."
@@ -194,6 +195,13 @@
       "check": "Überprüfe deine Messung",
       "ideal": "Ideal",
       "aria_measure": "Gemessene Breite in Millimetern"
+    },
+    "reviews": {
+      "count": {
+        "one": "{{ count }} Bewertung",
+        "other": "{{ count }} Bewertungen"
+      },
+      "policy_link": "Wie wir Bewertungen sammeln und prüfen"
     }
   },
   "gift_card": {

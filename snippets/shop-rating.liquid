@@ -1,38 +1,61 @@
 {% doc %}
-  Shop-level trust badge: a 4.5-star display + "4.5/5 · 121 reviews on Etsy".
-  This is the SHOP/marketplace rating — NOT a per-product rating — so it carries
-  no Product structured data (which would be misleading for SEO). Use it as a
-  credibility cue on the hero, collection and product pages.
+  Rating badge: stars + "4.6/5 · 126 reviews on Etsy".
 
-  @param {string} [value] - Average rating out of 5 (default 4.5)
-  @param {string} [count] - Number of reviews (default 121)
-  @param {string} [source] - Source name (default Etsy)
-  @param {string} [url] - Optional link to the reviews source
+  Without parameters it shows the SHOP's Etsy rating, read from the theme
+  settings (Theme settings > Reviews) so it can be kept in step with Etsy
+  without touching code. That rating comes from another site, so it carries no
+  structured data: Google forbids marking up reviews aggregated from other
+  websites. Renders nothing when no rating is set.
+
+  The product page passes its own rating instead (see `product-rating`), with a
+  ready-made `label`.
+
+  @param {string} [value] - Average rating out of 5 (default: theme setting)
+  @param {string} [count] - Number of reviews (default: theme setting)
+  @param {string} [source] - Source name (default: Etsy)
+  @param {string} [label] - Text after the score, replaces "N reviews on Etsy"
+  @param {string} [url] - Link to the reviews: external opens in a new tab
   @param {string} [class] - Optional extra class
 
   @example
   {% render 'shop-rating' %}
-  {% render 'shop-rating', value: '4.5', count: '121', source: 'Etsy' %}
+  {% render 'shop-rating', value: '4.8', label: '12 reviews', url: '#product-reviews' %}
 {% enddoc %}
 
-{% liquid
-  assign v = value | default: '4.5'
-  assign c = count | default: '121'
+{%- liquid
+  assign own_value = value | default: ''
+  assign v = own_value | default: settings.etsy_rating_value | default: '' | strip
+  assign c = count | default: settings.etsy_rating_count
   assign src = source | default: 'Etsy'
-  assign pct = v | times: 20
-%}
-{%- capture stars -%}{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}{%- endcapture -%}
-{%- if url != blank -%}
-  <a class="shop-rating {{ class }}" href="{{ url }}" target="_blank" rel="noopener nofollow">
-{%- else -%}
-  <span class="shop-rating {{ class }}">
+  assign text = label | default: ''
+  assign link = url | default: ''
+  if own_value == ''
+    assign link = link | default: settings.etsy_rating_url | default: ''
+  endif
+  assign external = false
+  if link contains '://'
+    assign external = true
+  endif
+  assign v_num = v | replace: ',', '.'
+  assign pct = v_num | times: 20
+  assign decimal_separator = 'general.decimal_separator' | t
+  assign v_display = v_num | replace: '.', decimal_separator
+-%}
+
+{%- if v != blank -%}
+  {%- capture stars -%}{% for i in (1..5) %}<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L2.2 7.7l5.4-.8z"/></svg>{% endfor %}{%- endcapture -%}
+  {%- if link != blank -%}
+    <a class="shop-rating {{ class }}" href="{{ link }}"{% if external %} target="_blank" rel="noopener nofollow"{% endif %}>
+  {%- else -%}
+    <span class="shop-rating {{ class }}">
+  {%- endif -%}
+    <span class="shop-rating__stars" aria-hidden="true">
+      <span class="shop-rating__bg">{{ stars }}</span>
+      <span class="shop-rating__fg" style="width: {{ pct }}%">{{ stars }}</span>
+    </span>
+    <span class="shop-rating__text"><strong>{{ v_display }}/5</strong> · {% if text != blank %}{{ text }}{% else %}{{ 'general.reviews_count' | t: count: c, source: src }}{% endif %}</span>
+  {%- if link != blank -%}</a>{%- else -%}</span>{%- endif -%}
 {%- endif -%}
-  <span class="shop-rating__stars" aria-hidden="true">
-    <span class="shop-rating__bg">{{ stars }}</span>
-    <span class="shop-rating__fg" style="width: {{ pct }}%">{{ stars }}</span>
-  </span>
-  <span class="shop-rating__text"><strong>{{ v }}/5</strong> · {{ 'general.reviews_count' | t: count: c, source: src }}</span>
-{%- if url != blank -%}</a>{%- else -%}</span>{%- endif -%}
 
 {% stylesheet %}
   .shop-rating {
