@@ -22,3 +22,6 @@ seo-content/
 
 # Dossier de travail SEO (audit, sauvegardes) — jamais poussé sur Shopify
 claude/
+
+# Consignes pour les agents (dépasse la limite de 50 Ko par fichier) — jamais poussé sur Shopify
+AGENTS.md
