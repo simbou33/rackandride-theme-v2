@@ -4,9 +4,15 @@
 {% endcomment %}
 
 {% if section.blocks.size > 0 %}
+  {% capture free_ship_here %}{% render 'free-shipping-eligible' %}{% endcapture %}
   <section class="reassurance full-width">
     <ul class="reassurance__list" role="list">
       {% for block in section.blocks %}
+        {% if block.settings.free_shipping_only %}
+          {% unless free_ship_here contains 'true' %}
+            {% continue %}
+          {% endunless %}
+        {% endif %}
         <li class="reassurance__item" {{ block.shopify_attributes }}>
           <span class="reassurance__icon">
             {% case block.settings.icon %}
@@ -91,6 +97,13 @@
           "id": "text",
           "label": "t:labels.text",
           "default": "Brand promise"
+        },
+        {
+          "type": "checkbox",
+          "id": "free_shipping_only",
+          "label": "t:labels.free_shipping_only",
+          "info": "t:info.free_shipping_only",
+          "default": false
         }
       ]
     }

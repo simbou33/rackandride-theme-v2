@@ -67,7 +67,8 @@
     "details_row": "Details row",
     "crosssell": "Complete your setup",
     "reviews": "Reviews",
-    "product_reviews": "Product reviews"
+    "product_reviews": "Product reviews",
+    "cart_recommendations": "Cart recommendations"
   },
   "labels": {
     "accent": "Oak accent",
@@ -159,7 +160,9 @@
     "etsy_rating_value": "Etsy average rating",
     "etsy_rating_count": "Number of Etsy reviews",
     "etsy_rating_url": "Link to the Etsy reviews",
-    "reviews_policy_page": "Review policy page"
+    "reviews_policy_page": "Review policy page",
+    "free_shipping_countries": "Countries with free shipping",
+    "free_shipping_only": "Only show where free shipping applies"
   },
   "info": {
     "accent": "Used only for buttons, links, underlines and icons — never as a block background.",
@@ -180,7 +183,9 @@
     "etsy_rating": "The shop rating on Etsy. Shown as text on collection pages, and on a product page until that product has its own reviews. Never added to structured data: Google forbids marking up reviews collected on another site. Copy the figures from your Etsy shop.",
     "etsy_rating_url": "Optional. Leave empty to show the rating without a link.",
     "product_reviews": "Add the reviews app's Review Widget block here. The section shows nothing until a block is added.",
-    "reviews_policy_page": "The page that explains how reviews are collected, moderated and checked. French consumer law asks for it next to the reviews."
+    "reviews_policy_page": "The page that explains how reviews are collected, moderated and checked. French consumer law asks for it next to the reviews.",
+    "free_shipping_countries": "Two-letter country codes, separated by commas. The free shipping message and progress bar only show to visitors from these countries. Keep it in line with the free shipping rates in Settings > Shipping and delivery.",
+    "free_shipping_only": "Hides this item for visitors outside the countries listed in Theme settings > Cart > Countries with free shipping."
   },
   "announcement": {
     "default_message": "Free shipping over €100 — handmade in Gironde, France"

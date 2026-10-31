@@ -28,7 +28,9 @@
     "share": "Compartir:",
     "pin": "Guardar en Pinterest",
     "share_link": "Compartir",
-    "newsletter_title": "Únete al taller"
+    "newsletter_title": "Únete al taller",
+    "featured_products_title": "Presentado en esta guía",
+    "featured_product_cta": "Ver producto"
   },
   "cart": {
     "checkout": "Finalizar compra",
@@ -43,7 +45,11 @@
     "decrease": "Disminuir cantidad",
     "increase": "Aumentar cantidad",
     "free_shipping_progress_html": "Añade {{ amount }} más para el envío gratis",
-    "free_shipping_reached": "¡Envío gratis desbloqueado!"
+    "free_shipping_reached": "¡Envío gratis desbloqueado!",
+    "backorder_note": "Fabricado bajo pedido: enviado en 2–3 semanas",
+    "recommendations_title": "También te puede gustar",
+    "recommendations_add": "Añadir",
+    "recommendations_add_label": "Añadir {{ title }} al carrito"
   },
   "general": {
     "accessibility": {
@@ -133,7 +139,8 @@
       "made_to_order": "Fabricado bajo pedido",
       "dispatch": "Enviado en 2–4 días laborables",
       "free_shipping": "Envío gratis desde 100 €",
-      "sold_out": "No disponible por ahora"
+      "sold_out": "No disponible por ahora",
+      "dispatch_backorder": "Enviado en 2–3 semanas"
     },
     "selector": {
       "title": "Elegir el material",
@@ -160,7 +167,8 @@
         "title": "Cuidado, envío y devoluciones"
       },
       "dimensions_label": "Dimensiones",
-      "shipping_returns": "Envío gratis desde 100 €. Fabricado bajo pedido y enviado en 2-4 días laborables. Devoluciones en 30 días, embalaje 100 % reciclable."
+      "shipping_returns": "Envío gratis desde 100 €. Fabricado bajo pedido y enviado en 2-4 días laborables. Devoluciones en 30 días, embalaje 100 % reciclable.",
+      "shipping_returns_intl": "Los gastos de envío a tu país se calculan al finalizar la compra. Fabricado bajo pedido y enviado en 2-4 días laborables. Devoluciones en 30 días, embalaje 100 % reciclable."
     },
     "crosssell": {
       "title": "Completa tu instalación"
@@ -227,6 +235,7 @@
     "tagline": "Soportes de pared de madera para deportes de tabla — roble hecho a mano en Gironda, Francia, y una gama de bambú. Embalaje reciclable."
   },
   "announcement": {
-    "free_shipping": "Envío gratis desde 100 € — diseñado en Gironda, Francia"
+    "free_shipping": "Envío gratis desde 100 € — diseñado en Gironda, Francia",
+    "handmade": "Hecho a mano en Gironda, Francia"
   }
 }

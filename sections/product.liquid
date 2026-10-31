@@ -20,8 +20,17 @@
 {% endcomment %}
 
 {% capture parent_handle %}{% render 'parent-collection', product: product %}{% endcapture %}
+{% capture free_ship_here %}{% render 'free-shipping-eligible' %}{% endcapture %}
 {% liquid
   assign current_variant = product.selected_or_first_available_variant
+
+  # Sold past its stock: still for sale, made to order, with a longer wait.
+  assign current_backorder = false
+  if current_variant.available and current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'continue'
+    if current_variant.inventory_quantity <= 0
+      assign current_backorder = true
+    endif
+  endif
   assign form_id = 'ProductForm-' | append: section.id
   assign key_features = product.metafields.custom.key_features
   assign short_description = product.metafields.custom.short_description
@@ -238,9 +247,18 @@
             <script type="application/json" data-variants>
               {
                 {% for variant in product.variants %}
+                  {%- liquid
+                    assign variant_backorder = false
+                    if variant.available and variant.inventory_management == 'shopify' and variant.inventory_policy == 'continue'
+                      if variant.inventory_quantity <= 0
+                        assign variant_backorder = true
+                      endif
+                    endif
+                  -%}
                   "{{ variant.id }}": {
                     "options": {{ variant.options | json }},
                     "available": {{ variant.available }},
+                    "backorder": {{ variant_backorder }},
                     "price": {{ variant.price | money | json }}
                   }{% unless forloop.last %},{% endunless %}
                 {% endfor %}
@@ -341,20 +359,27 @@
           {%- comment -%}
             Wording follows the Shipping & returns copy exactly: the pieces are
             made to order, not held in stock, so this says dispatch time rather
-            than a delivery date the workshop has never promised.
+            than a delivery date the workshop has never promised. A variant
+            sold past its stock (inventory policy "continue") is still made to
+            order, but takes longer, so it gets its own dispatch time. Both
+            states are printed and the variant selector swaps them.
           {%- endcomment -%}
-          <p class="product__availability">
-            {%- if current_variant.available -%}
+          <p class="product__availability" data-availability>
+            <span class="product__availability-state" data-availability-in{% unless current_variant.available %} hidden{% endunless %}>
               <span class="product__availability-dot" aria-hidden="true"></span>
               {{ 'product.availability.made_to_order' | t }}
               <span class="product__availability-sep" aria-hidden="true">·</span>
-              {{ 'product.availability.dispatch' | t }}
-              <span class="product__availability-sep" aria-hidden="true">·</span>
-              {{ 'product.availability.free_shipping' | t }}
-            {%- else -%}
+              <span data-dispatch-stock{% if current_backorder %} hidden{% endif %}>{{ 'product.availability.dispatch' | t }}</span>
+              <span data-dispatch-backorder{% unless current_backorder %} hidden{% endunless %}>{{ 'product.availability.dispatch_backorder' | t }}</span>
+              {%- if free_ship_here contains 'true' -%}
+                <span class="product__availability-sep" aria-hidden="true">·</span>
+                {{ 'product.availability.free_shipping' | t }}
+              {%- endif -%}
+            </span>
+            <span class="product__availability-state" data-availability-out{% if current_variant.available %} hidden{% endif %}>
               <span class="product__availability-dot product__availability-dot--out" aria-hidden="true"></span>
               {{ 'product.availability.sold_out' | t }}
-            {%- endif -%}
+            </span>
           </p>
         </div>
       {% endform %}
@@ -435,7 +460,11 @@
                   {% endif %}
 
                   {% if block.settings.content == 'care_shipping' %}
-                    <p>{{ 'product.details.shipping_returns' | t }}</p>
+                    {% if free_ship_here contains 'true' %}
+                      <p>{{ 'product.details.shipping_returns' | t }}</p>
+                    {% else %}
+                      <p>{{ 'product.details.shipping_returns_intl' | t }}</p>
+                    {% endif %}
                   {% endif %}
                 </div>
               </details>
@@ -607,7 +636,7 @@
         "@type": "Offer",
         "priceCurrency": {{ cart.currency.iso_code | json }},
         "price": {{ current_variant.price | divided_by: 100.0 | json }},
-        "availability": "https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+        "availability": "https://schema.org/{% if current_backorder %}BackOrder{% elsif current_variant.available %}InStock{% else %}OutOfStock{% endif %}",
         "url": {{ shop.url | append: product.url | json }}
       }
       {%- if review_count > 0 and review_rating != blank -%},
@@ -870,6 +899,15 @@
     color: rgb(28 40 48 / 70%);
     font-size: 0.8125rem;
     line-height: 1.4;
+  }
+  .product__availability-state {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .product__availability-state[hidden] {
+    display: none;
   }
   .product__availability-dot {
     flex: 0 0 auto;
@@ -1312,6 +1350,18 @@
             ? addButton.dataset.labelAvailable
             : addButton.dataset.labelSoldout;
         }
+      }
+
+      const availability = this.form ? this.form.querySelector('[data-availability]') : null;
+      if (availability) {
+        const toggle = (selector, show) => {
+          const el = availability.querySelector(selector);
+          if (el) el.hidden = !show;
+        };
+        toggle('[data-availability-in]', match.available);
+        toggle('[data-availability-out]', !match.available);
+        toggle('[data-dispatch-stock]', !match.backorder);
+        toggle('[data-dispatch-backorder]', match.backorder);
       }
 
       const url = this.dataset.url;

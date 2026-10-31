@@ -1,0 +1,76 @@
+{% comment %}
+  Suggestions shown in the cart drawer, under the cart lines. Never placed on
+  a page: the drawer fetches it through the product recommendations endpoint
+  (`section_id=cart-recommendations`), seeded with the product added last.
+  Products already in the cart and products that can't be bought are skipped,
+  and at most three are shown. Each one can be added without leaving the
+  drawer: the form posts to /cart/add, which the drawer's submit listener
+  already turns into an AJAX add and a refresh. Its styles live in the
+  cart-drawer section, which is on every page.
+{% endcomment %}
+
+{%- liquid
+  assign in_cart = cart.items | map: 'product_id'
+  assign shown = 0
+-%}
+
+<div data-cart-recs-content>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    {%- capture rec_items -%}
+      {%- for rec in recommendations.products -%}
+        {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
+        {%- if in_cart contains rec.id or rec.available == false -%}{%- continue -%}{%- endif -%}
+        {%- assign shown = shown | plus: 1 -%}
+        {%- assign rec_variant = rec.selected_or_first_available_variant -%}
+        <li class="cart-rec">
+          <a class="cart-rec__media" href="{{ rec.url }}" tabindex="-1" aria-hidden="true">
+            {%- if rec.featured_media -%}
+              {{
+                rec.featured_media
+                | image_url: width: 128
+                | image_tag: loading: 'lazy', widths: '64, 128', sizes: '64px', alt: rec.title
+              }}
+            {%- endif -%}
+          </a>
+          <div class="cart-rec__details">
+            <a class="cart-rec__title" href="{{ rec.url }}">{{ rec.title }}</a>
+            <span class="cart-rec__price">{{ rec_variant.price | money }}</span>
+          </div>
+          <form action="{{ routes.cart_add_url }}" method="post" class="cart-rec__form">
+            <input type="hidden" name="quantity" value="1">
+            {%- if rec.has_only_default_variant -%}
+              <input type="hidden" name="id" value="{{ rec_variant.id }}">
+            {%- else -%}
+              <select name="id" class="cart-rec__select" aria-label="{{ rec.options.first | escape }}">
+                {%- for v in rec.variants -%}
+                  {%- if v.available -%}
+                    <option value="{{ v.id }}"{% if v.id == rec_variant.id %} selected{% endif %}>{{ v.title }}</option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+            {%- endif -%}
+            <button
+              type="submit"
+              class="cart-rec__add"
+              aria-label="{{ 'cart.recommendations_add_label' | t: title: rec.title | escape }}"
+            >
+              {{ 'cart.recommendations_add' | t }}
+            </button>
+          </form>
+        </li>
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if shown > 0 -%}
+      <h3 class="cart-recs__title">{{ 'cart.recommendations_title' | t }}</h3>
+      <ul class="cart-recs__list" role="list">{{ rec_items }}</ul>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:general.cart_recommendations",
+  "settings": []
+}
+{% endschema %}

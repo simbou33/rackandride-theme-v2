@@ -70,9 +70,48 @@
     </div>
   {% endif %}
 
+  {%- comment -%}
+    Products picked in the article's "Featured products" metafield get a card
+    in the middle of the body, before the heading closest to halfway, and
+    again at the end. A guide that ranks but never shows what it is about
+    sells nothing: the bike guide had hundreds of visits and no add to cart.
+  {%- endcomment -%}
+  {% liquid
+    assign featured_products = article.metafields.custom.featured_products.value
+    assign content_parts = article.content | split: '<h2'
+    assign mid_index = 0
+    if featured_products.size > 0 and content_parts.size > 2
+      assign mid_index = content_parts.size | divided_by: 2
+    endif
+  %}
   <div class="article__content rte">
-    {{ article.content }}
+    {%- if mid_index > 0 -%}
+      {%- for part in content_parts -%}
+        {%- if forloop.index0 == mid_index -%}
+          <aside class="article__product" aria-label="{{ 'blog.featured_products_title' | t | escape }}">
+            {%- comment -%} A metafield list has no `.first`: loop once instead. {%- endcomment -%}
+            {% for featured in featured_products limit: 1 %}
+              {% render 'article-product', card_product: featured %}
+            {% endfor %}
+          </aside>
+        {%- endif -%}
+        {%- if forloop.first -%}{{ part }}{%- else -%}{{ part | prepend: '<h2' }}{%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {{ article.content }}
+    {%- endif -%}
   </div>
+
+  {% if featured_products.size > 0 %}
+    <section class="article__featured">
+      <h2 class="article__featured-title">{{ 'blog.featured_products_title' | t }}</h2>
+      <div class="article__featured-list">
+        {% for featured in featured_products %}
+          {% render 'article-product', card_product: featured, heading_tag: 'h3' %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 
   {% if section.settings.show_share %}
     <div class="article__share">
@@ -353,6 +392,22 @@
     font-family: var(--rar-font-heading);
     font-size: 1.25rem;
     font-style: italic;
+  }
+
+  .article__product {
+    margin-block: 2.5rem;
+  }
+  .article__featured {
+    max-width: 720px;
+    margin: 3rem auto 0;
+  }
+  .article__featured-title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.5rem);
+  }
+  .article__featured-list {
+    display: grid;
+    gap: 1rem;
   }
 
   .article__share {

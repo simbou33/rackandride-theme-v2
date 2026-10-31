@@ -7,6 +7,7 @@
 {% endcomment %}
 
 {% if section.blocks.size > 0 %}
+  {% capture free_ship_here %}{% render 'free-shipping-eligible' %}{% endcapture %}
   <aside class="announcement full-width" aria-label="{{ section.settings.aria_label | default: section.settings.heading }}">
     <announcement-bar
       class="announcement__bar"
@@ -25,7 +26,20 @@
           {% if block.settings.link != blank %}
             <a class="announcement__link" href="{{ block.settings.link }}">
           {% endif %}
-          <span class="announcement__text">{% if block.settings.text != blank %}{{ block.settings.text }}{% else %}{{ 'announcement.free_shipping' | t }}{% endif %}</span>
+          {%- comment -%}
+            The default message promises free shipping, which only exists in
+            the countries listed in the theme settings. Everyone else gets the
+            handmade line instead.
+          {%- endcomment -%}
+          <span class="announcement__text">
+            {%- if block.settings.text != blank -%}
+              {{ block.settings.text }}
+            {%- elsif free_ship_here contains 'true' -%}
+              {{ 'announcement.free_shipping' | t }}
+            {%- else -%}
+              {{ 'announcement.handmade' | t }}
+            {%- endif -%}
+          </span>
           {% if block.settings.link != blank %}
             </a>
           {% endif %}

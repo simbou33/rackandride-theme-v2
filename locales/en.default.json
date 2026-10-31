@@ -28,7 +28,9 @@
     "share": "Share:",
     "pin": "Save to Pinterest",
     "share_link": "Share",
-    "newsletter_title": "Join the workshop"
+    "newsletter_title": "Join the workshop",
+    "featured_products_title": "Featured in this guide",
+    "featured_product_cta": "View product"
   },
   "cart": {
     "checkout": "Checkout",
@@ -43,7 +45,11 @@
     "decrease": "Decrease quantity",
     "increase": "Increase quantity",
     "free_shipping_progress_html": "Add {{ amount }} more for free shipping",
-    "free_shipping_reached": "You've unlocked free shipping!"
+    "free_shipping_reached": "You've unlocked free shipping!",
+    "backorder_note": "Made to order: shipped in 2–3 weeks",
+    "recommendations_title": "You might also like",
+    "recommendations_add": "Add",
+    "recommendations_add_label": "Add {{ title }} to cart"
   },
   "general": {
     "accessibility": {
@@ -63,7 +69,7 @@
     "decimal_separator": ".",
     "meta": {
       "home_title": "Rack and Ride — Wooden Wall Mounts in Oak & Bamboo",
-      "home_description": "Wooden wall mounts for surfboards, skateboards, snowboards and skis. Oak handmade in Gironde, France, plus a bamboo range. Free shipping over €100."
+      "home_description": "Wooden wall mounts for surfboards, skateboards, snowboards and skis. Oak handmade in Gironde, France, plus a bamboo range. Free shipping over €100 in France and the EU."
     }
   },
   "collection": {
@@ -133,7 +139,8 @@
       "made_to_order": "Made to order",
       "dispatch": "Shipped in 2–4 business days",
       "free_shipping": "Free shipping over €100",
-      "sold_out": "Currently unavailable"
+      "sold_out": "Currently unavailable",
+      "dispatch_backorder": "Shipped in 2–3 weeks"
     },
     "selector": {
       "title": "Choose a material",
@@ -160,7 +167,8 @@
         "title": "Care, shipping & returns"
       },
       "dimensions_label": "Dimensions",
-      "shipping_returns": "Free shipping over €100. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging."
+      "shipping_returns": "Free shipping over €100. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging.",
+      "shipping_returns_intl": "Shipping to your country is calculated at checkout. Made to order and shipped in 2–4 business days. 30-day returns in 100% recyclable packaging."
     },
     "crosssell": {
       "title": "Complete your setup"
@@ -227,6 +235,7 @@
     "tagline": "Wooden wall mounts for board sports — oak handmade in Gironde, France, and a bamboo range. Recyclable packaging."
   },
   "announcement": {
-    "free_shipping": "Free shipping over €100 — designed in Gironde, France"
+    "free_shipping": "Free shipping over €100 — designed in Gironde, France",
+    "handmade": "Handmade in Gironde, France"
   }
 }

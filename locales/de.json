@@ -28,7 +28,9 @@
     "share": "Teilen:",
     "pin": "Auf Pinterest merken",
     "share_link": "Teilen",
-    "newsletter_title": "Komm in die Werkstatt"
+    "newsletter_title": "Komm in die Werkstatt",
+    "featured_products_title": "In diesem Ratgeber vorgestellt",
+    "featured_product_cta": "Zum Produkt"
   },
   "cart": {
     "checkout": "Zur Kasse",
@@ -43,7 +45,11 @@
     "decrease": "Menge verringern",
     "increase": "Menge erhöhen",
     "free_shipping_progress_html": "Noch {{ amount }} bis zum kostenlosen Versand",
-    "free_shipping_reached": "Kostenloser Versand freigeschaltet!"
+    "free_shipping_reached": "Kostenloser Versand freigeschaltet!",
+    "backorder_note": "Auf Bestellung gefertigt: Versand in 2–3 Wochen",
+    "recommendations_title": "Das könnte dir auch gefallen",
+    "recommendations_add": "Hinzufügen",
+    "recommendations_add_label": "{{ title }} in den Warenkorb legen"
   },
   "general": {
     "accessibility": {
@@ -133,7 +139,8 @@
       "made_to_order": "Auf Bestellung gefertigt",
       "dispatch": "Versand in 2–4 Werktagen",
       "free_shipping": "Versandkostenfrei ab 100 €",
-      "sold_out": "Derzeit nicht verfügbar"
+      "sold_out": "Derzeit nicht verfügbar",
+      "dispatch_backorder": "Versand in 2–3 Wochen"
     },
     "selector": {
       "title": "Material wählen",
@@ -160,7 +167,8 @@
         "title": "Pflege, Versand & Rückgabe"
       },
       "dimensions_label": "Maße",
-      "shipping_returns": "Gratisversand ab 100 €. Auf Bestellung gefertigt und in 2–4 Werktagen versandt. 30 Tage Rückgabe, 100 % recycelbare Verpackung."
+      "shipping_returns": "Gratisversand ab 100 €. Auf Bestellung gefertigt und in 2–4 Werktagen versandt. 30 Tage Rückgabe, 100 % recycelbare Verpackung.",
+      "shipping_returns_intl": "Die Versandkosten in dein Land werden an der Kasse berechnet. Auf Bestellung gefertigt und in 2–4 Werktagen versandt. 30 Tage Rückgabe, 100 % recycelbare Verpackung."
     },
     "crosssell": {
       "title": "Vervollständige deine Wand"
@@ -227,6 +235,7 @@
     "tagline": "Wandhalterungen aus Holz für Boardsport — Eiche handgefertigt in der Gironde, Frankreich, dazu eine Bambus-Linie. Recycelbare Verpackung."
   },
   "announcement": {
-    "free_shipping": "Gratisversand ab 100 € — entworfen in der Gironde, Frankreich"
+    "free_shipping": "Gratisversand ab 100 € — entworfen in der Gironde, Frankreich",
+    "handmade": "Handgefertigt in der Gironde, Frankreich"
   }
 }

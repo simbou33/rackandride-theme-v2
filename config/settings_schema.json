@@ -105,6 +105,13 @@
         "label": "t:labels.free_shipping_threshold",
         "info": "t:info.free_shipping_threshold",
         "default": 100
+      },
+      {
+        "type": "textarea",
+        "id": "free_shipping_countries",
+        "label": "t:labels.free_shipping_countries",
+        "info": "t:info.free_shipping_countries",
+        "default": "FR, DE, NL, AT, BE, BG, HR, CY, CZ, DK, EE, FI, GR, HU, IE, IT, LV, LT, LU, MT, PL, PT, RO, SK, SI, ES, SE, CH, NO, IS, LI, MC, AD, GP, MQ, BL, MF, PM"
       }
     ]
   },

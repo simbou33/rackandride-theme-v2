@@ -1,0 +1,21 @@
+{% doc %}
+  Prints `true` when the visitor's country is one of the countries listed in
+  Theme settings > Cart > Countries with free shipping, and nothing otherwise.
+  Capture it, since a snippet can't return a value, and test the capture with
+  `contains`: it can carry a stray newline from this file.
+
+  The free shipping rates only exist for Europe. A visitor from the US or
+  Canada pays a flat rate at checkout, so every "free shipping over €100"
+  message checks this first instead of promising it to everyone.
+
+  @example
+  {% capture free_ship_here %}{% render 'free-shipping-eligible' %}{% endcapture %}
+  {% if free_ship_here contains 'true' %}…{% endif %}
+{% enddoc %}
+
+{%- liquid
+  assign free_ship_countries = settings.free_shipping_countries | strip_newlines | remove: ' ' | upcase | split: ','
+  if free_ship_countries contains localization.country.iso_code
+    echo 'true'
+  endif
+-%}

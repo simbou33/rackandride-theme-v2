@@ -28,7 +28,9 @@
     "share": "Partager :",
     "pin": "Épingler sur Pinterest",
     "share_link": "Partager",
-    "newsletter_title": "Rejoignez l'atelier"
+    "newsletter_title": "Rejoignez l'atelier",
+    "featured_products_title": "Présenté dans ce guide",
+    "featured_product_cta": "Voir le produit"
   },
   "cart": {
     "checkout": "Paiement",
@@ -43,7 +45,11 @@
     "decrease": "Diminuer la quantité",
     "increase": "Augmenter la quantité",
     "free_shipping_progress_html": "Plus que {{ amount }} pour la livraison offerte",
-    "free_shipping_reached": "Livraison offerte débloquée !"
+    "free_shipping_reached": "Livraison offerte débloquée !",
+    "backorder_note": "Fabriqué à la commande : expédié sous 2 à 3 semaines",
+    "recommendations_title": "Vous aimerez aussi",
+    "recommendations_add": "Ajouter",
+    "recommendations_add_label": "Ajouter {{ title }} au panier"
   },
   "general": {
     "accessibility": {
@@ -133,7 +139,8 @@
       "made_to_order": "Fabriqué à la commande",
       "dispatch": "Expédié sous 2 à 4 jours ouvrés",
       "free_shipping": "Livraison offerte dès 100 €",
-      "sold_out": "Indisponible pour le moment"
+      "sold_out": "Indisponible pour le moment",
+      "dispatch_backorder": "Expédié sous 2 à 3 semaines"
     },
     "selector": {
       "title": "Choisir la matière",
@@ -160,7 +167,8 @@
         "title": "Entretien, livraison & retours"
       },
       "dimensions_label": "Dimensions",
-      "shipping_returns": "Livraison offerte dès 100 €. Fabriqué à la commande et expédié sous 2 à 4 jours ouvrés. Retours sous 30 jours, emballage 100 % recyclable."
+      "shipping_returns": "Livraison offerte dès 100 €. Fabriqué à la commande et expédié sous 2 à 4 jours ouvrés. Retours sous 30 jours, emballage 100 % recyclable.",
+      "shipping_returns_intl": "Les frais de livraison vers votre pays sont calculés au paiement. Fabriqué à la commande et expédié sous 2 à 4 jours ouvrés. Retours sous 30 jours, emballage 100 % recyclable."
     },
     "crosssell": {
       "title": "Complétez votre installation"
@@ -227,6 +235,7 @@
     "tagline": "Supports muraux en bois pour les sports de glisse — chêne fait main en Gironde, France, et une gamme bambou. Emballage recyclable."
   },
   "announcement": {
-    "free_shipping": "Livraison offerte dès 100 € — conçu en Gironde, France"
+    "free_shipping": "Livraison offerte dès 100 € — conçu en Gironde, France",
+    "handmade": "Fait main en Gironde, France"
   }
 }

@@ -1,0 +1,126 @@
+{% doc %}
+  Renders a compact, horizontal product card for a blog article: image on the
+  left, then the title, the price in ink and a link to the product. Used
+  inside the article body and in the "featured in this guide" block, where a
+  full grid card would break the reading column.
+
+  @param {product} card_product - The product to render
+  @param {string} [heading_tag] - Tag for the title (default `p`, so the card
+    never adds a heading to the article outline)
+
+  @example
+  {% render 'article-product', card_product: article.metafields.custom.featured_products.value.first %}
+{% enddoc %}
+
+{% liquid
+  assign title_tag = heading_tag | default: 'p'
+  assign card_alt = card_product.featured_media.preview_image.alt | default: card_product.title
+  assign price_min_money = card_product.price_min | money
+%}
+
+<div class="article-product">
+  <a class="article-product__media" href="{{ card_product.url }}" tabindex="-1" aria-hidden="true">
+    {% if card_product.featured_media %}
+      {{
+        card_product.featured_media.preview_image
+        | image_url: width: 400
+        | image_tag:
+          widths: '200, 300, 400',
+          sizes: '(min-width: 750px) 160px, 110px',
+          loading: 'lazy',
+          alt: card_alt
+      }}
+    {% endif %}
+  </a>
+  <div class="article-product__body">
+    <{{ title_tag }} class="article-product__title">
+      <a href="{{ card_product.url }}">{{ card_product.title }}</a>
+    </{{ title_tag }}>
+    <p class="article-product__price">
+      {% if card_product.price_varies %}
+        {{ 'product.from_price_html' | t: price: price_min_money }}
+      {% else %}
+        {{ card_product.price | money }}
+      {% endif %}
+    </p>
+    <a class="article-product__cta" href="{{ card_product.url }}">{{ 'blog.featured_product_cta' | t }}</a>
+  </div>
+</div>
+
+{% stylesheet %}
+  .article-product {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem 1.25rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: var(--rar-radius-card);
+    background-color: var(--rar-color-surface);
+    line-height: 1.4;
+  }
+  @media screen and (min-width: 750px) {
+    .article-product {
+      grid-template-columns: 160px 1fr;
+      padding: 1.25rem;
+    }
+  }
+  .article-product__media {
+    display: block;
+    border-radius: calc(var(--rar-radius-card) - 4px);
+    overflow: hidden;
+    background-color: var(--rar-color-background);
+  }
+  /* Doubled class: the card sits inside the article body, whose link and
+     image rules would otherwise win. */
+  .article-product .article-product__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: 0;
+  }
+  .article-product__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+  .article-product .article-product__body > * {
+    margin: 0;
+  }
+  .article-product__title {
+    font-family: var(--rar-font-heading);
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+  .article-product .article-product__title a {
+    color: var(--rar-heading);
+    text-decoration: none;
+  }
+  .article-product .article-product__title a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--rar-accent);
+  }
+  .article-product__price {
+    color: var(--rar-price);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .article-product .article-product__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    margin-top: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: var(--rar-radius-button);
+    background-color: var(--rar-accent);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .article-product .article-product__cta:hover {
+    filter: brightness(0.94);
+  }
+{% endstylesheet %}

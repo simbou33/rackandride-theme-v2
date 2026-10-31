@@ -52,7 +52,8 @@
           "type": "promise",
           "settings": {
             "icon": "shipping",
-            "text": "Free shipping over €100"
+            "text": "Free shipping over €100",
+            "free_shipping_only": true
           }
         }
       },
