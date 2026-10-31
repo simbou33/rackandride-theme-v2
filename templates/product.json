@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -37,7 +46,8 @@
         "care_shipping"
       ],
       "settings": {
-        "show_reassurance": true
+        "show_reassurance": true,
+        "show_long_description": true
       }
     },
     "story": {
@@ -46,22 +56,34 @@
         "row-1": {
           "type": "row",
           "settings": {
+            "image_asset": "",
+            "image_position": "left",
             "heading": "Solid French oak",
-            "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture and coastal conditions while staying beautiful.</p>"
+            "text": "<p>Each mount is crafted from oak sourced in France, naturally treated with beeswax and linseed oil so the wood resists moisture and coastal conditions while staying beautiful.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
+            "image_asset": "",
+            "image_position": "left",
             "heading": "A secure, invisible hold",
-            "text": "<p>The cork-lined hanger hugs your board's rails — no scratches, no slipping. Your gear is stored safely and displayed like a piece of art.</p>"
+            "text": "<p>The cork-lined hanger hugs your board's rails — no scratches, no slipping. Your gear is stored safely and displayed like a piece of art.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         },
         "row-3": {
           "type": "row",
           "settings": {
+            "image_asset": "",
+            "image_position": "left",
             "heading": "Handmade & eco-friendly",
-            "text": "<p>Made by hand in Gironde, France, and shipped in 100% recyclable packaging. A functional object, designed to last and to be seen.</p>"
+            "text": "<p>Made by hand in Gironde, France, and shipped in 100% recyclable packaging. A functional object, designed to last and to be seen.</p>",
+            "button_label": "",
+            "button_link": ""
           }
         }
       },
@@ -70,17 +92,35 @@
         "row-2",
         "row-3"
       ],
-      "settings": {}
+      "settings": {
+        "heading": ""
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "blocks": {
+        "judge_me_reviews_review_widget_KmQMwM": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_KmQMwM"
+      ],
+      "settings": {
+        "policy_page": "review-policy"
+      }
     },
     "crosssell": {
       "type": "product-crosssell",
       "settings": {
         "products_to_show": 4
       }
-    },
-    "reviews": {
-      "type": "product-reviews",
-      "settings": {}
     }
   },
   "order": [
